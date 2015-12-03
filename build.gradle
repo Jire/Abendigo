@@ -1,0 +1,45 @@
+group 'org.abendigo'
+version '1.0b'
+
+apply plugin: 'kotlin'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+configurations {
+	quasar
+}
+
+tasks.withType(JavaExec) {
+	jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
+}
+
+dependencies {
+	testCompile group: 'junit', name: 'junit', version: '4.11'
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+	compile 'net.java.dev.jna:jna:4.2.1'
+	compile 'net.java.dev.jna:platform:3.5.2'
+
+	quasar 'co.paralleluniverse:quasar-kotlin:0.7.4'
+	compile "co.paralleluniverse:quasar-core:0.7.4-SNAPSHOT"
+	compile "co.paralleluniverse:quasar-actors:0.7.4-SNAPSHOT"
+	compile "co.paralleluniverse:quasar-kotlin:0.7.4-SNAPSHOT"
+}
+
+buildscript {
+	ext.kotlin_version = '1.0.0-beta-3594'
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+}
+
+sourceSets {
+	main.java.srcDirs += 'src/main/kotlin'
+}
