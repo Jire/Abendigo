@@ -5,6 +5,6 @@ abstract class Plugin(val name: String, val version: String = "1.0",
 
 	abstract fun enable()
 
-	fun disable() {}
+	open fun disable() {}
 
 }
