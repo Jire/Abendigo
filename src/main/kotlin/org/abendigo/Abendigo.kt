@@ -1,38 +1,44 @@
 package org.abendigo
 
-import co.paralleluniverse.fibers.Fiber
+import co.paralleluniverse.fibers.*
 import co.paralleluniverse.kotlin.fiber
 import co.paralleluniverse.strands.Strand
+import org.jire.kotmem.isKeyDown
 import java.util.concurrent.TimeUnit
 
-fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(duration.toLong(), timeUnit)
-
+@Suspendable
 fun sleep(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = Strand.sleep(duration, timeUnit)
 
+@Suspendable
+fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(duration.toLong(), timeUnit)
+
+@Suspendable
 inline fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T):
 		Fiber<Unit> = every(duration.toLong(), timeUnit, action)
 
+@Suspendable
 inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T) =
 		fiber {
+			action()
 			while (!Strand.interrupted()) {
 				sleep(duration, timeUnit)
-				action.invoke()
+				action()
 			}
 		}
 
-class UpdateableLazy<T>(private val lazy: () -> T) {
+open class UpdateableLazy<T>(private val lazy: () -> T) {
 
 	private var current: T? = null
 	private var previous: T? = null
 
 	operator fun invoke(): T {
-		if (current == null) unaryPlus()
+		if (current == null) +this
 		return current!!
 	}
 
 	operator fun unaryPlus(): T {
 		previous = current
-		current = lazy.invoke()
+		current = lazy()
 		return current!!
 	}
 
@@ -43,4 +49,6 @@ class UpdateableLazy<T>(private val lazy: () -> T) {
 
 }
 
-fun <T> updateableLazy(lazy: () -> T) = UpdateableLazy(lazy)
+object keys {
+	operator fun get(vKey: Int) = isKeyDown(vKey)
+}
