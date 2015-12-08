@@ -3,8 +3,7 @@ package org.abendigo
 import co.paralleluniverse.fibers.*
 import co.paralleluniverse.kotlin.fiber
 import co.paralleluniverse.strands.Strand
-import org.abendigo.csgo.m_dwLocalPlayer
-import org.jire.kotmem.*
+import org.jire.kotmem.isKeyDown
 import java.util.concurrent.TimeUnit
 
 @Suspendable
@@ -51,15 +50,4 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 
 object keys {
 	operator fun get(vKey: Int) = isKeyDown(vKey)
-}
-
-fun main(args: Array<String>) {
-	/*every(1000) {
-		println("kanyewest")
-	}*/
-	/*BunnyHopPlugin().enable()*/
-	val csgo = processes["csgo.exe"]
-	val client = csgo["client.dll"]
-	val me: Int = client[m_dwLocalPlayer]
-	Thread.sleep(Long.MAX_VALUE)
 }
