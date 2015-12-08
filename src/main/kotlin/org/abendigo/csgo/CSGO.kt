@@ -22,5 +22,5 @@ val clientState = UpdateableLazy() {
 }
 
 object me : UpdateableLazy<Player>({ Player(client[m_dwLocalPlayer], 0) }) {
-	val flags = UpdateableLazy<Int>() { csgo[this().address + m_fFlags] }
+	@JvmStatic val flags = UpdateableLazy<Int>() { csgo[this().address + m_fFlags] }
 }
