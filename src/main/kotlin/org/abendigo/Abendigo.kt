@@ -3,7 +3,8 @@ package org.abendigo
 import co.paralleluniverse.fibers.*
 import co.paralleluniverse.kotlin.fiber
 import co.paralleluniverse.strands.Strand
-import org.jire.kotmem.isKeyDown
+import org.abendigo.csgo.m_dwLocalPlayer
+import org.jire.kotmem.*
 import java.util.concurrent.TimeUnit
 
 @Suspendable
@@ -19,11 +20,10 @@ inline fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, 
 @Suspendable
 inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T) =
 		fiber {
-			action()
-			while (!Strand.interrupted()) {
-				sleep(duration, timeUnit)
+			do {
 				action()
-			}
+				sleep(duration, timeUnit)
+			} while (!Strand.interrupted())
 		}
 
 open class UpdateableLazy<T>(private val lazy: () -> T) {
@@ -43,7 +43,7 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 	}
 
 	operator fun unaryMinus(): T {
-		current = previous ?: return current!!
+		current = previous ?: return this()
 		return current!!
 	}
 
@@ -51,4 +51,15 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 
 object keys {
 	operator fun get(vKey: Int) = isKeyDown(vKey)
+}
+
+fun main(args: Array<String>) {
+	/*every(1000) {
+		println("kanyewest")
+	}*/
+	/*BunnyHopPlugin().enable()*/
+	val csgo = processes["csgo.exe"]
+	val client = csgo["client.dll"]
+	val me: Int = client[m_dwLocalPlayer]
+	Thread.sleep(Long.MAX_VALUE)
 }
