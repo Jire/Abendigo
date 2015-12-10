@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: co.paralleluniverse:quasar-actors:0.7.4-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/co.paralleluniverse/quasar-actors/0.7.4-SNAPSHOT/49c1d5fe110fe44380943bafc94872134773f624/quasar-actors-0.7.4-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/co.paralleluniverse/quasar-actors/0.7.4-SNAPSHOT/e4b86c50ce78de808f5158157525f7c57becf9ea/quasar-actors-0.7.4-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
