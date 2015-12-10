@@ -4,7 +4,6 @@ import co.paralleluniverse.fibers.*
 import co.paralleluniverse.kotlin.fiber
 import co.paralleluniverse.strands.Strand
 import org.abendigo.plugin.csgo.*
-import org.jire.kotmem.isKeyDown
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit
 
@@ -54,10 +53,6 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 }
 
 fun <T> updateableLazy(lazy: () -> T) = UpdateableLazy(lazy)
-
-object keys {
-	@JvmStatic operator fun get(vKey: Int) = isKeyDown(vKey)
-}
 
 fun main(args: Array<String>) {
 	println("Process@${ManagementFactory.getRuntimeMXBean().name}")
