@@ -55,7 +55,7 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 fun <T> updateableLazy(lazy: () -> T) = UpdateableLazy(lazy)
 
 fun main(args: Array<String>) {
-	println("Process@${ManagementFactory.getRuntimeMXBean().name}")
+	println("Process ${ManagementFactory.getRuntimeMXBean().name}")
 	BunnyHopPlugin().enable()
 	RadarPlugin().enable()
 	Thread.sleep(Long.MAX_VALUE)

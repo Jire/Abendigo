@@ -10,19 +10,19 @@ internal const val SUBTRACT = 2
 private var lastModule: Module? = null
 private var moduleData: ByteBuffer? = null
 
-class pattern(val module: Module, val pattern_offset: Int, val address_offset: Int,
+class pattern(val module: Module, val patternOffset: Int, val addressOffset: Int,
               val flags: Int, val values: ByteArray) {
 
 	private var address: Int? = null
 
-	constructor(module: Module, pattern_offset: Int, address_offset: Int, flags: Int, vararg values: Int) :
-	this(module, pattern_offset, address_offset, flags, toByteArray(*values))
+	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, vararg values: Int) :
+	this(module, patternOffset, addressOffset, flags, toByteArray(*values))
 
-	constructor(module: Module, pattern_offset: Int, address_offset: Int, flags: Int, value: Int) :
-	this(module, pattern_offset, address_offset, flags, toByteArray(value))
+	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, value: Int) :
+	this(module, patternOffset, addressOffset, flags, toByteArray(value))
 
-	constructor(module: Module, pattern_offset: Int, address_offset: Int, flags: Int, className: String) :
-	this(module, pattern_offset, address_offset, flags, className.toByteArray())
+	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String) :
+	this(module, patternOffset, addressOffset, flags, className.toByteArray())
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
 		if (address != null) return address!!
@@ -36,22 +36,24 @@ class pattern(val module: Module, val pattern_offset: Int, val address_offset: I
 		var i = 0L
 		while (i < off) {
 			if (checkMask(moduleData!!, i.toInt(), values)) {
-				i += module.address + pattern_offset
+				i += module.address + patternOffset
 				if ((flags and READ) == READ) i = module.process.get<Int>(i).toLong()
 				if ((flags and SUBTRACT) == SUBTRACT) i -= module.address
-				address = (i + address_offset).toInt()
+				address = (i + addressOffset).toInt()
 				return address!!
 			}
 			i++
 		}
-		throw IllegalStateException("Failed to scan offset \"${property.name}\"")
+
+		throw IllegalStateException("Failed to resolve offset \"${property.name}\"")
 	}
 
 }
 
 private fun checkMask(data: ByteBuffer, offset: Int, pMask: ByteArray): Boolean {
-	for (i in pMask.indices) if (pMask[i].toInt() != 0 && (pMask[i] != data.get(offset + i)))
-		return false
+	for (i in pMask.indices)
+		if (pMask[i].toInt() != 0 && (pMask[i] != data.get(offset + i)))
+			return false
 	return true
 }
 

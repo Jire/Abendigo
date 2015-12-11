@@ -15,7 +15,7 @@ class BunnyHopPlugin : Plugin("Bunny Hop", description = "Jumps the player aroun
 				client.set(m_dwForceJump, 5)
 				sleep(32)
 				client.set(m_dwForceJump, 4)
-				sleep(32)
+				sleep(32 - 8)
 			}
 		}
 	}
