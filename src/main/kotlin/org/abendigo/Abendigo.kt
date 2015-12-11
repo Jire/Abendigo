@@ -1,27 +1,27 @@
 package org.abendigo
 
-import co.paralleluniverse.fibers.*
-import co.paralleluniverse.kotlin.fiber
-import co.paralleluniverse.strands.Strand
+import co.paralleluniverse.fibers.Suspendable
 import org.abendigo.plugin.csgo.*
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
 
 @Suspendable
-fun sleep(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = Strand.sleep(duration, timeUnit)
+@JvmOverloads fun sleep(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = Thread.sleep(duration)
 
-fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(duration.toLong(), timeUnit)
+@JvmOverloads fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(duration.toLong(), timeUnit)
 
-fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, action: () -> T):
-		Fiber<Unit> = every(duration.toLong(), timeUnit, action)
-
-inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T) =
-		fiber @Suspendable {
+@JvmOverloads inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+                                   crossinline action: () -> T) =
+		thread @Suspendable {
 			do {
 				action()
 				sleep(duration, timeUnit)
-			} while (!Strand.interrupted())
+			} while (!Thread.interrupted())
 		}
+
+@JvmOverloads fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, action: () -> T):
+		Thread = every(duration.toLong(), timeUnit, action)
 
 open class UpdateableLazy<T>(private val lazy: () -> T) {
 
