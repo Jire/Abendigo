@@ -7,7 +7,7 @@ import org.abendigo.sleep
 import org.jire.kotmem.keys
 import java.awt.event.KeyEvent
 
-class BunnyHopPlugin : Plugin("Bunny Hop", description = "Jumps the player around", author = "Jire") {
+class BunnyHopPlugin : Plugin("Bunny Hop", author = "Jire", description = "Jumps the player around") {
 
 	override fun enable() = every(8) {
 		if (keys[KeyEvent.VK_SPACE] && +me.flags % 2 == 1) {
