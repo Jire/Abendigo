@@ -1,3 +1,5 @@
+@file:JvmName("Patterns")
+
 package org.abendigo.csgo
 
 import org.jire.kotmem.Module

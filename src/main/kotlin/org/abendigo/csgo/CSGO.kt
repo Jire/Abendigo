@@ -1,3 +1,5 @@
+@file:JvmName("CSGO")
+
 package org.abendigo.csgo
 
 import org.abendigo.UpdateableLazy

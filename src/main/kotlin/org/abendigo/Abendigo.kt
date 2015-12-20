@@ -1,3 +1,5 @@
+@file:JvmName("Abendigo")
+
 package org.abendigo
 
 import org.abendigo.csgo.entities
