@@ -1,12 +1,14 @@
 package org.abendigo.csgo
 
-import org.abendigo.*
+import org.abendigo.UpdateableLazy
+import org.abendigo.updateableLazy
 import org.jire.kotmem.processes
+import java.util.concurrent.ConcurrentHashMap
 
-val csgo = processes.get("csgo.exe") // TODO make a system that supports CS:GO closing/not being opened yet
+val csgo by lazy { processes.get("csgo.exe") } // TODO make a system that supports CS:GO closing/not being opened yet
 
-val client = csgo.get("client.dll")
-val engine = csgo.get("engine.dll")
+val client  by lazy { csgo.get("client.dll") }
+val engine  by lazy { csgo.get("engine.dll") }
 
 const val ENTITY_SIZE = 16
 
@@ -48,5 +50,29 @@ val clientState = updateableLazy { ClientState(client.get(m_dwClientState)) }
 val objectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : UpdateableLazy<Player>({ Player(client.get(m_dwLocalPlayer), 0) }) {
-	@JvmStatic val flags = updateableLazy<Int> { csgo.get(this().address + m_fFlags) }
+	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
 }
+
+val entities = updateableLazy {
+	val map = ConcurrentHashMap<Int, Entity>()
+	val myTeam = +me().team
+	team.clear()
+	enemies.clear()
+	for (i in 0..+objectCount - 1) {
+		val address: Int = client.get(m_dwEntityList + (i * ENTITY_SIZE))
+		if (me().address != address && address > 0) {
+			val entity = Entity(address, i)
+			map.put(i, entity)
+			val entityTeam: Int = csgo.get(address + m_iTeamNum)
+			if (entityTeam == 2 || entityTeam == 3) { // TODO check via CS:GO class ID
+				val player = Player(entity)
+				if (myTeam == entityTeam) team.put(i, player)
+				else enemies.put(i, player)
+			}
+		}
+	}
+	map
+}
+
+val team = ConcurrentHashMap<Int, Player>()
+val enemies = ConcurrentHashMap<Int, Player>()
