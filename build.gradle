@@ -6,7 +6,6 @@ apply plugin: 'kotlin'
 
 repositories {
 	mavenCentral()
-	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
@@ -17,10 +16,6 @@ dependencies {
 
 	compile 'net.java.dev.jna:jna:4.2.1'
 	compile 'net.java.dev.jna:platform:3.5.2'
-
-	compile "co.paralleluniverse:quasar-core:0.7.4-SNAPSHOT"
-	compile "co.paralleluniverse:quasar-actors:0.7.4-SNAPSHOT"
-	compile "co.paralleluniverse:quasar-kotlin:0.7.4-SNAPSHOT"
 }
 
 buildscript {
