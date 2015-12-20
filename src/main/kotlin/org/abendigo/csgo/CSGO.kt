@@ -11,11 +11,15 @@ val client  by lazy { csgo.get("client.dll") }
 val engine  by lazy { csgo.get("engine.dll") }
 
 const val ENTITY_SIZE = 16
+const val GLOW_OBJECT_SIZE = 56
 
 // netvars
 const val m_fFlags = 0x00000100
 const val m_bSpotted = 0x00000935
 const val m_iTeamNum = 0x000000F0
+const val m_bDormant = 0x000000E9
+const val m_lifeState = 0x0000025B
+const val m_iCrossHairID = 0x0000A924
 
 // client.dll offsets
 val m_dwRadarBase by pattern(client, 1, 0, READ or SUBTRACT, 161, 0, 0, 0, 0, 139, 12, 176, 139, 1, 255, 80, 0,
@@ -56,6 +60,7 @@ object me : UpdateableLazy<Player>({ Player(client.get(m_dwLocalPlayer), 0) }) {
 val entities = updateableLazy {
 	val map = ConcurrentHashMap<Int, Entity>()
 	val myTeam = +me().team
+	players.clear()
 	team.clear()
 	enemies.clear()
 	for (i in 0..+objectCount - 1) {
@@ -64,15 +69,19 @@ val entities = updateableLazy {
 			val entity = Entity(address, i)
 			map.put(i, entity)
 			val entityTeam: Int = csgo.get(address + m_iTeamNum)
-			if (entityTeam == 2 || entityTeam == 3) { // TODO check via CS:GO class ID
+			if (entityTeam == 2 || entityTeam == 3) {
+				// TODO check via CS:GO class ID
 				val player = Player(entity)
 				if (myTeam == entityTeam) team.put(i, player)
 				else enemies.put(i, player)
 			}
 		}
 	}
+	players.putAll(team)
+	players.putAll(enemies)
 	map
 }
 
+val players = ConcurrentHashMap<Int, Player>()
 val team = ConcurrentHashMap<Int, Player>()
 val enemies = ConcurrentHashMap<Int, Player>()

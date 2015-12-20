@@ -1,8 +1,7 @@
 package org.abendigo
 
 import org.abendigo.csgo.entities
-import org.abendigo.plugin.csgo.BunnyHopPlugin
-import org.abendigo.plugin.csgo.RadarPlugin
+import org.abendigo.plugin.csgo.*
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
@@ -75,4 +74,6 @@ fun main(args: Array<String>) {
 	// TODO make a proper plugin system
 	BunnyHopPlugin().enable()
 	RadarPlugin().enable()
+	ESPPlugin().enable()
+	// AimAssistPlugin().enable()
 }
