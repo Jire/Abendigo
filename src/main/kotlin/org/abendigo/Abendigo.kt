@@ -30,23 +30,23 @@ fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, action:
 
 open class UpdateableLazy<T>(private val lazy: () -> T) {
 
-	@Volatile private var current: T? = null
+	@Volatile private var value: T? = null
 	@Volatile private var previous: T? = null
 
 	@Volatile private var updateStamp: Long = 0L
 
 	fun get(): T {
-		if (current == null) +this
-		return current!!
+		if (value == null) +this
+		return value!!
 	}
 
 	operator fun invoke() = get()
 
 	fun update(): T {
-		previous = current
-		current = lazy()
+		previous = value
+		value = lazy()
 		updateStamp = System.nanoTime()
-		return current!!
+		return value!!
 	}
 
 	operator fun unaryPlus() = update()
@@ -63,6 +63,10 @@ open class UpdateableLazy<T>(private val lazy: () -> T) {
 	}
 
 	operator fun invoke(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = updateIf(duration, timeUnit)
+
+	override fun toString() = value.toString()
+	override fun equals(other: Any?) = value!!.equals(other)
+	override fun hashCode() = value!!.hashCode()
 
 }
 

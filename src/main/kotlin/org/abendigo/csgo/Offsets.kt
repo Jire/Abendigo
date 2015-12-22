@@ -1,4 +1,4 @@
-@file:JvmName("Patterns")
+@file:JvmName("Offsets")
 
 package org.abendigo.csgo
 
@@ -12,19 +12,10 @@ internal const val SUBTRACT = 2
 private var lastModule: Module? = null
 private var moduleData: ByteBuffer? = null
 
-class pattern(val module: Module, val patternOffset: Int, val addressOffset: Int,
-              val flags: Int, val values: ByteArray) {
+class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
+             val flags: Int, val values: ByteArray) {
 
 	private var address: Int? = null
-
-	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, vararg values: Int) :
-	this(module, patternOffset, addressOffset, flags, toByteArray(*values))
-
-	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, value: Int) :
-	this(module, patternOffset, addressOffset, flags, toByteArray(value))
-
-	constructor(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String) :
-	this(module, patternOffset, addressOffset, flags, className.toByteArray())
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
 		if (address != null) return address!!
@@ -51,6 +42,18 @@ class pattern(val module: Module, val patternOffset: Int, val addressOffset: Int
 	}
 
 }
+
+fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, values: ByteArray)
+		= Offset(module, patternOffset, addressOffset, flags, values)
+
+fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, vararg values: Int)
+		= offset(module, patternOffset, addressOffset, flags, toByteArray(*values))
+
+fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, value: Int)
+		= offset(module, patternOffset, addressOffset, flags, toByteArray(value))
+
+fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String)
+		= offset(module, patternOffset, addressOffset, flags, className.toByteArray())
 
 private fun checkMask(data: ByteBuffer, offset: Int, pMask: ByteArray): Boolean {
 	for (i in pMask.indices)

@@ -25,7 +25,8 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 						if (me().team(64) == p.team(64)) {
 							red = 0F
 							blue = 255F
-						} else if (+p.dormant) {
+						} else if (p.id == me.targetID(64)) green = 215F
+						else if (+p.dormant) {
 							blue = 255F
 							green = 255F
 							alpha = 0.45F

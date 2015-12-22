@@ -9,4 +9,7 @@ open class Entity(override val address: Int, val id: Int) : Addressable {
 	val dormant = updateableLazy { csgo.get<Boolean>(address + m_bDormant) }
 	val lifeState = updateableLazy { csgo.get<Int>(address + m_lifeState) }
 
+	override fun hashCode() = address
+	override fun equals(other: Any?) = if (other is Entity) address == other.address else false
+
 }
