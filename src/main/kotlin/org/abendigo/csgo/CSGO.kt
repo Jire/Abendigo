@@ -2,7 +2,6 @@
 
 package org.abendigo.csgo
 
-import com.sun.jna.platform.win32.Win32Exception
 import org.abendigo.UpdateableLazy
 import org.abendigo.updateableLazy
 import org.jire.kotmem.processes
@@ -59,30 +58,15 @@ val objectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : UpdateableLazy<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
-	Player(address, client.get<Int>(address + m_dwIndex) - 1)
+	val index = client.get<Int>(address + m_dwIndex) - 1
+	Player(address, index)
 }) {
 	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
-	@JvmStatic val crosshairID = updateableLazy {
-		try {
-			csgo.get<Int>(this().address + m_iCrossHairID) - 1
-		} catch (e: Win32Exception) {
-			-1
-		}
-	}
+	@JvmStatic val crosshairID = updateableLazy { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
 	@JvmStatic val targetID = updateableLazy {
-		try {
-			println("Crosshair ID: ${+crosshairID}")
-			if (crosshairID() < 0) -1
-			else client.get<Int>(m_dwEntityList + (crosshairID() * ENTITY_SIZE))
-		} catch (e: Win32Exception) {
-			-1
-		}
+		if (crosshairID() < 0) -1
+		else client.get<Int>(m_dwEntityList + (crosshairID() * ENTITY_SIZE))
 	}
-	/*@JvmStatic val target = updateableLazy {
-		val targetID = targetID()
-		if (targetID < 0) null
-		else players.get(targetID)
-	}*/
 }
 
 val entities = updateableLazy {
