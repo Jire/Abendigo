@@ -10,9 +10,10 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 		for (glIdx in 0..+glowObjectCount) {
 			val glOffset = glowObject(64) + (glIdx * GLOW_OBJECT_SIZE)
 			val glOwner: Int = csgo.get(glOffset)
-			if (glOwner < 0) continue
+			if (glOwner <= 0) continue
 			for ((i, p) in players) {
 				if (glOwner != p.address || p.lifeState(64) < 0) continue
+
 				var red = 255F
 				var green = 0F
 				var blue = 0F
