@@ -54,7 +54,8 @@ val m_dwEnginePosition by offset(engine, 4, 0, READ or SUBTRACT, 243, 15, 17, 21
 
 val clientState = updateableLazy { ClientState(client.get(m_dwClientState)) }
 
-val objectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
+val glowObject = updateableLazy { client.get<Int>(m_dwGlowObject) }
+val glowObjectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : UpdateableLazy<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
@@ -75,7 +76,7 @@ val entities = updateableLazy {
 	players.clear()
 	team.clear()
 	enemies.clear()
-	for (i in 0..+objectCount - 1) {
+	for (i in 0..+glowObjectCount - 1) {
 		val address: Int = client.get(m_dwEntityList + (i * ENTITY_SIZE))
 		if (me().address != address && address > 0) {
 			val entity = Entity(address, i)
