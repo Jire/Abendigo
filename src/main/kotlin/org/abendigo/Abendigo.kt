@@ -75,7 +75,7 @@ fun <T> updateableLazy(lazy: () -> T) = UpdateableLazy(lazy)
 fun main(args: Array<String>) {
 	println("Process ${ManagementFactory.getRuntimeMXBean().name}")
 
-	every(8, TimeUnit.SECONDS) { +entities }
+	every(8, TimeUnit.SECONDS) { +entities } // updates all entities so plugins don't need to
 
 	// TODO make a proper plugin system
 	BunnyHopPlugin().enable()

@@ -10,7 +10,6 @@ internal const val READ = 1
 internal const val SUBTRACT = 2
 
 private var lastModule: Module? = null
-private var moduleData: ByteBuffer? = null
 
 class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
              val flags: Int, val values: ByteArray) {
@@ -18,17 +17,15 @@ class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
 	private var address: Int? = null
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-		if (address != null) return address!!
+		if (address != null) return address!! // use cached address
 
-		if (lastModule == null || !lastModule!!.equals(module)) {
-			moduleData = module.process.get(module.pointer, module.size)
+		if (lastModule == null || !lastModule!!.equals(module))
 			lastModule = module
-		}
 
 		val off = module.size - values.size
 		var i = 0L
 		while (i < off) {
-			if (checkMask(moduleData!!, i.toInt(), values)) {
+			if (checkMask(module.byteBuffer, i.toInt(), values)) {
 				i += module.address + patternOffset
 				if ((flags and READ) == READ) i = module.process.get<Int>(i).toLong()
 				if ((flags and SUBTRACT) == SUBTRACT) i -= module.address
