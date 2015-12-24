@@ -5,6 +5,7 @@ package org.abendigo
 import org.abendigo.csgo.entities
 import org.abendigo.plugin.csgo.*
 import java.lang.management.ManagementFactory
+import java.net.*
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
@@ -25,7 +26,7 @@ inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 }
 
 @JvmOverloads
-fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, action: () -> T): Unit
+inline fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T): Unit
 		= every(duration.toLong(), timeUnit, action)
 
 open class UpdateableLazy<T>(private val lazy: () -> T) {

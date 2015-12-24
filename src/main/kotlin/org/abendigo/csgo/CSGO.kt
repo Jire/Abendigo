@@ -3,26 +3,39 @@
 package org.abendigo.csgo
 
 import org.abendigo.UpdateableLazy
+import org.abendigo.csgo.netvar.*
+import org.abendigo.csgo.offset.*
 import org.abendigo.updateableLazy
 import org.jire.kotmem.processes
 import java.util.concurrent.ConcurrentHashMap
 
 val csgo by lazy { processes.get("csgo.exe") } // TODO make a system that supports CS:GO closing/not being opened yet
 
-val client  by lazy { csgo.get("client.dll") }
-val engine  by lazy { csgo.get("engine.dll") }
+val client by lazy { csgo.get("client.dll") }
+val engine by lazy { csgo.get("engine.dll") }
 
 const val ENTITY_SIZE = 16
 const val GLOW_OBJECT_SIZE = 56
 
-// netvars
-const val m_fFlags = 0x00000100
-const val m_bSpotted = 0x00000935
-const val m_iTeamNum = 0x000000F0
 const val m_bDormant = 0x000000E9
-const val m_lifeState = 0x0000025B
-const val m_iCrossHairID = 0x0000C554
-const val m_dwIndex = 0x00000064
+const val m_dwIndex = 0x64
+
+// DT_BaseEntity
+val m_bSpotted by beNetVar()
+val m_vecOrigin by beNetVar()
+val m_iTeamNum by beNetVar()
+
+// DT_BasePlayer
+val m_fFlags by bpNetVar()
+val m_iHealth by bpNetVar()
+val m_vecViewOffset by bpNetVar(index = 0)
+val m_vecVelocity by bpNetVar(index = 0)
+val nActiveWeapon by bpNetVar()
+val nTickBase by bpNetVar()
+val m_lifeState by bpNetVar()
+
+// DT_CSPlayer
+val m_iCrossHairID by netVar("DT_CSPlayer", "m_bHasDefuser", 0x4C)
 
 // client.dll offsets
 val m_dwRadarBase by offset(client, 1, 0, READ or SUBTRACT, 161, 0, 0, 0, 0, 139, 12, 176, 139, 1, 255, 80, 0,
@@ -59,7 +72,7 @@ val glowObjectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : UpdateableLazy<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
-	val index = client.get<Int>(address + m_dwIndex) - 1
+	val index = /*client.get<Int>(address + m_dwIndex) - 1*/ 0
 	Player(address, index)
 }) {
 	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
