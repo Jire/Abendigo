@@ -5,23 +5,19 @@ import org.abendigo.csgo.offset.READ
 import org.abendigo.csgo.offset.offset
 import java.util.*
 import kotlin.reflect.KProperty
-import kotlin.text.*
 
 private val netVars by lazy {
 	val map = HashMap<Int, NetVar>(16500)
-	println("Made map")
 	var clientClass = ClientClass(firstClass)
-	println("First class clientClass")
 	while (clientClass.readable) {
 		clientClass = ClientClass(clientClass.next)
 		val table = RecvTable(clientClass.table)
 		if (table.readable) scanTable(map, table, 0, table.tableName)
 	}
-	println(map.size)
 	/* yield */ Collections.unmodifiableMap(map)
 }
 
-internal class NetVarDelegate(val className: String, var varName: String?, val offset: Int) {
+class NetVarDelegate(val className: String, var varName: String?, val offset: Int) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
 		if (varName == null) varName = property.name
 		println(netVars.size)
