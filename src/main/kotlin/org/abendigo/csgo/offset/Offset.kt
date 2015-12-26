@@ -3,8 +3,8 @@ package org.abendigo.csgo.offset
 import org.jire.kotmem.Module
 import kotlin.reflect.KProperty
 
-class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
-             val flags: Int, val values: ByteArray) {
+data class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
+                  val flags: Int, val values: ByteArray) {
 
 	val address by lazy {
 		val off = module.size - values.size
