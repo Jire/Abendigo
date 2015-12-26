@@ -13,7 +13,7 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 				val glOwner = csgo.get<Int>(glOffset)
 				if (glOwner <= 0) continue
 				for ((i, p) in players) {
-					if (glOwner != p.address || p.lifeState(64) < 0) continue
+					if (glOwner != p.address/* || p.dead(8)*/) continue
 
 					var red = 255F
 					var green = 0F
@@ -23,8 +23,8 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 					if (me().team(64) == p.team(64)) {
 						red = 0F
 						blue = 255F
-						//} else if (p.id == me.targetID(64)) green = 215F
-					} else if (+p.dormant) {
+					}/* else if (p.id == me.targetID(64)) green = 215F*/
+					else if (+p.dormant) {
 						blue = 255F
 						green = 255F
 						alpha = 0.45F

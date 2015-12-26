@@ -7,7 +7,7 @@ import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
 import org.abendigo.updateableLazy
 import org.jire.kotmem.processes
-import java.util.concurrent.ConcurrentHashMap
+import java.util.*
 
 val csgo by lazy { processes.get("csgo.exe") } // TODO make a system that supports CS:GO closing/not being opened yet
 
@@ -31,12 +31,27 @@ val m_fFlags by bpNetVar()
 val m_iHealth by bpNetVar()
 val m_vecViewOffset by bpNetVar(index = 0)
 val m_vecVelocity by bpNetVar(index = 0)
+val m_vecPunch by bpNetVar("m_aimPunchAngle")
 val nActiveWeapon by bpNetVar()
 val nTickBase by bpNetVar()
 val m_lifeState by bpNetVar()
 
 // DT_CSPlayer
-val m_iCrossHairID by netVar("DT_CSPlayer", "m_bHasDefuser", 0x4C)
+val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)
+val m_bIsScoped by cspNetVar()
+val m_iShotsFired by cspNetVar()
+val m_flFlashMaxAlpha by cspNetVar()
+
+// DT_BaseAnimating
+val m_dwBoneMatrix by netVar("DT_BaseAnimating", "m_nForceBone", 0x1C)
+
+// DT_BaseCombatWeapon
+val m_flNextPrimaryAttack by bcwNetVar()
+val m_iClip1 by bcwNetVar()
+val m_iClip2 by bcwNetVar()
+
+// DT_WeaponCSBase
+val m_iWeaponID by netVar("DT_WeaponCSBase", "m_fAccuracyPenalty", 0x2C)
 
 // client.dll offsets
 val m_dwRadarBase by offset(client, 1, 0, READ or SUBTRACT, 161, 0, 0, 0, 0, 139, 12, 176, 139, 1, 255, 80, 0,
@@ -73,7 +88,7 @@ val glowObjectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : UpdateableLazy<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
-	val index = /*client.get<Int>(address + m_dwIndex) - 1*/ 0
+	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0
 	Player(address, index)
 }) {
 	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
@@ -85,7 +100,7 @@ object me : UpdateableLazy<Player>({
 }
 
 val entities = updateableLazy {
-	val map = ConcurrentHashMap<Int, Entity>()
+	val map = HashMap<Int, Entity>()
 	val myTeam = +me().team
 	players.clear()
 	team.clear()
@@ -109,6 +124,6 @@ val entities = updateableLazy {
 	map
 }
 
-val players = ConcurrentHashMap<Int, Player>()
-val team = ConcurrentHashMap<Int, Player>()
-val enemies = ConcurrentHashMap<Int, Player>()
+val players = HashMap<Int, Player>()
+val team = HashMap<Int, Player>()
+val enemies = HashMap<Int, Player>()

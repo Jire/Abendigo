@@ -10,7 +10,9 @@ private val worldDecal by offset(client, 0, 0, 0, "DT_TEWorldDecal")
 private val firstClass by offset(client, 0x2B, 0, READ, worldDecal)
 
 private val netVars by lazy {
-	val map = HashMap<Int, NetVar>(16500)
+	val map = HashMap<Int, NetVar>(16212)
+
+	val stamp = System.currentTimeMillis()
 
 	var clientClass = ClientClass(firstClass)
 	while (clientClass.readable()) {
@@ -19,14 +21,15 @@ private val netVars by lazy {
 			clientClass = ClientClass(clientClass.next)
 			continue
 		}
-		scanTable(map, table, 0, table.tableName())
+		scanTable(map, table, 0, table.tableName)
 		clientClass = ClientClass(clientClass.next)
 	}
 
+	println("Took ${System.currentTimeMillis() - stamp}ms to scan ${map.size} netvars")
 	Collections.unmodifiableMap(map)
 }
 
-class NetVarDelegate(val className: String, var varName: String?, val offset: Int) {
+class LazyNetVar(val className: String, var varName: String?, val offset: Int) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
 		if (varName == null) varName = property.name
 		return netVars[hashClassAndVar(className, varName!!)]!!.offset + offset
@@ -34,13 +37,19 @@ class NetVarDelegate(val className: String, var varName: String?, val offset: In
 }
 
 fun netVar(className: String, varName: String? = null, offset: Int = 0, index: Int = -1)
-		= NetVarDelegate(className, if (index >= 0) "$varName[$index]" else varName, offset)
+		= LazyNetVar(className, if (index >= 0) "$varName[$index]" else varName, offset)
 
 fun bpNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 		= netVar("DT_BasePlayer", varName, offset, index)
 
 fun beNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 		= netVar("DT_BaseEntity", varName, offset, index)
+
+fun cspNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
+		= netVar("DT_CSPlayer", varName, offset, index)
+
+fun bcwNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
+		= netVar("DT_BaseCombatWeapon", varName, offset, index)
 
 internal fun scanTable(netVars: HashMap<Int, NetVar>, table: RecvTable, offset: Int, name: String) {
 	for (i in 0..table.propCount - 1) {

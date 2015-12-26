@@ -1,22 +1,19 @@
 package org.abendigo.csgo.netvar
 
-import com.sun.jna.platform.win32.Win32Exception
 import org.abendigo.csgo.csgo
 
-internal class ClientClass(val address: Int) {
+class ClientClass(val address: Int) {
 
-	val classID by lazy { csgo.get<Int>(address + 0x14) }
+	val classID by lazy { csgo.get<Int>(address + 20) }
 
-	val next by lazy { csgo.get<Int>(address + 0x10) }
+	val next by lazy { csgo.get<Int>(address + 16) }
 
-	val table by lazy { csgo.get<Int>(address + 0xC) }
+	val table by lazy { csgo.get<Int>(address + 12) }
 
-	val readable by lazy {
-		try {
-			csgo.get(address, 0x28); true
-		} catch (e: Win32Exception) {
-			false
-		}
+	fun readable() = try {
+		csgo.get(address, 40); true
+	} catch (e: Exception) {
+		false
 	}
 
 }
