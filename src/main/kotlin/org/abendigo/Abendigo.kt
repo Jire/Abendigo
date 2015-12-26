@@ -81,5 +81,5 @@ fun main(args: Array<String>) {
 	BunnyHopPlugin().enable()
 	RadarPlugin().enable()
 	ESPPlugin().enable()
-	// AimAssistPlugin().enable()
+	AimAssistPlugin().enable()
 }

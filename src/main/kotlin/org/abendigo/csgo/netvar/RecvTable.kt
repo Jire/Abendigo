@@ -1,26 +1,23 @@
 package org.abendigo.csgo.netvar
 
-import com.sun.jna.platform.win32.Win32Exception
 import org.abendigo.csgo.csgo
 
-internal class RecvTable(val address: Int, val offset: Int = 0x10) {
+class RecvTable(val address: Int, val offset: Int = 16) {
 
-	val readable by lazy {
-		try {
-			csgo.get(address, offset); true
-		} catch (e: Win32Exception) {
-			false
-		}
-	}
+	fun propForId(id: Int) = csgo.get<Int>(address) + id * 60
 
-	val tableName by lazy {
+	fun tableName(): String {
 		val bytes = ByteArray(32)
-		csgo.get(csgo.get<Int>(address + 0xC), bytes.size).get(bytes)
-		nvString(bytes)
+		csgo.get(csgo.get<Int>(address + 12), bytes.size).get(bytes)
+		return nvString(bytes)
 	}
 
-	val propCount by lazy<Int> { csgo.get(address + 0x4) }
+	val propCount by lazy { csgo.get<Int>(address + 4) }
 
-	fun propForId(id: Int) = csgo.get<Int>(address) + (id * 0x3C)
+	fun readable() = try {
+		csgo.get(address, offset) != null
+	} catch (e: Exception) {
+		false
+	}
 
 }

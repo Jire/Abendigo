@@ -17,8 +17,9 @@ val engine by lazy { csgo.get("engine.dll") }
 const val ENTITY_SIZE = 16
 const val GLOW_OBJECT_SIZE = 56
 
-const val m_bDormant = 0x000000E9
+const val m_bDormant = 0xE9
 const val m_dwIndex = 0x64
+const val m_dwModel = 0x6C
 
 // DT_BaseEntity
 val m_bSpotted by beNetVar()

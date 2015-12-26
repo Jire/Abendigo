@@ -9,8 +9,8 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 	override fun enable() = every(64) {
 		try {
 			for (glIdx in 0..+glowObjectCount) {
-				val glOffset = glowObject(64) + (glIdx * GLOW_OBJECT_SIZE)
-				val glOwner: Int = csgo.get(glOffset)
+				val glOffset: Int = glowObject(64) + (glIdx * GLOW_OBJECT_SIZE)
+				val glOwner = csgo.get<Int>(glOffset)
 				if (glOwner <= 0) continue
 				for ((i, p) in players) {
 					if (glOwner != p.address || p.lifeState(64) < 0) continue
