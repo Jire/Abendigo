@@ -2,10 +2,8 @@
 
 package org.abendigo.csgo.offset
 
+import org.jire.kotmem.MemoryBuffer
 import org.jire.kotmem.Module
-import java.nio.ByteBuffer
-import kotlin.collections.indices
-import kotlin.text.toByteArray
 
 const val READ = 1
 const val SUBTRACT = 2
@@ -22,9 +20,9 @@ fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, v
 fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String)
 		= offset(module, patternOffset, addressOffset, flags, className.toByteArray())
 
-internal fun checkMask(data: ByteBuffer, offset: Int, pMask: ByteArray): Boolean {
+internal fun checkMask(data: MemoryBuffer, offset: Int, pMask: ByteArray): Boolean {
 	for (i in pMask.indices)
-		if (pMask[i].toInt() != 0 && (pMask[i] != data.get(offset + i)))
+		if (pMask[i].toInt() != 0 && (pMask[i] != data.getByte((offset + i).toLong())))
 			return false
 	return true
 }

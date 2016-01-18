@@ -2,10 +2,9 @@
 
 package org.abendigo.csgo
 
-import org.abendigo.UpdateableLazy
+import org.abendigo.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
-import org.abendigo.updateableLazy
 import org.jire.kotmem.processes
 import java.util.*
 
@@ -81,7 +80,7 @@ val m_dwEnginePosition by offset(engine, 4, 0, READ or SUBTRACT, 243, 15, 17, 21
 
 // objects
 
-val clientState = updateableLazy { ClientState(client.get(m_dwClientState)) }
+val clientState = updateableLazy { ClientState(engine.get(m_dwClientState)) }
 
 val glowObject = updateableLazy { client.get<Int>(m_dwGlowObject) }
 val glowObjectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
@@ -93,23 +92,23 @@ object me : UpdateableLazy<Player>({
 }) {
 	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
 	@JvmStatic val crosshairID = updateableLazy { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
-	@JvmStatic val targetID = updateableLazy {
-		if (crosshairID() < 0) -1
-		else client.get<Int>(m_dwEntityList + (crosshairID() * ENTITY_SIZE))
+	@JvmStatic val targetAddress = updateableLazy {
+		val crosshairID = +crosshairID
+		if (crosshairID < 0) -1
+		else client.get<Int>(m_dwEntityList + (crosshairID * ENTITY_SIZE))
 	}
 }
 
-val entities = updateableLazy {
-	val map = HashMap<Int, Entity>()
-	val myTeam = +me().team
+val entities = objectUpdateableLazy({ HashMap<Int, Entity>(64) }) {
 	players.clear()
 	team.clear()
 	enemies.clear()
+	val myTeam = +me().team
 	for (i in 0..+glowObjectCount - 1) {
 		val address: Int = client.get(m_dwEntityList + (i * ENTITY_SIZE))
 		if (me().address != address && address > 0) {
 			val entity = Entity(address, i)
-			map.put(i, entity)
+			put(i, entity)
 			val entityTeam: Int = csgo.get(address + m_iTeamNum)
 			if (entityTeam == 2 || entityTeam == 3) {
 				// TODO check via CS:GO class ID
@@ -121,7 +120,6 @@ val entities = updateableLazy {
 	}
 	players.putAll(team)
 	players.putAll(enemies)
-	map
 }
 
 val players = HashMap<Int, Player>()

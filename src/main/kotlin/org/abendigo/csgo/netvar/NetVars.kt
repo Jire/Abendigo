@@ -4,10 +4,13 @@ import org.abendigo.csgo.client
 import org.abendigo.csgo.offset.READ
 import org.abendigo.csgo.offset.offset
 import java.util.*
+import java.util.concurrent.ForkJoinPool
 import kotlin.reflect.KProperty
 
 private val worldDecal by offset(client, 0, 0, 0, "DT_TEWorldDecal")
 private val firstClass by offset(client, 0x2B, 0, READ, worldDecal)
+
+private val pool = ForkJoinPool()
 
 private val netVars by lazy {
 	val map = HashMap<Int, NetVar>(16212)
