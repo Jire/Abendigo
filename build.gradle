@@ -6,6 +6,7 @@ apply plugin: 'kotlin'
 
 repositories {
 	mavenCentral()
+	maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -16,6 +17,8 @@ dependencies {
 
 	compile 'net.java.dev.jna:jna:4.2.1'
 	compile 'net.java.dev.jna:platform:3.5.2'
+
+	compile 'com.github.Jire:kotmem:-SNAPSHOT'
 }
 
 buildscript {
