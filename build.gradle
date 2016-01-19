@@ -16,11 +16,11 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-	compile 'com.github.Jire:kotmem:0.6'
+	compile 'com.github.Jire:kotmem:-SNAPSHOT'
 }
 
 buildscript {
-	ext.kotlin_version = '1.0.0-beta-4584'
+	ext.kotlin_version = '1.0.0-beta-4589'
 
 	repositories {
 		mavenCentral()
