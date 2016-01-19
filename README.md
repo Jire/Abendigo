@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
+
 # Abendigo
 Free and open-source game modding platform using the JVM. You can visit our community here: https://abendigo.org
 
