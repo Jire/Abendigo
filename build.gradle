@@ -6,6 +6,7 @@ apply plugin: 'kotlin'
 
 repositories {
 	mavenCentral()
+
 	maven { url "https://jitpack.io" }
 }
 
@@ -31,4 +32,8 @@ buildscript {
 
 sourceSets {
 	main.java.srcDirs += 'src/main/kotlin'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.1'
 }
