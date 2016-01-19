@@ -1,9 +1,7 @@
-[![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.0.0--beta--4584-blue.svg)](http://kotlinlang.org) [![license](https://img.shields.io/badge/license-GPL%203.0-yellowgreen.svg)](https://github.com/Jire/Abendigo/blob/master/LICENSE) [![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
 
 # Abendigo
 Free and open-source game modding platform using the JVM. You can visit our community here: https://abendigo.org
-
-This project is licensed under [GPL 3.0](http://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ---
 
