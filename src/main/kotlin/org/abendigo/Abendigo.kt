@@ -2,6 +2,7 @@
 
 package org.abendigo
 
+import org.abendigo.csgo.entities
 import org.abendigo.plugin.csgo.*
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit
@@ -27,7 +28,7 @@ inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 inline fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T): Unit
 		= every(duration.toLong(), timeUnit, action)
 
-open class UpdateableLazy<T>(private val update: () -> T) {
+open class UpdateableLazy<T>(private val lazy: () -> T) {
 
 	@Volatile private var value: T? = null
 	@Volatile private var previous: T? = null
@@ -43,7 +44,7 @@ open class UpdateableLazy<T>(private val update: () -> T) {
 
 	fun update(): T {
 		previous = value
-		value = update()
+		value = lazy()
 		updateStamp = System.nanoTime()
 		return value!!
 	}
@@ -71,8 +72,8 @@ open class UpdateableLazy<T>(private val update: () -> T) {
 
 fun <T> updateableLazy(initializer: () -> T) = UpdateableLazy(initializer)
 
-class ObjectUpdateableLazy<T>(init: () -> T, update: T.() -> Any, private val initialized: T = init()) : UpdateableLazy<T>({
-	update(initialized)
+class ObjectUpdateableLazy<T>(init: () -> T, lazy: T.() -> Any, private val initialized: T = init()) : UpdateableLazy<T>({
+	lazy(initialized)
 	initialized
 }) {}
 
@@ -80,6 +81,8 @@ fun <T> objectUpdateableLazy(initializer: () -> T, updater: T.() -> Any) = Objec
 
 fun main(args: Array<String>) {
 	println("Process ${ManagementFactory.getRuntimeMXBean().name}")
+
+	every(8, TimeUnit.SECONDS) { +entities } // update entities every 8 seconds
 
 	// TODO make a proper plugin system
 	BunnyHopPlugin().enable()

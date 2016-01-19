@@ -6,7 +6,7 @@ import org.abendigo.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
 import org.jire.kotmem.processes
-import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 val csgo by lazy { processes.get("csgo.exe") } // TODO make a system that supports CS:GO closing/not being opened yet
 
@@ -99,7 +99,7 @@ object me : UpdateableLazy<Player>({
 	}
 }
 
-val entities = objectUpdateableLazy({ HashMap<Int, Entity>(64) }) {
+val entities = objectUpdateableLazy({ ConcurrentHashMap<Int, Entity>(64) }) {
 	players.clear()
 	team.clear()
 	enemies.clear()
@@ -122,6 +122,6 @@ val entities = objectUpdateableLazy({ HashMap<Int, Entity>(64) }) {
 	players.putAll(enemies)
 }
 
-val players = HashMap<Int, Player>()
-val team = HashMap<Int, Player>()
-val enemies = HashMap<Int, Player>()
+val players = ConcurrentHashMap<Int, Player>()
+val team = ConcurrentHashMap<Int, Player>()
+val enemies = ConcurrentHashMap<Int, Player>()

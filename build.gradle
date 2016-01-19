@@ -15,9 +15,6 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-	compile 'net.java.dev.jna:jna:4.2.1'
-	compile 'net.java.dev.jna:platform:3.5.2'
-
 	compile 'com.github.Jire:kotmem:-SNAPSHOT'
 }
 
