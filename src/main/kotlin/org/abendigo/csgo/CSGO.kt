@@ -5,13 +5,13 @@ package org.abendigo.csgo
 import org.abendigo.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
-import org.jire.kotmem.processes
+import org.jire.kotmem.Processes
 import java.util.concurrent.ConcurrentHashMap
 
-val csgo by lazy { processes.get("csgo.exe") } // TODO make a system that supports CS:GO closing/not being opened yet
+val csgo by lazy { Processes["csgo.exe"] } // TODO make a system that supports CS:GO closing/not being opened yet
 
-val client by lazy { csgo.get("client.dll") }
-val engine by lazy { csgo.get("engine.dll") }
+val client by lazy { csgo["client.dll"] }
+val engine by lazy { csgo["engine.dll"] }
 
 const val ENTITY_SIZE = 16
 const val GLOW_OBJECT_SIZE = 56

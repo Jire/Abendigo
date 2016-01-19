@@ -16,7 +16,7 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-	compile 'com.github.Jire:kotmem:-SNAPSHOT'
+	compile 'com.github.Jire:Kotmem:-SNAPSHOT'
 }
 
 buildscript {
@@ -32,8 +32,4 @@ buildscript {
 
 sourceSets {
 	main.java.srcDirs += 'src/main/kotlin'
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.1'
 }
