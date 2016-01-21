@@ -5,6 +5,9 @@ package org.abendigo.csgo.offset
 import org.abendigo.csgo.client
 import org.abendigo.csgo.engine
 
+val worldDecal by offset(client, 0, 0, 0, "DT_TEWorldDecal")
+val firstClass by offset(client, 0x2B, 0, READ, worldDecal)
+
 // client.dll offsets
 val m_dwRadarBase by offset(client, 1, 0, READ or SUBTRACT, 161, 0, 0, 0, 0, 139, 12, 176, 139, 1, 255, 80, 0,
 		70, 59, 53, 0, 0, 0, 0, 124, 234, 139, 13, 0, 0, 0, 0)
