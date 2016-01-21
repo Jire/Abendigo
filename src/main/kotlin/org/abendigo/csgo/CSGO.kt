@@ -3,6 +3,7 @@
 package org.abendigo.csgo
 
 import org.abendigo.*
+import org.abendigo.cached.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
 import org.jire.kotmem.Processes
@@ -80,26 +81,26 @@ val m_dwEnginePosition by offset(engine, 4, 0, READ or SUBTRACT, 243, 15, 17, 21
 
 // objects
 
-val clientState = updateableLazy { ClientState(engine.get(m_dwClientState)) }
+val clientState = cached { ClientState(engine.get(m_dwClientState)) }
 
-val glowObject = updateableLazy { client.get<Int>(m_dwGlowObject) }
-val glowObjectCount = updateableLazy { client.get<Int>(m_dwGlowObject + 4) }
+val glowObject = cached { client.get<Int>(m_dwGlowObject) }
+val glowObjectCount = cached { client.get<Int>(m_dwGlowObject + 4) }
 
-object me : UpdateableLazy<Player>({
+object me : Cached<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
 	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0
 	Player(address, index)
 }) {
-	@JvmStatic val flags = updateableLazy { csgo.get<Int>(this().address + m_fFlags) }
-	@JvmStatic val crosshairID = updateableLazy { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
-	@JvmStatic val targetAddress = updateableLazy {
+	@JvmStatic val flags = cached { csgo.get<Int>(this().address + m_fFlags) }
+	@JvmStatic val crosshairID = cached { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
+	@JvmStatic val targetAddress = cached {
 		val crosshairID = +crosshairID
 		if (crosshairID < 0) -1
 		else client.get<Int>(m_dwEntityList + (crosshairID * ENTITY_SIZE))
 	}
 }
 
-val entities = objectUpdateableLazy({ ConcurrentHashMap<Int, Entity>(64) }) {
+val entities = initializedCache({ ConcurrentHashMap<Int, Entity>(64) }) {
 	players.clear()
 	team.clear()
 	enemies.clear()

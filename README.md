@@ -12,5 +12,5 @@ Initially there will be a focus on CS:GO because it was our original game target
 
 We use some really cool technology to drive Abendigo. Here's a list:
 
-- [Kotmem](https://github.com/Jire/kotmem) for our high-level interfacing with processes
+- [Kotmem](https://github.com/Jire/Kotmem) for our high-level interfacing with processes
 - [Java Native Access (JNA)](https://github.com/java-native-access/jna) as the backbone for interfacing with native libraries
