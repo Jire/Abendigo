@@ -28,10 +28,6 @@ val engine by lazy { csgo["engine.dll"] }
 const val ENTITY_SIZE = 16
 const val GLOW_OBJECT_SIZE = 56
 
-const val m_bDormant = 0xE9
-const val m_dwIndex = 0x64
-const val m_dwModel = 0x6C
-
 // objects
 
 val clientState = cached { ClientState(engine.get(m_dwClientState)) }
