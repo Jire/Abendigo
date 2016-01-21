@@ -91,7 +91,7 @@ val clientState = cached { ClientState(engine.get(m_dwClientState)) }
 val glowObject = cached { client.get<Int>(m_dwGlowObject) }
 val glowObjectCount = cached { client.get<Int>(m_dwGlowObject + 4) }
 
-object me : Cached<Player>({
+object Me : Cached<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
 	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0 // TODO: can use me-specific index offset
 	Player(address, index)
@@ -100,7 +100,7 @@ object me : Cached<Player>({
 	@JvmStatic val crosshairID = cached { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
 	@JvmStatic val targetAddress = cached {
 		val crosshairID = +crosshairID
-		if (crosshairID >/*=*/ 0) client.get(m_dwEntityList + (crosshairID * ENTITY_SIZE)) else -1
+		if (crosshairID > /*=*/ 0) client.get(m_dwEntityList + (crosshairID * ENTITY_SIZE)) else -1
 	}
 }
 
@@ -108,10 +108,10 @@ val entities = initializedCache({ ConcurrentHashMap<Int, Entity>(64) }) {
 	players.clear()
 	team.clear()
 	enemies.clear()
-	val myTeam = +me().team
+	val myTeam = +Me().team
 	for (i in 0..+glowObjectCount - 1) {
 		val address: Int = client.get(m_dwEntityList + (i * ENTITY_SIZE))
-		if (me().address != address && address > 0) {
+		if (Me().address != address && address > 0) {
 			val entity = Entity(address, i)
 			put(i, entity)
 			val entityTeam: Int = csgo.get(address + m_iTeamNum)

@@ -12,7 +12,7 @@ class AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Ass
 	@Volatile private var prevFired = 0
 
 	override fun enable() = every(8) {
-		val shotsFired = +me().shotsFired
+		val shotsFired = +Me().shotsFired
 		if (shotsFired < 1 || shotsFired < prevFired) {
 			prevFired = 0
 			return@every
@@ -20,23 +20,23 @@ class AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Ass
 		
 		// TODO check weapon (for example, weapon ID and remaining ammo)
 		if (shotsFired > 1 && shotsFired >= prevFired) {
-			var targetAddress = +me.targetAddress
+			var targetAddress = +Me.targetAddress
 			if (targetAddress <= 0) return@every
 			var targetIndex = csgo.get<Int>(targetAddress + m_dwIndex)
 			var target = enemies[targetIndex]!!
 			var shots = 0
 
-			while (!+me().dead) {
-				shots = +me().shotsFired
+			while (!+Me().dead) {
+				shots = +Me().shotsFired
 				if (shots < prevFired) return@every
 				if (+target.dead || !+target.spotted) return@every
 
-				val myPosition = +me().position
+				val myPosition = +Me().position
 				var position = target.bonePosition(TARGET_BONE)
-				position = compensateVelocity(me(), target, position)
-				val aim = calculateAngle(me(), position)
+				position = compensateVelocity(Me(), target, position)
+				val aim = calculateAngle(Me(), position)
 				// normalizeAngle(aim)
-				val angle = clientState(8, TimeUnit.SECONDS).angle(+me().punch)
+				val angle = clientState(8, TimeUnit.SECONDS).angle(+Me().punch)
 				// normalizeAngle(angle)
 				//angleSmooth()
 				//angleSmooth(angle, aim)

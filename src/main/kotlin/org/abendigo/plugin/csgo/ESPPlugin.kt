@@ -19,12 +19,12 @@ class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players
 				var blue = 0F
 				var alpha = 0.8F
 
-				val myTeam = me().team(64)
+				val myTeam = Me().team(64)
 				val pTeam = p.team(64)
 				if (myTeam == pTeam) {
 					red = 0F
 					blue = 255F
-				} else if (p.address == +me.targetAddress) green = 215F
+				} else if (p.address == +Me.targetAddress) green = 215F
 				else if (+p.dormant) {
 					blue = 255F
 					green = 255F
