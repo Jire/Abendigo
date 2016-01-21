@@ -93,7 +93,7 @@ val glowObjectCount = cached { client.get<Int>(m_dwGlowObject + 4) }
 
 object me : Cached<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
-	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0
+	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0 // TODO: can use me-specific index offset
 	Player(address, index)
 }) {
 	@JvmStatic val flags = cached { csgo.get<Int>(this().address + m_fFlags) }
