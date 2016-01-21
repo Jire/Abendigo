@@ -11,7 +11,7 @@ data class NetVar(val className: String, val varName: String, val offset: Int) {
 }
 
 private val netVars by lazy {
-	val map = HashMap<Int, NetVar>(16212)
+	val map = HashMap<Int, NetVar>(20000) // Have us covered for a while with 20K
 
 	val stamp = System.currentTimeMillis()
 
