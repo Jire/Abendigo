@@ -2,12 +2,17 @@
 
 package org.abendigo.csgo
 
-import org.abendigo.*
+import org.abendigo.Addressable
 import org.abendigo.cached.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
 import org.jire.kotmem.Processes
 import java.util.concurrent.ConcurrentHashMap
+
+inline fun <reified T : Any> cached(address: Int, offset: Int = 0)
+		= Cached<T>({ csgo.get(address + offset) }, { csgo.set(address, it) })
+
+inline fun <reified T : Any> Addressable.cached(offset: Int = 0): Cached<T> = cached(this.address, offset)
 
 val csgo by lazy { Processes["csgo.exe"] } // TODO make a system that supports CS:GO closing/not being opened yet
 

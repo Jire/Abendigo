@@ -5,14 +5,14 @@ import org.abendigo.cached.cached
 
 open class Entity(override val address: Int, val id: Int) : Addressable {
 
-	val spotted = cached { csgo.get<Boolean>(address + m_bSpotted) }
+	val spotted = cached<Boolean>(m_bSpotted)
 
-	val dormant = cached { csgo.get<Boolean>(address + m_bDormant) }
+	val dormant = cached<Boolean>(m_bDormant)
 
-	val lifeState = cached { csgo.get<Int>(address + m_lifeState) }
+	val lifeState = cached<Int>(m_lifeState)
 	val dead = cached { +lifeState > 0 }
 
-	val boneMatrix = cached { csgo.get<Int>(address + m_dwBoneMatrix) }
+	val boneMatrix = cached<Int>(m_dwBoneMatrix)
 
 	fun bonePosition(bone: Int): Vector3<Float> {
 		+boneMatrix // update in preparation
@@ -34,6 +34,6 @@ open class Entity(override val address: Int, val id: Int) : Addressable {
 	}
 
 	override fun hashCode() = address
-	override fun equals(other: Any?) = if (other is Entity) address == other.address else false
+	override fun equals(other: Any?) = other is Entity && address == other.address
 
 }
