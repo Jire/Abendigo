@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
 	// TODO make a proper plugin system
 	BunnyHopPlugin().enable()
-	//RadarPlugin().enable()
+	//RadarPlugin().enable() // bSpotted is being checked by client, do not use
 	ESPPlugin().enable()
 	// AimAssistPlugin().enable()
 }
