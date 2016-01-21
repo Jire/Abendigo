@@ -1,71 +1,33 @@
 package org.abendigo.csgo.netvar
 
-import org.abendigo.csgo.offset.firstClass
-import java.util.*
-import kotlin.reflect.KProperty
+// DT_BaseEntity
+val m_bSpotted by beNetVar()
+val m_vecOrigin by beNetVar()
+val m_iTeamNum by beNetVar()
 
-private val netVars by lazy {
-	val map = HashMap<Int, NetVar>(16212)
+// DT_BasePlayer
+val m_fFlags by bpNetVar()
+val m_iHealth by bpNetVar()
+val m_vecViewOffset by bpNetVar(index = 0)
+val m_vecVelocity by bpNetVar(index = 0)
+val m_vecPunch by bpNetVar("m_aimPunchAngle")
+val nActiveWeapon by bpNetVar()
+val nTickBase by bpNetVar()
+val m_lifeState by bpNetVar()
 
-	val stamp = System.currentTimeMillis()
+// DT_CSPlayer
+val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)
+val m_bIsScoped by cspNetVar()
+val m_iShotsFired by cspNetVar()
+val m_flFlashMaxAlpha by cspNetVar()
 
-	var clientClass = ClientClass(firstClass)
-	while (clientClass.readable()) {
-		val table = RecvTable(clientClass.table)
-		if (!table.readable()) {
-			clientClass = ClientClass(clientClass.next)
-			continue
-		}
-		scanTable(map, table, 0, table.tableName)
-		clientClass = ClientClass(clientClass.next)
-	}
+// DT_BaseAnimating
+val m_dwBoneMatrix by netVar("DT_BaseAnimating", "m_nForceBone", 0x1C)
 
-	println("Took ${System.currentTimeMillis() - stamp}ms to scan ${map.size} netvars")
-	Collections.unmodifiableMap(map)
-}
+// DT_BaseCombatWeapon
+val m_flNextPrimaryAttack by bcwNetVar()
+val m_iClip1 by bcwNetVar()
+val m_iClip2 by bcwNetVar()
 
-class LazyNetVar(val className: String, var varName: String?, val offset: Int) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-		if (varName == null) varName = property.name
-		return netVars[hashClassAndVar(className, varName!!)]!!.offset + offset
-	}
-}
-
-fun netVar(className: String, varName: String? = null, offset: Int = 0, index: Int = -1)
-		= LazyNetVar(className, if (index >= 0) "$varName[$index]" else varName, offset)
-
-fun bpNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
-		= netVar("DT_BasePlayer", varName, offset, index)
-
-fun beNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
-		= netVar("DT_BaseEntity", varName, offset, index)
-
-fun cspNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
-		= netVar("DT_CSPlayer", varName, offset, index)
-
-fun bcwNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
-		= netVar("DT_BaseCombatWeapon", varName, offset, index)
-
-internal fun scanTable(netVars: HashMap<Int, NetVar>, table: RecvTable, offset: Int, name: String) {
-	for (i in 0..table.propCount - 1) {
-		val prop = RecvProp(table.propForId(i), offset)
-		if (!Character.isDigit(prop.name[0])) {
-			if (!prop.name.contains("baseclass")) {
-				val netVar = NetVar(name, prop.name, prop.offset)
-				netVars.put(hashNetVar(netVar), netVar)
-			}
-
-			val child = prop.table
-			if (child != 0) scanTable(netVars, RecvTable(child), prop.offset, name)
-		}
-	}
-}
-
-internal fun nvString(bytes: ByteArray): String {
-	for (i in 0..bytes.size - 1) if (bytes[i].toInt() == 0) bytes[i] = 32
-	return String(bytes).split(" ")[0].trim()
-}
-
-private fun hashClassAndVar(className: String, varName: String) = className.hashCode() xor varName.hashCode()
-
-private fun hashNetVar(netVar: NetVar) = hashClassAndVar(netVar.className, netVar.varName)
+// DT_WeaponCSBase
+val m_iWeaponID by netVar("DT_WeaponCSBase", "m_fAccuracyPenalty", 0x2C)
