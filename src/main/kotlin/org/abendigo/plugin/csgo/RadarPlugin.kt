@@ -6,6 +6,8 @@ import org.abendigo.plugin.Plugin
 
 class RadarPlugin : Plugin("Radar", author = "Jire", description = "Shows enemies on the radar") {
 
-	override fun enable() = every(8) { for ((i, e) in enemies) csgo.set(e.address + m_bSpotted, true) }
+	override fun enable() = every(8) {
+		for ((i, e) in enemies) if (csgo.get(e.address + m_bSpotted)) csgo.set(e.address + m_bSpotted, true)
+	}
 
 }

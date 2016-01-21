@@ -3,7 +3,8 @@
 package org.abendigo
 
 import org.abendigo.csgo.entities
-import org.abendigo.plugin.csgo.*
+import org.abendigo.plugin.csgo.BunnyHopPlugin
+import org.abendigo.plugin.csgo.ESPPlugin
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
@@ -82,11 +83,11 @@ fun <T> objectUpdateableLazy(initializer: () -> T, updater: T.() -> Any) = Objec
 fun main(args: Array<String>) {
 	println("Process ${ManagementFactory.getRuntimeMXBean().name}")
 
-	every(8, TimeUnit.SECONDS) { +entities } // update entities every 8 seconds
+	every(4, TimeUnit.SECONDS) { +entities }
 
 	// TODO make a proper plugin system
 	BunnyHopPlugin().enable()
-	RadarPlugin().enable()
+	//RadarPlugin().enable()
 	ESPPlugin().enable()
 	// AimAssistPlugin().enable()
 }
