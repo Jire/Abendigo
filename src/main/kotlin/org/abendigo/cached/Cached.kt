@@ -2,7 +2,7 @@ package org.abendigo.cached
 
 import java.util.concurrent.TimeUnit
 
-open class Cached<T>(private val update: () -> T) {
+open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)? = null) {
 
 	@Volatile private var value: T? = null
 	@Volatile private var previous: T? = null
@@ -11,6 +11,13 @@ open class Cached<T>(private val update: () -> T) {
 
 	@JvmName("get")
 	operator fun invoke(): T = if (value != null) value!! else +this
+
+	@JvmName("set")
+	operator fun get(newValue: T) {
+		if (set == null) throw UnsupportedOperationException()
+		value = newValue // set first for deterministic behavior
+		set.invoke(newValue)
+	}
 
 	@JvmName("update")
 	operator fun unaryPlus(): T {
