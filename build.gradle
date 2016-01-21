@@ -16,7 +16,7 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-	compile 'com.github.Jire:Kotmem:-SNAPSHOT'
+	compile 'com.github.Jire:Kotmem:-0.6-gb32d4a8-11'
 }
 
 buildscript {
