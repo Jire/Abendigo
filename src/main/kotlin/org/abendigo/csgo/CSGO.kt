@@ -100,8 +100,7 @@ object me : Cached<Player>({
 	@JvmStatic val crosshairID = cached { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
 	@JvmStatic val targetAddress = cached {
 		val crosshairID = +crosshairID
-		if (crosshairID < 0) -1
-		else client.get<Int>(m_dwEntityList + (crosshairID * ENTITY_SIZE))
+		if (crosshairID >/*=*/ 0) client.get(m_dwEntityList + (crosshairID * ENTITY_SIZE)) else -1
 	}
 }
 
