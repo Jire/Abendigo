@@ -6,11 +6,17 @@ import org.abendigo.Addressable
 import org.abendigo.cached.*
 import org.abendigo.csgo.netvar.*
 import org.abendigo.csgo.offset.*
+import org.jire.kotmem.Module
 import org.jire.kotmem.Processes
 import java.util.concurrent.ConcurrentHashMap
 
 inline fun <reified T : Any> cached(address: Int, offset: Int = 0)
 		= Cached<T>({ csgo.get(address + offset) }, { csgo.set(address, it) })
+
+inline fun <reified T : Any> cached(address: Long, offset: Int = 0): Cached<T> = cached(address.toInt(), offset)
+
+inline fun <reified T : Any> cached(module: Module, offset: Int = 0)
+		= Cached<T>({ module.get(offset) }, { module.set(offset, it) })
 
 inline fun <reified T : Any> Addressable.cached(offset: Int = 0): Cached<T> = cached(this.address, offset)
 
@@ -88,15 +94,15 @@ val m_dwEnginePosition by offset(engine, 4, 0, READ or SUBTRACT, 243, 15, 17, 21
 
 val clientState = cached { ClientState(engine.get(m_dwClientState)) }
 
-val glowObject = cached { client.get<Int>(m_dwGlowObject) }
-val glowObjectCount = cached { client.get<Int>(m_dwGlowObject + 4) }
+val glowObject = cached<Int>(client, m_dwGlowObject)
+val glowObjectCount = cached<Int>(client, m_dwGlowObject + 4)
 
 object Me : Cached<Player>({
 	val address: Int = client.get(m_dwLocalPlayer)
 	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0 // TODO: can use me-specific index offset
 	Player(address, index)
 }) {
-	@JvmStatic val flags = cached { csgo.get<Int>(this().address + m_fFlags) }
+	@JvmStatic val flags = cached<Int>(this().address, m_fFlags)
 	@JvmStatic val crosshairID = cached { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
 	@JvmStatic val targetAddress = cached {
 		val crosshairID = +crosshairID
