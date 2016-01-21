@@ -4,8 +4,7 @@ package org.abendigo.csgo
 
 import org.abendigo.Addressable
 import org.abendigo.cached.*
-import org.abendigo.csgo.netvar.*
-import org.abendigo.csgo.offset.*
+import org.abendigo.csgo.offsets.*
 import org.jire.kotmem.Module
 import org.jire.kotmem.Processes
 import java.util.concurrent.ConcurrentHashMap

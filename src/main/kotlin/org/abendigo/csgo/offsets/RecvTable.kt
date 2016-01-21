@@ -1,4 +1,4 @@
-package org.abendigo.csgo.netvar
+package org.abendigo.csgo.offsets
 
 import org.abendigo.csgo.csgo
 

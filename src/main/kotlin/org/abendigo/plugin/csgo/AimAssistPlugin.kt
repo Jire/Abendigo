@@ -1,6 +1,7 @@
 package org.abendigo.plugin.csgo
 
 import org.abendigo.csgo.*
+import org.abendigo.csgo.offsets.m_dwIndex
 import org.abendigo.every
 import org.abendigo.plugin.Plugin
 import java.util.concurrent.TimeUnit
@@ -17,7 +18,7 @@ class AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Ass
 			prevFired = 0
 			return@every
 		}
-		
+
 		// TODO check weapon (for example, weapon ID and remaining ammo)
 		if (shotsFired > 1 && shotsFired >= prevFired) {
 			var targetAddress = +Me.targetAddress

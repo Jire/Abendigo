@@ -1,6 +1,7 @@
 package org.abendigo.csgo
 
 import org.abendigo.Addressable
+import org.abendigo.csgo.offsets.m_dwViewAngles
 
 class ClientState(override val address: Int) : Addressable {
 

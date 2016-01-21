@@ -1,4 +1,4 @@
-package org.abendigo.csgo.offset
+package org.abendigo.csgo.offsets
 
 import org.jire.kotmem.Module
 import org.jire.kotmem.NativeBuffer

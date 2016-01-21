@@ -1,8 +1,8 @@
-package org.abendigo.csgo.netvar
+package org.abendigo.csgo.offsets
 
 import org.abendigo.csgo.csgo
 
-class ClientClass(val address: Int) {
+internal class ClientClass(val address: Int) {
 
 	val classID by lazy { csgo.get<Int>(address + 20) }
 

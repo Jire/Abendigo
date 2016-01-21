@@ -1,6 +1,8 @@
 package org.abendigo.plugin.csgo
 
-import org.abendigo.csgo.*
+import org.abendigo.csgo.Me
+import org.abendigo.csgo.client
+import org.abendigo.csgo.offsets.m_dwForceJump
 import org.abendigo.every
 import org.abendigo.plugin.Plugin
 import org.abendigo.sleep

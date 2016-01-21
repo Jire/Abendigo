@@ -1,6 +1,7 @@
 package org.abendigo.csgo
 
 import org.abendigo.cached.cached
+import org.abendigo.csgo.offsets.*
 
 class Player(address: Int, id: Int) : Entity(address, id) {
 

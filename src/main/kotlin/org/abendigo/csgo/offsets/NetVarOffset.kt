@@ -1,17 +1,16 @@
-package org.abendigo.csgo.netvar
+package org.abendigo.csgo.offsets
 
-import org.abendigo.csgo.offset.firstClass
 import java.util.*
 import kotlin.reflect.KProperty
 
-data class NetVar(val className: String, val varName: String, val offset: Int) {
+data class NetVarOffset(val className: String, val varName: String, val offset: Int) {
 
 	override fun toString() = "$className $varName = 0x${Integer.toHexString(offset).toUpperCase()}"
 
 }
 
 private val netVars by lazy {
-	val map = HashMap<Int, NetVar>(20000) // Have us covered for a while with 20K
+	val map = HashMap<Int, NetVarOffset>(20000) // Have us covered for a while with 20K
 
 	val stamp = System.currentTimeMillis()
 
@@ -52,12 +51,12 @@ fun cspNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 fun bcwNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 		= netVar("DT_BaseCombatWeapon", varName, offset, index)
 
-internal fun scanTable(netVars: HashMap<Int, NetVar>, table: RecvTable, offset: Int, name: String) {
+internal fun scanTable(netVars: HashMap<Int, NetVarOffset>, table: RecvTable, offset: Int, name: String) {
 	for (i in 0..table.propCount - 1) {
 		val prop = RecvProp(table.propForId(i), offset)
 		if (!Character.isDigit(prop.name[0])) {
 			if (!prop.name.contains("baseclass")) {
-				val netVar = NetVar(name, prop.name, prop.offset)
+				val netVar = NetVarOffset(name, prop.name, prop.offset)
 				netVars.put(hashNetVar(netVar), netVar)
 			}
 
@@ -74,4 +73,4 @@ internal fun nvString(bytes: ByteArray): String {
 
 private fun hashClassAndVar(className: String, varName: String) = className.hashCode() xor varName.hashCode()
 
-private fun hashNetVar(netVar: NetVar) = hashClassAndVar(netVar.className, netVar.varName)
+private fun hashNetVar(netVar: NetVarOffset) = hashClassAndVar(netVar.className, netVar.varName)
