@@ -3,7 +3,8 @@
 package org.abendigo
 
 import org.abendigo.csgo.Client.entities
-import org.abendigo.plugin.csgo.*
+import org.abendigo.plugin.csgo.BunnyHopPlugin
+import org.abendigo.plugin.csgo.ESPPlugin
 import org.abendigo.plugin.enable
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit.SECONDS
@@ -18,5 +19,5 @@ fun main(args: Array<String>) {
 	// enable(RadarPlugin) // bSpotted is being checked by client, do not use
 	enable(ESPPlugin)
 	// enable(AimAssistPlugin)
-	enable(ReducedFlashPlugin)
+	// enable(ReducedFlashPlugin)
 }

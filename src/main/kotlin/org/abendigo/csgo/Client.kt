@@ -9,6 +9,7 @@ val clientDLL by lazy { csgo["client.dll"] }
 object Client {
 
 	val glowObject = cached<Int>(clientDLL, m_dwGlowObject)
+
 	val glowObjectCount = cached<Int>(clientDLL, m_dwGlowObject + 4)
 
 	val entities = initializedCache({ ConcurrentHashMap<Int, Entity>(64) }) {
