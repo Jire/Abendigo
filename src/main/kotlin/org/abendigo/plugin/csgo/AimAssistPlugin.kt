@@ -4,8 +4,8 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.enemies
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
-import org.abendigo.every
 import org.abendigo.plugin.Plugin
+import org.abendigo.plugin.every
 import java.util.concurrent.TimeUnit
 
 object AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Assists your aim at targets") {

@@ -4,8 +4,8 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.Client.players
-import org.abendigo.every
 import org.abendigo.plugin.Plugin
+import org.abendigo.plugin.every
 
 object ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players") {
 

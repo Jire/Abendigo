@@ -3,7 +3,7 @@ package org.abendigo.plugin.csgo
 import org.abendigo.csgo.Me
 import org.abendigo.csgo.csgo
 import org.abendigo.csgo.offsets.m_flFlashMaxAlpha
-import org.abendigo.every
+import org.abendigo.plugin.every
 import org.abendigo.plugin.Plugin
 
 object ReducedFlashPlugin : Plugin("Reduced Flash", author = "Jire", description = "Reduces the effect of flashbangs") {

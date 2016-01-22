@@ -1,7 +1,8 @@
 @file:JvmName("Every")
 
-package org.abendigo
+package org.abendigo.plugin
 
+import org.abendigo.csgo.Engine
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
@@ -16,7 +17,8 @@ inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 	thread {
 		do {
 			try {
-				action()
+				if (+Engine.inGame == 6) // TODO: customizable checks per game
+					action()
 			} catch (t: Throwable) {
 				t.printStackTrace()
 			}

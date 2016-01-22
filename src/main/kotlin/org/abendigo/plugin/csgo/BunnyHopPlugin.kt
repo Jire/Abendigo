@@ -3,9 +3,7 @@ package org.abendigo.plugin.csgo
 import org.abendigo.csgo.Me
 import org.abendigo.csgo.clientDLL
 import org.abendigo.csgo.offsets.m_dwForceJump
-import org.abendigo.every
-import org.abendigo.plugin.Plugin
-import org.abendigo.sleep
+import org.abendigo.plugin.*
 import org.jire.kotmem.Keys
 import java.awt.event.KeyEvent
 
