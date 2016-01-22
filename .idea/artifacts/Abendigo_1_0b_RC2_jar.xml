@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Abendigo-1.0b:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Abendigo_1_0b_jar</output-path>
-    <root id="archive" name="Abendigo-1.0b.jar">
+  <artifact type="jar" build-on-make="true" name="Abendigo-1.0b-RC2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Abendigo_1_0b_RC2_jar</output-path>
+    <root id="archive" name="Abendigo-1.0b-RC2.jar">
       <element id="module-output" name="abendigo" />
       <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.0-beta-4584/96b200cb46deae0cbfc005a2b949e4c3b43e7cf1/kotlin-stdlib-1.0.0-beta-4584.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Jire/kotmem/-SNAPSHOT/a88d0b7de560c255595839254eea2667e95bfde/kotmem--SNAPSHOT.jar" path-in-jar="/" />

@@ -21,8 +21,8 @@
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-4589" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.0.0-beta-4589" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.0-beta-4589" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.Jire:Kotmem:1ffb0da852" level="project" />
     <orderEntry type="library" name="Gradle: net.java.dev.jna:jna:4.2.1" level="project" />
     <orderEntry type="library" name="Gradle: net.java.dev.jna:platform:3.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Jire:Kotmem:1ffb0da852" level="project" />
   </component>
 </module>
