@@ -15,7 +15,11 @@ fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(dur
 inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T) {
 	thread {
 		do {
-			action()
+			try {
+				action()
+			} catch (t: Throwable) {
+				t.printStackTrace()
+			}
 			sleep(duration, timeUnit)
 		} while (!Thread.interrupted())
 	}

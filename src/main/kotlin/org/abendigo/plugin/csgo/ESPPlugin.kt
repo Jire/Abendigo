@@ -1,10 +1,13 @@
 package org.abendigo.plugin.csgo
 
 import org.abendigo.csgo.*
+import org.abendigo.csgo.Client.glowObject
+import org.abendigo.csgo.Client.glowObjectCount
+import org.abendigo.csgo.Client.players
 import org.abendigo.every
 import org.abendigo.plugin.Plugin
 
-class ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players") {
+object ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players") {
 
 	override fun enable() = every(64) {
 		for (glIdx in 0..+glowObjectCount) {

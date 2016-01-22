@@ -1,5 +1,6 @@
 package org.abendigo.csgo
 
+import org.abendigo.csgo.Engine.clientState
 import java.util.concurrent.ThreadLocalRandom
 
 const val SMOOTHING = 9F

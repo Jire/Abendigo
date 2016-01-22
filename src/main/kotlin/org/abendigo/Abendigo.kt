@@ -2,9 +2,9 @@
 
 package org.abendigo
 
-import org.abendigo.csgo.entities
-import org.abendigo.plugin.csgo.BunnyHopPlugin
-import org.abendigo.plugin.csgo.ESPPlugin
+import org.abendigo.csgo.Client.entities
+import org.abendigo.plugin.csgo.*
+import org.abendigo.plugin.enable
 import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -14,8 +14,9 @@ fun main(args: Array<String>) {
 	every(4, SECONDS) { +entities }
 
 	// TODO make a proper plugin system
-	BunnyHopPlugin().enable()
-	//RadarPlugin().enable() // bSpotted is being checked by client, do not use
-	ESPPlugin().enable()
-	// AimAssistPlugin().enable()
+	enable(BunnyHopPlugin)
+	// enable(RadarPlugin) // bSpotted is being checked by client, do not use
+	enable(ESPPlugin)
+	// enable(AimAssistPlugin)
+	enable(ReducedFlashPlugin)
 }

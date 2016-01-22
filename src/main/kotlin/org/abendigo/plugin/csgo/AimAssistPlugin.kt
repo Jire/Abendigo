@@ -1,12 +1,14 @@
 package org.abendigo.plugin.csgo
 
 import org.abendigo.csgo.*
+import org.abendigo.csgo.Client.enemies
+import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
 import org.abendigo.every
 import org.abendigo.plugin.Plugin
 import java.util.concurrent.TimeUnit
 
-class AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Assists your aim at targets") {
+object AimAssistPlugin : Plugin("Aim Assist", author = "Jire", description = "Assists your aim at targets") {
 
 	private val TARGET_BONE = 6
 
