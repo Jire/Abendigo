@@ -27,7 +27,10 @@ object Client {
 					// TODO check via CS:GO class ID
 					val player = Player(entity)
 					if (myTeam == entityTeam) team.put(i, player)
-					else enemies.put(i, player)
+					else {
+						enemies.put(i, player)
+						println("Enemies now has $i")
+					}
 				}
 			}
 		}

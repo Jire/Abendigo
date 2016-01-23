@@ -1,5 +1,7 @@
 package org.abendigo.csgo.offsets
 
+import java.io.File
+import java.nio.file.Files
 import java.util.*
 import kotlin.reflect.KProperty
 
@@ -26,23 +28,23 @@ private val netVars by lazy {
 	}
 
 	// dumps to file
-	/*val builder = StringBuilder()
+	val builder = StringBuilder()
 	for ((hash, nv) in map) builder.append("$nv\n")
-	Files.write(File("netvars.txt").toPath(), builder.toString().toByteArray())*/
+	Files.write(File("netvars.txt").toPath(), builder.toString().toByteArray())
 
 	println("Took ${System.currentTimeMillis() - stamp}ms to scan ${map.size} netvars")
 	Collections.unmodifiableMap(map)
 }
 
-class LazyNetVar(val className: String, var varName: String?, val offset: Int) {
+open class NetVarDelegate(val className: String, var varName: String?, val offset: Int, val index: Int = -1) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-		if (varName == null) varName = property.name
+		if (varName == null) varName = property.name + if (index < 0) "" else "[$index]"
 		return netVars[hashClassAndVar(className, varName!!)]!!.offset + offset
 	}
 }
 
 fun netVar(className: String, varName: String? = null, offset: Int = 0, index: Int = -1)
-		= LazyNetVar(className, if (index >= 0) "$varName[$index]" else varName, offset)
+		= NetVarDelegate(className, if (varName != null && index >= 0) "$varName[$index]" else varName, offset, index)
 
 fun bpNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 		= netVar("DT_BasePlayer", varName, offset, index)

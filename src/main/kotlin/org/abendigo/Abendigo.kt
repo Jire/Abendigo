@@ -3,8 +3,7 @@
 package org.abendigo
 
 import org.abendigo.csgo.Client.entities
-import org.abendigo.plugin.csgo.BunnyHopPlugin
-import org.abendigo.plugin.csgo.ESPPlugin
+import org.abendigo.plugin.csgo.*
 import org.abendigo.plugin.enable
 import org.abendigo.plugin.every
 import java.lang.management.ManagementFactory
@@ -19,7 +18,7 @@ fun main(args: Array<String>) {
 	enable(BunnyHopPlugin)
 	// enable(RadarPlugin) // bSpotted is being checked by client, do not use
 	enable(ESPPlugin)
-	// enable(AimAssistPlugin)
+	enable(AimAssistPlugin)
 	// enable(ReducedFlashPlugin)
 	// enable(TriggerBotPlugin)
 }
