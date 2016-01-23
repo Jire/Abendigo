@@ -3,7 +3,8 @@
 package org.abendigo
 
 import org.abendigo.csgo.Client.entities
-import org.abendigo.plugin.csgo.*
+import org.abendigo.plugin.csgo.BunnyHopPlugin
+import org.abendigo.plugin.csgo.ESPPlugin
 import org.abendigo.plugin.enable
 import org.abendigo.plugin.every
 import java.lang.management.ManagementFactory
@@ -20,5 +21,5 @@ fun main(args: Array<String>) {
 	enable(ESPPlugin)
 	// enable(AimAssistPlugin)
 	// enable(ReducedFlashPlugin)
-	enable(TriggerBotPlugin)
+	// enable(TriggerBotPlugin)
 }
