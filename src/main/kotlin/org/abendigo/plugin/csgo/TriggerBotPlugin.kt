@@ -12,7 +12,7 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", author = "Jire",
 	override fun cycle() {
 		for ((i, e) in enemies) if (e.address == Me.targetAddress(32)) {
 			clientDLL.set(m_dwForceAttack, 5.toByte())
-			sleep(32)
+			sleep(32) // 32 = snipers, 128 = overshoot for automatic weapons
 			clientDLL.set(m_dwForceAttack, 4.toByte())
 		}
 	}
