@@ -9,6 +9,7 @@ abstract class InGamePlugin(name: String, version: String = "1.0", author: Strin
 : CyclePlugin(name, version, author, description, duration, durationUnit) {
 
 	override fun enable() = every(duration, durationUnit) {
+		// TODO
 		/*val inGame = engineDLL.get<Int>(m_dwInGame)//+Engine.inGame
 		if (inGame == 6)*/
 			cycle()
