@@ -34,17 +34,17 @@ data class Offset(val module: Module, val patternOffset: Int, val addressOffset:
 
 }
 
-fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, values: ByteArray)
+fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, values: ByteArray)
 		= Offset(module, patternOffset, addressOffset, flags, values)
 
-fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, vararg values: Int)
-		= offset(module, patternOffset, addressOffset, flags, toByteArray(*values))
+fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, vararg values: Int)
+		= scanOffset(module, patternOffset, addressOffset, flags, toByteArray(*values))
 
-fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, value: Int)
-		= offset(module, patternOffset, addressOffset, flags, toByteArray(value))
+fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, value: Int)
+		= scanOffset(module, patternOffset, addressOffset, flags, toByteArray(value))
 
-fun offset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String)
-		= offset(module, patternOffset, addressOffset, flags, className.toByteArray())
+fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String)
+		= scanOffset(module, patternOffset, addressOffset, flags, className.toByteArray())
 
 internal fun checkMask(data: NativeBuffer, offset: Int, pMask: ByteArray): Boolean {
 	for (i in pMask.indices)

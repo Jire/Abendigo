@@ -10,6 +10,8 @@ object Engine {
 
 	val clientState = cached { ClientState(engineDLL.get(m_dwClientState)) }
 
-	val inGame = cached<Int>(engineDLL, m_dwInGame)
+	//val inGame = cached<Int>(engineDLL, m_dwInGame)
+
+	val inGame = cached { engineDLL.get<Int>(m_dwInGame) }
 
 }

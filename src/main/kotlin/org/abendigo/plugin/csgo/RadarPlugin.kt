@@ -1,13 +1,11 @@
 package org.abendigo.plugin.csgo
 
-import org.abendigo.csgo.Client.enemies
-import org.abendigo.plugin.Plugin
-import org.abendigo.plugin.every
+import org.abendigo.csgo.Client
 
-object RadarPlugin : Plugin("Radar", author = "Jire", description = "Shows enemies on the radar") {
+object RadarPlugin : InGamePlugin("Radar", author = "Jire", description = "Shows enemies on the radar", duration = 8) {
 
-	override fun enable() = every(8) {
-		for ((i, e) in enemies) if (!+e.spotted) e.spotted[true]
+	override fun cycle() {
+		for ((i, e) in Client.enemies) if (!+e.spotted) e.spotted[true]
 	}
 
 }

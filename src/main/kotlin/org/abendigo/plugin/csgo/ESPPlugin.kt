@@ -4,12 +4,10 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.Client.players
-import org.abendigo.plugin.Plugin
-import org.abendigo.plugin.every
 
-object ESPPlugin : Plugin("ESP", author = "Jire", description = "Outlines players") {
+object ESPPlugin : InGamePlugin("ESP", author = "Jire", description = "Outlines players", duration = 64) {
 
-	override fun enable() = every(64) {
+	override fun cycle() {
 		for (glIdx in 0..+glowObjectCount) {
 			val glOffset: Int = glowObject(64) + (glIdx * GLOW_OBJECT_SIZE)
 			val glOwner = csgo.get<Int>(glOffset)

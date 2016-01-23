@@ -18,6 +18,6 @@ inline fun <reified T : Any> cached(address: Int, offset: Int = 0)
 inline fun <reified T : Any> cached(address: Long, offset: Int = 0): Cached<T> = cached(address.toInt(), offset)
 
 inline fun <reified T : Any> cached(module: Module, offset: Int = 0)
-		= Cached<T>({ module.get(offset) }, { module.set(offset, it) })
+		= Cached<T>({ module.get<T>(offset) }, { module.set<T>(offset, it) })
 
 inline fun <reified T : Any> Addressable.cached(offset: Int = 0): Cached<T> = cached(this.address, offset)
