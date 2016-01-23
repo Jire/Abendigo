@@ -36,11 +36,13 @@ private val netVars by lazy {
 	Collections.unmodifiableMap(map)
 }
 
-open class NetVarDelegate(val className: String, var varName: String?, val offset: Int, val index: Int = -1) {
+class NetVarDelegate(val className: String, var varName: String?, val offset: Int, val index: Int = -1) {
+
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
 		if (varName == null) varName = property.name + if (index < 0) "" else "[$index]"
 		return netVars[hashClassAndVar(className, varName!!)]!!.offset + offset
 	}
+
 }
 
 fun netVar(className: String, varName: String? = null, offset: Int = 0, index: Int = -1)

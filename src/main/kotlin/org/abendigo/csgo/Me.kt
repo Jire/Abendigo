@@ -6,7 +6,7 @@ import org.abendigo.csgo.offsets.*
 
 object Me : Cached<Player>({
 	val address: Int = clientDLL.get(m_dwLocalPlayer)
-	val index = /*client.get<Int>(address + m_dwIndex) - 1*/0 // TODO: can use me-specific index offset
+	val index = csgo.get<Int>(address + m_dwIndex) - 1
 	Player(address, index)
 }) {
 

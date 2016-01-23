@@ -21,8 +21,8 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", author = "Jire", description
 		if (shotsFired > 1 && shotsFired >= prevFired) {
 			var targetAddress = +Me.targetAddress
 			if (targetAddress <= 0) return
-			var targetIndex = csgo.get<Int>(targetAddress + m_dwIndex)
-			var target = Client.enemies[targetIndex]!!
+			var targetIndex = csgo.get<Int>(targetAddress + m_dwIndex) - 1
+			var target = try { Client.enemies[targetIndex]!! } catch (t: Throwable) { return }
 			var shots = 0
 
 			while (!+Me().dead) {
