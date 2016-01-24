@@ -36,7 +36,7 @@ fun angleSmooth(source: Vector2<Float>, target: Vector2<Float>) {
 		(+clientState).angle(Vector2(pitch, yaw))
 }
 
-fun calculateAngle(source: Player, target: Vector3<Float>): Vector3<Float> {
+fun calculateAngle(source: Player, target: Vector3<Float>): Vector2<Float> {
 	val sourcePunch = +source.position
 	val pitchReduction = rndFloat(PITCH_MIN_PUNCH, PITCH_MAX_PUNCH)
 	val yawReduction = rndFloat(YAW_MIN_PUNCH, YAW_MAX_PUNCH)
@@ -46,7 +46,23 @@ fun calculateAngle(source: Player, target: Vector3<Float>): Vector3<Float> {
 	val hyp = Math.sqrt(deltaPitch.toDouble() * deltaPitch + deltaYaw * deltaYaw)
 	val pitch = Math.atan(deltaRoll / hyp) * (180 / Math.PI) - sourcePunch[0] * pitchReduction
 	var yaw = Math.atan(deltaYaw.toDouble() / deltaPitch) * (180 / Math.PI) - sourcePunch[1] * yawReduction
-	val roll = 0F
+	//val roll = 0F
 	if (deltaPitch >= 0.0) yaw += 180.0
-	return Vector3(pitch.toFloat(), yaw.toFloat(), roll)
+	return Vector2(pitch.toFloat(), yaw.toFloat()/*, roll*/)
+}
+
+fun clampAngle(angle: Vector2<Float>): Vector2<Float> {
+	var a = angle.a
+	var b = angle.b
+
+	if (!a.isFinite()) a = 0F
+	if (!b.isFinite()) b = 0F
+
+	while (b < -180F) b += 360F
+	while (b > 180F) b -= 360F
+
+	if (a > 89F) a = 89F
+	if (a < -89F) a = -89F
+
+	return Vector2(a, b)
 }

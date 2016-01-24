@@ -19,4 +19,12 @@ object Me : Cached<Player>({
 		if (crosshairID > /*=*/ 0) clientDLL.get(m_dwEntityList + (crosshairID * ENTITY_SIZE)) else -1
 	}
 
+	@JvmStatic fun punch(): Vector2<Float> {
+		val a = csgo.get<Float>(this().address + m_vecPunch)
+		val b = csgo.get<Float>(this().address + m_vecPunch + 4)
+		val vector = Vector2(a, b)
+		println("Punch $vector")
+		return vector
+	}
+
 }
