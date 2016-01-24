@@ -21,4 +21,5 @@ fun main(args: Array<String>) {
 	enable(AimAssistPlugin)
 	// enable(ReducedFlashPlugin)
 	// enable(TriggerBotPlugin)
+	enable(RCSPlugin)
 }

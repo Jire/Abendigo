@@ -1,6 +1,7 @@
 package org.abendigo.plugin.csgo
 
 import org.abendigo.csgo.*
+import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
 import java.util.concurrent.TimeUnit
 
@@ -22,10 +23,14 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", author = "Jire", description
 			var targetAddress = +Me.targetAddress
 			if (targetAddress <= 0) return
 			var targetIndex = csgo.get<Int>(targetAddress + m_dwIndex) - 1
-			var target = try { Client.enemies[targetIndex]!! } catch (t: Throwable) { return }
+			var target = try {
+				Client.enemies[targetIndex]!!
+			} catch (t: Throwable) {
+				return
+			}
 			var shots = 0
 
-			while (!+Me().dead) {
+			/*while*/ if (!+Me().dead) {
 				shots = +Me().shotsFired
 				if (shots < prevFired) return
 				if (+target.dead || !+target.spotted) return
@@ -33,12 +38,12 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", author = "Jire", description
 				val myPosition = +Me().position
 				var position = target.bonePosition(TARGET_BONE)
 				position = compensateVelocity(Me(), target, position)
-				val aim = calculateAngle(Me(), position)
-				// normalizeAngle(aim)
-				val angle = Engine.clientState(8, TimeUnit.SECONDS).angle(+Me().punch)
+				val aim = clampAngle(calculateAngle(Me(), position))
+				val angle = clampAngle(clientState(4, TimeUnit.SECONDS).angle())
+				//clientState(4, TimeUnit.SECONDS).angle(+Me().punch)
 				// normalizeAngle(angle)
 				//angleSmooth()
-				//angleSmooth(angle, aim)
+				angleSmooth(angle, aim)
 			}
 		}
 	}
