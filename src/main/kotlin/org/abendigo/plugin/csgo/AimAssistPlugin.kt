@@ -3,9 +3,11 @@ package org.abendigo.plugin.csgo
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
+import org.abendigo.plugin.PluginInfo
 import java.util.concurrent.TimeUnit
 
-object AimAssistPlugin : InGamePlugin("Aim Assist", author = "Jire", description = "Assists your aim at targets", duration = 8) {
+object AimAssistPlugin : InGamePlugin(PluginInfo("Aim Assist", author = "Jire",
+		description = "Assists your aim at targets"), duration = 8) {
 
 	private val TARGET_BONE = 6
 
