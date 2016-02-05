@@ -8,10 +8,10 @@ val engineDLL by lazy { csgo["engine.dll"] }
 
 object Engine {
 
-	val clientState = cached { ClientState(engineDLL.get(m_dwClientState)) }
+	val clientState = cached { ClientState(engineDLL[m_dwClientState]) }
 
 	//val inGame = cached<Int>(engineDLL, m_dwInGame)
 
-	val inGame = cached { engineDLL.get<Int>(m_dwInGame) }
+	val inGame = cached<Int> { engineDLL[m_dwInGame] }
 
 }

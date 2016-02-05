@@ -20,8 +20,8 @@ class ClientState(override val address: Int) : Addressable {
 	}*/
 
 	fun angle(angle: Vector2<Float>) {
-		csgo.set(address + m_dwViewAngles, angle[0])
-		csgo.set(address + m_dwViewAngles + 4, angle[1])
+		csgo[address + m_dwViewAngles] = angle[0]
+		csgo[address + m_dwViewAngles + 4] = angle[1]
 	}
 
 }

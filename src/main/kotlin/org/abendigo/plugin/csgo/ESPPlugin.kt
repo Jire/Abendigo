@@ -5,12 +5,15 @@ import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.Client.players
 
-object ESPPlugin : InGamePlugin("ESP", author = "Jire", description = "Outlines players", duration = 64) {
+object ESPPlugin : InGamePlugin("ESP", duration = 64) {
+
+	override val author = "Jire"
+	override val description = "Outlines players"
 
 	override fun cycle() {
 		for (glIdx in 0..+glowObjectCount) {
 			val glOffset: Int = glowObject(64) + (glIdx * GLOW_OBJECT_SIZE)
-			val glOwner = csgo.get<Int>(glOffset)
+			val glOwner: Int = csgo[glOffset]
 			if (glOwner <= 0) continue
 			for ((i, p) in players) {
 				if (glOwner != p.address || p.dead(8)) continue
@@ -32,12 +35,12 @@ object ESPPlugin : InGamePlugin("ESP", author = "Jire", description = "Outlines 
 					alpha = 0.45F
 				}
 
-				csgo.set(glOffset + 0x4, red)
-				csgo.set(glOffset + 0x8, green)
-				csgo.set(glOffset + 0xC, blue)
-				csgo.set(glOffset + 0x10, alpha)
-				csgo.set(glOffset + 0x24, true)
-				csgo.set(glOffset + 0x25, false)
+				csgo[glOffset + 0x4] = red
+				csgo[glOffset + 0x8] = green
+				csgo[glOffset + 0xC] = blue
+				csgo[glOffset + 0x10] = alpha
+				csgo[glOffset + 0x24] = true
+				csgo[glOffset + 0x25] = false
 			}
 		}
 	}

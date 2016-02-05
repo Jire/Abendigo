@@ -3,8 +3,10 @@ package org.abendigo.plugin.csgo
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Engine.clientState
 
-object RCSPlugin : InGamePlugin(name = "Recoil Control System", author = "Jire",
-		description = "Controls your recoil", duration = 32) {
+object RCSPlugin : InGamePlugin(name = "Recoil Control System", duration = 32) {
+
+	override val author = "Jire"
+	override val description = "Controls your recoil"
 
 	const val r3 = 2F
 

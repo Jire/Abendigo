@@ -8,16 +8,16 @@ class RecvProp(val address: Int, val addressOffset: Int) {
 
 	val name by lazy {
 		val bytes = ByteArray(64)
-		csgo.get(csgo.get<Int>(address), bytes.size).bytes(bytes)
+		csgo[csgo.get<Int>(address), bytes.size].bytes(bytes)
 		nvString(bytes)
 	}
 
 	val offset by lazy { addressOffset + csgo.get<Int>(address + 0x2C) }
 
-	val type by lazy<Int> { csgo.get(address + 0x4) }
+	val type by lazy<Int> { csgo[address + 0x4] }
 
-	val elements by lazy<Int> { csgo.get(address + 0x34) }
+	val elements by lazy<Int> { csgo[address + 0x34] }
 
-	val stringBufferCount by lazy<Int> { csgo.get(address + 0xC) }
+	val stringBufferCount by lazy<Int> { csgo[address + 0xC] }
 
 }

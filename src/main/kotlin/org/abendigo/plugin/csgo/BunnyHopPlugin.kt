@@ -7,13 +7,16 @@ import org.abendigo.plugin.sleep
 import org.jire.kotmem.Keys
 import java.awt.event.KeyEvent
 
-object BunnyHopPlugin : InGamePlugin("Bunny Hop", author = "Jire", description = "Jumps the player around", duration = 8) {
-	
+object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
+
+	override val author = "Jire"
+	override val description = "Jumps the player around"
+
 	override fun cycle() {
 		if (Keys[KeyEvent.VK_SPACE] && +Me.flags % 2 == 1) {
-			clientDLL.set(m_dwForceJump, 5)
+			clientDLL[m_dwForceJump] = 5
 			sleep(32)
-			clientDLL.set(m_dwForceJump, 4)
+			clientDLL[m_dwForceJump] = 4
 			sleep(32 - 8)
 		}
 	}

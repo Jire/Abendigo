@@ -9,12 +9,12 @@ class Player(address: Int, id: Int) : Entity(address, id) {
 
 	val team = cached<Int>(m_iTeamNum)
 
-	val punch = cached { Vector2<Float>(csgo.get(address + m_vecPunch), csgo.get(address + m_vecPunch + 4)) }
+	val punch = cached { Vector2<Float>(csgo[address + m_vecPunch], csgo[address + m_vecPunch + 4]) }
 
 	val shotsFired = cached<Int>(m_iShotsFired)
 
 	val viewOrigin = cached { Vector3(viewOriginNode(0), viewOriginNode(4), viewOriginNode(8)) }
 
-	private fun viewOriginNode(offset: Int): Float = csgo.get(address + m_vecViewOffset)
+	private fun viewOriginNode(offset: Int): Float = csgo[address + m_vecViewOffset]
 
 }

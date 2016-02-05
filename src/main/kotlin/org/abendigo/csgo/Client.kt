@@ -18,11 +18,11 @@ object Client {
 		enemies.clear()
 		val myTeam = +Me().team
 		for (i in 0..+glowObjectCount - 1) {
-			val address: Int = clientDLL.get(m_dwEntityList + (i * ENTITY_SIZE))
+			val address: Int = clientDLL[m_dwEntityList + (i * ENTITY_SIZE)]
 			if (Me().address != address && address > 0) {
 				val entity = Entity(address, i)
 				put(i, entity)
-				val entityTeam: Int = csgo.get(address + m_iTeamNum)
+				val entityTeam: Int = csgo[address + m_iTeamNum]
 				if (entityTeam == 2 || entityTeam == 3) {
 					// TODO check via CS:GO class ID
 					val player = Player(entity)

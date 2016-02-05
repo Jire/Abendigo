@@ -1,7 +1,5 @@
 package org.abendigo.csgo.offsets
 
-import java.io.File
-import java.nio.file.Files
 import java.util.*
 import kotlin.reflect.KProperty
 
@@ -28,9 +26,9 @@ private val netVars by lazy {
 	}
 
 	// dumps to file
-	val builder = StringBuilder()
+	/*val builder = StringBuilder()
 	for ((hash, nv) in map) builder.append("$nv\n")
-	Files.write(File("netvars.txt").toPath(), builder.toString().toByteArray())
+	Files.write(File("netvars.txt").toPath(), builder.toString().toByteArray())*/
 
 	println("Took ${System.currentTimeMillis() - stamp}ms to scan ${map.size} netvars")
 	Collections.unmodifiableMap(map)
