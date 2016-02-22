@@ -1,5 +1,7 @@
 package org.abendigo.csgo
 
+import org.abendigo.csgo.GameState.NONE
+
 enum class GameState(val id: Int) {
 
 	NONE(0),
@@ -12,3 +14,7 @@ enum class GameState(val id: Int) {
 	CHANGING_LEVEL(7)
 
 }
+
+private val gameStates = GameState.values()
+
+fun gameState(id: Int) = if (id <= gameStates.size) gameStates[id] else NONE

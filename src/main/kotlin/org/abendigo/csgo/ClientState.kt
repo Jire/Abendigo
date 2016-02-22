@@ -1,9 +1,12 @@
 package org.abendigo.csgo
 
 import org.abendigo.Addressable
+import org.abendigo.csgo.offsets.m_dwInGame
 import org.abendigo.csgo.offsets.m_dwViewAngles
 
 class ClientState(override val address: Int) : Addressable {
+
+	fun gameState() = gameState(csgo[address + m_dwInGame])
 
 	fun angle(): Vector2<Float> {
 		val a = csgo.get<Float>(address + m_dwViewAngles)
