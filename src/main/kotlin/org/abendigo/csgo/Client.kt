@@ -2,7 +2,7 @@ package org.abendigo.csgo
 
 import org.abendigo.cached.initializedCache
 import org.abendigo.csgo.offsets.*
-import java.util.concurrent.ConcurrentHashMap
+import java.util.*
 
 val clientDLL by lazy { csgo["client.dll"] }
 
@@ -12,7 +12,7 @@ object Client {
 
 	val glowObjectCount = cached<Int>(clientDLL, m_dwGlowObject + 4)
 
-	val entities = initializedCache({ ConcurrentHashMap<Int, Entity>(64) }) {
+	val entities = initializedCache({ HashMap<Int, Entity>(64) }) {
 		players.clear()
 		team.clear()
 		enemies.clear()
@@ -35,8 +35,8 @@ object Client {
 		players.putAll(enemies)
 	}
 
-	val players = ConcurrentHashMap<Int, Player>()
-	val team = ConcurrentHashMap<Int, Player>()
-	val enemies = ConcurrentHashMap<Int, Player>()
+	val players = HashMap<Int, Player>()
+	val team = HashMap<Int, Player>()
+	val enemies = HashMap<Int, Player>()
 
 }

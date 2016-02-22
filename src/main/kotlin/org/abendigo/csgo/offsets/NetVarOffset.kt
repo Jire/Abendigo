@@ -58,7 +58,7 @@ fun cspNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 fun bcwNetVar(varName: String? = null, offset: Int = 0, index: Int = -1)
 		= netVar("DT_BaseCombatWeapon", varName, offset, index)
 
-internal fun scanTable(netVars: HashMap<Int, NetVarOffset>, table: RecvTable, offset: Int, name: String) {
+internal fun scanTable(netVars: MutableMap<Int, NetVarOffset>, table: RecvTable, offset: Int, name: String) {
 	for (i in 0..table.propCount - 1) {
 		val prop = RecvProp(table.propForId(i), offset)
 		if (!Character.isDigit(prop.name[0])) {
