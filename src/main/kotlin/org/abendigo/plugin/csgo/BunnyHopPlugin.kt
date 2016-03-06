@@ -17,7 +17,7 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 			clientDLL[m_dwForceJump] = 5
 			sleep(32)
 			clientDLL[m_dwForceJump] = 4
-			sleep(32 - 8)
+			sleep(32 - duration)
 		}
 	}
 
