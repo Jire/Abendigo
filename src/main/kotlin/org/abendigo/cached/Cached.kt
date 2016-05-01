@@ -1,13 +1,14 @@
 package org.abendigo.cached
 
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicLong
 
 open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)? = null) {
 
 	@Volatile private var value: T? = null
 	@Volatile private var previous: T? = null
 
-	@Volatile private var updateStamp: Long = 0L
+	private val updateStamp = AtomicLong(0)
 
 	@JvmName("get")
 	operator fun invoke(): T = if (value != null) value!! else +this
@@ -23,11 +24,11 @@ open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)?
 	operator fun unaryPlus(): T {
 		previous = value
 		value = update()
-		updateStamp = System.nanoTime()
+		updateStamp.set(System.nanoTime())
 		return value!!
 	}
 
-	fun lastUpdate() = System.nanoTime() - updateStamp
+	fun lastUpdate() = System.nanoTime() - updateStamp.get()
 
 	@JvmOverloads
 	fun updatedSince(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS)
