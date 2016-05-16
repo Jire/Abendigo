@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/Jire/Abendigo.svg?branch=master)](https://travis-ci.org/Jire/Abendigo) [![Kotlin](https://img.shields.io/badge/kotlin-1.0.1-blue.svg)](http://kotlinlang.org) [![license](https://img.shields.io/badge/license-GPL%203.0-yellowgreen.svg)](https://github.com/Jire/Abendigo/blob/master/LICENSE) [![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
+[![Build Status](https://travis-ci.org/Jire/Abendigo.svg?branch=master)](https://travis-ci.org/Jire/Abendigo)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.0.2-blue.svg)](http://kotlinlang.org)
+[![license](https://img.shields.io/badge/license-GPL%203.0-yellowgreen.svg)](https://github.com/Jire/Abendigo/blob/master/LICENSE)
+[![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
 # Abendigo
 Free and open-source game modding platform using the JVM. You can visit our community here: https://abendigo.org
 
