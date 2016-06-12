@@ -6,6 +6,6 @@ import org.abendigo.csgo.offsets.m_iClip1
 
 open class Weapon(override val address: Int, val index: Int, val id: Int, val base: Int) : Addressable {
 
-	val bullets = cached<Int> { csgo[base + m_iClip1] }
+	val bullets = cached { if (base > 0) csgo[base + m_iClip1] else Int.MAX_VALUE }
 
 }

@@ -24,13 +24,13 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 
 	override fun cycle() {
 		val shotsFired = +Me().shotsFired
-		if (shotsFired < 1 || shotsFired < prevFired) {
+		val weapon = +Me.weapon
+		val bulletsLeft = +weapon.bullets
+		if (shotsFired < 1 || shotsFired < prevFired || bulletsLeft <= 0) {
 			prevFired = 0
 			target = null
 			return
 		}
-
-		// TODO check weapon (for example, weapon ID and remaining ammo)
 
 		if (target == null) {
 			val targetAddress = +Me.targetAddress

@@ -12,24 +12,30 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 	override val author = "Jire"
 	override val description = "Fires when your crosshair is on an enemy"
 
-	private val MIN_DELAY = duration
-	private val MAX_DELAY = duration * 4
+	private const val MIN_SCOPE_DURATION = 64
+	private const val MAX_SCOPE_DURATION = 160
+
+	private var scopeDuration = 0
 
 	override fun cycle() {
-		if (!+Me.inScope) return
-
-		try {
-			val weapon = +Me.weapon
-			val weaponID = +weapon.id
-			if (weaponID != 9 || weaponID != 40) return
-		} catch (t: Throwable) {
-			// sometimes it fails to read weapon
+		val scoped = +Me.inScope
+		if (!scoped) {
+			scopeDuration = 0
+			return
 		}
 
+		scopeDuration += duration
+		if (scopeDuration < random(MIN_SCOPE_DURATION, MAX_SCOPE_DURATION)) return
+
+		val weapon = +Me.weapon
+		val weaponID = +weapon.id
+		if (weaponID != 9 && weaponID != 40) return
+
 		for ((i, e) in enemies) if (e.address == +Me.targetAddress) {
-			sleep(random(MIN_DELAY, MAX_DELAY))
+			val spotted = +e.spotted
+			sleep(random(duration, if (spotted) duration * 3 else duration * 6))
 			clientDLL[m_dwForceAttack] = 5.toByte()
-			sleep(random(MIN_DELAY / 2, MAX_DELAY / 2))
+			sleep(random(duration / 2, duration * 2))
 			clientDLL[m_dwForceAttack] = 4.toByte()
 		}
 	}

@@ -31,19 +31,13 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 	private var lastAim = 0L
 
 	override fun cycle() {
-
-
 		val elapsedTime = currentTimeMillis() - lastAim
 		if (elapsedTime < random(MIN_ELAPSED, MAX_ELAPSED)) return
 
-		try {
-			val weapon = +Me.weapon
-			val weaponID = +weapon.id
-			if (weaponID == 42 || weaponID == 9 || weaponID == 40
-					|| weaponID == 11 || weaponID == 38) return
-		} catch (t: Throwable) {
-			// sometimes it fails to read weapon
-		}
+		val weapon = +Me.weapon
+		val weaponID = weapon.id
+		if (weaponID == 42 || weaponID == 9 || weaponID == 40
+				|| weaponID == 11 || weaponID == 38) return
 
 		if (target == null) {
 			val targetAddress = +Me.targetAddress

@@ -29,11 +29,11 @@ fun main(args: Array<String>) {
 	every(2, SECONDS) { +entities }
 
 	// TODO make a proper plugin system
-	enable(BunnyHopPlugin) // is very fast and can look not legit if you don't manually fail jumps
+	enable(BunnyHopPlugin)
 	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
 	enable(ESPPlugin)
 	enable(SprayAssistPlugin)
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
-	enable(TriggerBotPlugin) // trigger doesn't look legit, be careful using
+	enable(TriggerBotPlugin)
 	enable(AimAssistPlugin)
 }

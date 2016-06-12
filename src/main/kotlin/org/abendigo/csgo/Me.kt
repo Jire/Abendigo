@@ -26,11 +26,12 @@ object Me : Cached<Player>({
 		val address: Int = csgo[this().address + m_hActiveWeapon]
 		val index = address and 0xFFF
 		val base: Int = clientDLL[m_dwEntityList + (index - 1) * ENTITY_SIZE]
-		val id: Int = csgo[base + m_iWeaponID]
+		var id = 42
+		if (base > 0) id = csgo[base + m_iWeaponID]
 		Weapon(address, index, id, base)
 	}
 
-	val inScope = cached<Boolean> {
+	val inScope = cached {
 		val scoped: Byte = csgo[this().address + m_bIsScoped]
 		scoped > 0
 	}
