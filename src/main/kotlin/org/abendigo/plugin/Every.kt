@@ -3,16 +3,17 @@
 package org.abendigo.plugin
 
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.concurrent.thread
 
 @JvmOverloads
-fun sleep(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = Thread.sleep(timeUnit.toMillis(duration))
+fun sleep(duration: Long, timeUnit: TimeUnit = MILLISECONDS) = Thread.sleep(timeUnit.toMillis(duration))
 
 @JvmOverloads
-fun sleep(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) = sleep(duration.toLong(), timeUnit)
+fun sleep(duration: Int, timeUnit: TimeUnit = MILLISECONDS) = sleep(duration.toLong(), timeUnit)
 
 @JvmOverloads
-inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T) {
+inline fun <T> every(duration: Long, timeUnit: TimeUnit = MILLISECONDS, crossinline action: () -> T) {
 	thread {
 		do {
 			try {
@@ -26,5 +27,5 @@ inline fun <T> every(duration: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 }
 
 @JvmOverloads
-inline fun <T> every(duration: Int, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, crossinline action: () -> T): Unit
+inline fun <T> every(duration: Int, timeUnit: TimeUnit = MILLISECONDS, crossinline action: () -> T): Unit
 		= every(duration.toLong(), timeUnit, action)

@@ -55,7 +55,8 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 		val myPosition = +Me().position
 
 		compensateVelocity(Me(), target!!, enemyPosition, randomFloat(SMOOTHING_MIN, SMOOTHING_MAX))
-		calculateAngle(Me(), myPosition, enemyPosition, aim)
+
+		calculateAngle(Me(), myPosition, enemyPosition, aim.reset())
 		normalizeAngle(aim)
 
 		val angle = clientState(1024).angle()

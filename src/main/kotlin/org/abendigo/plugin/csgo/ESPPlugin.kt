@@ -30,7 +30,7 @@ object ESPPlugin : InGamePlugin("ESP", duration = 64) {
 					red = 0F
 					blue = 255F
 				} else if (p.address == Me.targetAddress(duration)) green = 215F
-				else if (p.dormant(duration)) {
+				else if (p.dormant(duration - 1)) {
 					blue = 255F
 					green = 255F
 					alpha = 0.45F
