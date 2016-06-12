@@ -3,8 +3,7 @@
 package org.abendigo
 
 import org.abendigo.csgo.Client.entities
-import org.abendigo.plugin.csgo.BunnyHopPlugin
-import org.abendigo.plugin.csgo.ESPPlugin
+import org.abendigo.plugin.csgo.*
 import org.abendigo.plugin.enable
 import org.abendigo.plugin.every
 import java.lang.management.ManagementFactory
@@ -16,11 +15,11 @@ fun main(args: Array<String>) {
 	every(2, SECONDS) { +entities }
 
 	// TODO make a proper plugin system
-	enable(BunnyHopPlugin)
-	// enable(RadarPlugin) // bSpotted is being checked by client, do not use
+	enable(BunnyHopPlugin) // is very fast and can look not legit if you don't manually fail jumps
+	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
 	enable(ESPPlugin)
-	// enable(AimAssistPlugin)
-	// enable(ReducedFlashPlugin)
-	// enable(TriggerBotPlugin)
-	// enable(RCSPlugin)
+	enable(AimAssistPlugin)
+	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
+	// enable(TriggerBotPlugin) // trigger doesn't look legit, be careful using
+	enable(PistolAssistPlugin)
 }

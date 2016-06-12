@@ -1,68 +1,77 @@
 package org.abendigo.csgo
 
 import org.abendigo.csgo.Engine.clientState
+import org.abendigo.util.randomFloat
+import java.lang.Float.NaN
+import java.lang.Math.atan
+import java.lang.Math.sqrt
 import java.util.concurrent.ThreadLocalRandom
 
-const val SMOOTHING = 9F
-const val SMOOTHING_FACTOR = 40 / SMOOTHING
-
-const val PITCH_MIN_PUNCH = 1.7F
-const val PITCH_MAX_PUNCH = 2.5F
+const val PITCH_MIN_PUNCH = 1F
+const val PITCH_MAX_PUNCH = 3F
 
 const val YAW_MIN_PUNCH = 1.7F
 const val YAW_MAX_PUNCH = 2.5F
 
-fun compensateVelocity(source: Player, target: Entity, pos: Vector3<Float>): Vector3<Float> {
-	val sv = +source.velocity
-	val tv = +target.velocity
-	var x = pos[0] + (tv[0] / 100) * SMOOTHING_FACTOR
-	var y = pos[1] + (tv[1] / 100) * SMOOTHING_FACTOR
-	var z = pos[2] + (tv[2] / 100) * SMOOTHING_FACTOR
-	x -= (sv[0] / 100) * SMOOTHING_FACTOR
-	y -= (sv[1] / 100) * SMOOTHING_FACTOR
-	z -= (sv[2] / 100) * SMOOTHING_FACTOR
-	return Vector3(x, y, z)
+fun normalizeAngle(angle: Vector<Float>): Vector<Float> {
+	if (angle[0] > 89 && angle[0] <= 180) angle.x = 89F
+	if (angle[0] > 180) angle.x -= 360
+	if (angle[0] < -89) angle.x = -89F
+
+	if (angle[1] > 180) angle.y -= 360
+	if (angle[1] < -180) angle.y += 360
+
+	if (angle.z != 0F) angle.z = 0F
+
+	return angle
 }
 
-fun rndFloat(min: Float, max: Float) = min + ThreadLocalRandom.current().nextFloat() * (max - min)
+fun compensateVelocity(source: Player, target: Entity, enemyPos: Vector<Float>, smoothing: Float): Vector<Float> {
+	val myVelocity = +source.velocity
+	val enemyVelocity = +target.velocity
 
-fun angleSmooth(source: Vector2<Float>, target: Vector2<Float>) {
-	var pitch = target[0] - source[0]
-	var yaw = target[1] - source[1]
-	pitch = source[0] + pitch / 100F * SMOOTHING
-	yaw = source[1] + yaw / 100F * SMOOTHING
+	val smoothingFactor = 40F / smoothing
+	enemyPos.x += (enemyVelocity[0] / 100F) * smoothingFactor
+	enemyPos.y += (enemyVelocity[1] / 100F) * smoothingFactor
+	enemyPos.z += (enemyVelocity[2] / 100F) * smoothingFactor
+	enemyPos.x -= (myVelocity[0] / 100F) * smoothingFactor
+	enemyPos.y -= (myVelocity[1] / 100F) * smoothingFactor
+	enemyPos.z -= (myVelocity[2] / 100F) * smoothingFactor
 
-	if (pitch != Float.NaN && yaw != Float.NaN)
-		(+clientState).angle(Vector2(pitch, yaw))
+	return enemyPos
 }
 
-fun calculateAngle(source: Player, target: Vector3<Float>): Vector2<Float> {
-	val sourcePunch = +source.position
-	val pitchReduction = rndFloat(PITCH_MIN_PUNCH, PITCH_MAX_PUNCH)
-	val yawReduction = rndFloat(YAW_MIN_PUNCH, YAW_MAX_PUNCH)
-	val deltaPitch = sourcePunch[0] - target[0]
-	val deltaYaw = sourcePunch[1] - target[1]
-	val deltaRoll = (sourcePunch[2] + source.viewOrigin()[2]) - target[2]
-	val hyp = Math.sqrt(deltaPitch.toDouble() * deltaPitch + deltaYaw * deltaYaw)
-	val pitch = Math.atan(deltaRoll / hyp) * (180 / Math.PI) - sourcePunch[0] * pitchReduction
-	var yaw = Math.atan(deltaYaw.toDouble() / deltaPitch) * (180 / Math.PI) - sourcePunch[1] * yawReduction
-	//val roll = 0F
-	if (deltaPitch >= 0.0) yaw += 180.0
-	return Vector2(pitch.toFloat(), yaw.toFloat()/*, roll*/)
+fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
+	dest.x -= orig[0]
+	dest.y -= orig[1]
+	dest.z = 0F
+	normalizeAngle(dest)
+
+	dest.x = orig[0] + dest.x / 100F * smoothing
+	dest.y = orig[1] + dest.y / 100F * smoothing
+	normalizeAngle(dest)
+
+	if (dest.x === NaN || dest.y === NaN || dest.z == NaN) return
+
+	clientState(1024).angle(dest)
 }
 
-fun clampAngle(angle: Vector2<Float>): Vector2<Float> {
-	var a = angle.a
-	var b = angle.b
+fun calculateAngle(player: Player, src: Vector<Float>, dst: Vector<Float>, angles: Vector<Float>): Vector<Float> {
+	val pitchReduction = randomFloat(PITCH_MIN_PUNCH, PITCH_MAX_PUNCH)
+	val yawReduction = randomFloat(YAW_MIN_PUNCH, YAW_MAX_PUNCH)
 
-	if (!a.isFinite()) a = 0F
-	if (!b.isFinite()) b = 0F
+	val myPunch = +player.punch
 
-	while (b < -180F) b += 360F
-	while (b > 180F) b -= 360F
+	val dX = src.x - dst.x
+	val dY = src.y - dst.y
+	val dZ = src.z + (+player.viewOrigin).z - dst.z
 
-	if (a > 89F) a = 89F
-	if (a < -89F) a = -89F
+	val hyp = sqrt(dX.toDouble() * dX + dY.toDouble() * dY)
 
-	return Vector2(a, b)
+	angles.x = (atan(dZ.toDouble() / hyp) * (180 / Math.PI) - myPunch[0] * pitchReduction).toFloat()
+	angles.y = (atan(dY.toDouble() / dX) * (180 / Math.PI) - myPunch[1] * yawReduction).toFloat()
+	angles.z = 0F
+	if (dX >= 0) angles.y += 180
+
+	return angles
 }

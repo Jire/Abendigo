@@ -1,7 +1,7 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Me
-import org.abendigo.csgo.clientDLL
 import org.abendigo.csgo.offsets.m_dwForceJump
 import org.abendigo.plugin.sleep
 import org.jire.kotmem.Keys

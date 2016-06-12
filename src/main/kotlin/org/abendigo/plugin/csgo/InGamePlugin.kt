@@ -1,6 +1,6 @@
 package org.abendigo.plugin.csgo
 
-import org.abendigo.csgo.Engine
+import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.GameState
 import org.abendigo.plugin.CyclePlugin
 import org.abendigo.plugin.every
@@ -11,9 +11,12 @@ abstract class InGamePlugin(name: String, duration: Int,
                             durationUnit: TimeUnit = MILLISECONDS) : CyclePlugin(name, duration, durationUnit) {
 
 	override fun enable() = every(duration, durationUnit) {
-		val gameState = Engine.clientState().gameState()
-		if (GameState.PLAYING == gameState)
+		val gameState = clientState(1024).gameState()
+		if (GameState.PLAYING == gameState) try {
 			cycle()
+		} catch (t: Throwable) {
+			t.printStackTrace()
+		}
 	}
 
 }

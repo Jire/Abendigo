@@ -17,6 +17,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     compile 'com.github.Jire:Kotmem:0.8'
+    compile group: 'com.badlogicgames.gdx', name: 'gdx', version: '1.9.3'
 }
 
 buildscript {

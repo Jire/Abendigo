@@ -3,6 +3,7 @@ package org.abendigo.csgo
 import org.abendigo.cached.Cached
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
+import org.abendigo.csgo.Client.clientDLL
 
 object Me : Cached<Player>({
 	val address: Int = clientDLL[m_dwLocalPlayer]
@@ -19,11 +20,6 @@ object Me : Cached<Player>({
 		if (crosshairID > /*=*/ 0) clientDLL[m_dwEntityList + (crosshairID * ENTITY_SIZE)] else -1
 	}
 
-	@JvmStatic fun punch(): Vector2<Float> {
-		val a: Float = csgo[this().address + m_vecPunch]
-		val b: Float = csgo[this().address + m_vecPunch + 4]
-		val vector = Vector2(a, b)
-		return vector
-	}
+	@JvmStatic fun punch() = Vector(csgo[this().address + m_vecPunch], csgo[this().address + m_vecPunch + 4], 0F)
 
 }

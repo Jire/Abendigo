@@ -2,6 +2,7 @@ package org.abendigo.csgo.offsets
 
 import org.jire.kotmem.Module
 import org.jire.kotmem.NativeBuffer
+import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.reflect.KProperty
 
 const val READ = 1
@@ -10,7 +11,7 @@ const val SUBTRACT = 2
 data class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
                   val flags: Int, val values: ByteArray) {
 
-	val address by lazy {
+	val address by lazy(NONE) {
 		val off = module.size - values.size
 		var i = 0L
 		while (i < off) {

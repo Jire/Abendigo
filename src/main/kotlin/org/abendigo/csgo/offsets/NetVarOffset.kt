@@ -1,6 +1,7 @@
 package org.abendigo.csgo.offsets
 
 import java.util.*
+import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.reflect.KProperty
 
 data class NetVarOffset(val className: String, val varName: String, val offset: Int) {
@@ -9,7 +10,7 @@ data class NetVarOffset(val className: String, val varName: String, val offset: 
 
 }
 
-private val netVars by lazy {
+private val netVars by lazy(NONE) {
 	val map = HashMap<Int, NetVarOffset>(20000) // Have us covered for a while with 20K
 
 	val stamp = System.currentTimeMillis()

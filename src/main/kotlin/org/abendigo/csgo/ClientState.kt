@@ -8,23 +8,15 @@ class ClientState(override val address: Int) : Addressable {
 
 	fun gameState() = gameState(csgo[address + m_dwInGame])
 
-	fun angle(): Vector2<Float> {
-		val a = csgo.get<Float>(address + m_dwViewAngles)
-		val b = csgo.get<Float>(address + m_dwViewAngles + 4)
-		val vector = Vector2(a, b)
-		println("Angle $vector")
-		return vector
-	}
+	fun angle() = Vector(angle(0), angle(4), angle(8))
 
-	/*val angle = cached<Vector2<Float>> {
-		val a = csgo.get<Float>(address + m_dwViewAngles)
-		val b = csgo.get<Float>(address + m_dwViewAngles + 4)
-		Vector2(a, b)
-	}*/
+	private fun angle(offset: Int): Float = csgo[address + m_dwViewAngles + offset]
 
-	fun angle(angle: Vector2<Float>) {
-		csgo[address + m_dwViewAngles] = angle[0]
-		csgo[address + m_dwViewAngles + 4] = angle[1]
+	fun angle(angle: Vector<Float>) {
+		csgo[address + m_dwViewAngles] = angle.x // pitch (up and down)
+		csgo[address + m_dwViewAngles + 4] = angle.y // yaw (side to side)
+		// csgo[address + m_dwViewAngles + 8] = 0F // roll (twist)
+		// never write roll because it risks ban
 	}
 
 }

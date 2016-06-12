@@ -1,3 +1,5 @@
+@file:JvmName("Client")
+
 package org.abendigo.csgo
 
 import org.abendigo.cached.initializedCache
@@ -6,9 +8,9 @@ import org.abendigo.csgo.offsets.m_dwGlowObject
 import org.abendigo.csgo.offsets.m_iTeamNum
 import java.util.concurrent.ConcurrentHashMap
 
-val clientDLL by lazy { csgo["client.dll"] }
-
 object Client {
+
+	val clientDLL by lazy(LazyThreadSafetyMode.NONE) { csgo["client.dll"] }
 
 	val glowObject = cached<Int>(clientDLL, m_dwGlowObject)
 
