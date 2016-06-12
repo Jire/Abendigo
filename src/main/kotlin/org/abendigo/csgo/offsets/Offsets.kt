@@ -57,6 +57,7 @@ val m_vecPunch by bpNetVar("m_aimPunchAngle")
 val nActiveWeapon by bpNetVar()
 val nTickBase by bpNetVar()
 val m_lifeState by bpNetVar()
+val m_hActiveWeapon by bpNetVar()
 
 // DT_CSPlayer
 val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)

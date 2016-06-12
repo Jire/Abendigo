@@ -34,6 +34,6 @@ fun main(args: Array<String>) {
 	enable(ESPPlugin)
 	enable(SprayAssistPlugin)
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
-	// enable(TriggerBotPlugin) // trigger doesn't look legit, be careful using
+	enable(TriggerBotPlugin) // trigger doesn't look legit, be careful using
 	enable(AimAssistPlugin)
 }

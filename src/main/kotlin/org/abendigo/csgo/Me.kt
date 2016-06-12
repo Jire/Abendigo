@@ -22,4 +22,17 @@ object Me : Cached<Player>({
 
 	@JvmStatic fun punch() = Vector(csgo[this().address + m_vecPunch], csgo[this().address + m_vecPunch + 4], 0F)
 
+	val weapon = cached {
+		val address: Int = csgo[this().address + m_hActiveWeapon]
+		val index = address and 0xFFF
+		val base: Int = clientDLL[m_dwEntityList + (index - 1) * ENTITY_SIZE]
+		val id: Int = csgo[base + m_iWeaponID]
+		Weapon(address, index, id, base)
+	}
+
+	val inScope = cached<Boolean> {
+		val scoped: Byte = csgo[this().address + m_bIsScoped]
+		scoped > 0
+	}
+
 }
