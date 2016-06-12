@@ -18,7 +18,7 @@ object PistolAssistPlugin : InGamePlugin("Pistol Assist", duration = 8) {
 	private const val MIN_ELAPSED = 75
 	private const val MAX_ELAPSED = 300
 
-	private val TARGET_BONES = arrayOf(4, 5, 5, 6)
+	private val TARGET_BONES = arrayOf(5, 5, 6)
 	private const val CHANGE_BONE_CHANCE = 18
 
 	private const val RESET_TARGET_CHANCE = 13

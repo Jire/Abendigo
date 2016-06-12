@@ -34,7 +34,7 @@ open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)?
 
 	@JvmOverloads
 	fun updatedSince(duration: Long, timeUnit: TimeUnit = MILLISECONDS)
-			= lastUpdate() >= timeUnit.toNanos(duration)
+			= lastUpdate() >= timeUnit.toNanos(if (duration > 1) duration - 1 else duration)
 
 	@JvmOverloads @JvmName("updateIf")
 	operator fun invoke(duration: Long, timeUnit: TimeUnit = MILLISECONDS) = when {
