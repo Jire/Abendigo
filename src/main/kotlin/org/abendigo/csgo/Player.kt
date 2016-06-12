@@ -1,10 +1,7 @@
 package org.abendigo.csgo
 
 import org.abendigo.cached.cached
-import org.abendigo.csgo.offsets.m_iShotsFired
-import org.abendigo.csgo.offsets.m_iTeamNum
-import org.abendigo.csgo.offsets.m_vecPunch
-import org.abendigo.csgo.offsets.m_vecViewOffset
+import org.abendigo.csgo.offsets.*
 
 class Player(address: Int, id: Int) : Entity(address, id) {
 
@@ -16,8 +13,13 @@ class Player(address: Int, id: Int) : Entity(address, id) {
 
 	val shotsFired = cached<Int>(m_iShotsFired)
 
-	val viewOrigin = cached { Vector(viewOriginNode(0), viewOriginNode(4), viewOriginNode(8)) }
+	val viewOffset = cached<Float> { csgo[address + m_vecViewOffset] }
 
-	private fun viewOriginNode(offset: Int): Float = csgo[address + m_vecViewOffset + offset]
+	val position = cached {
+		val zOffset: Float = csgo[address + m_vecViewOffset + 8]
+		Vector(posNode(0), posNode(4), posNode(8) + zOffset)
+	}
+
+	private fun posNode(offset: Int): Float = csgo[address + m_vecOrigin + offset]
 
 }

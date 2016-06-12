@@ -3,8 +3,7 @@ package org.abendigo.csgo
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.util.randomFloat
 import java.lang.Float.NaN
-import java.lang.Math.atan
-import java.lang.Math.sqrt
+import java.lang.Math.*
 import java.util.concurrent.ThreadLocalRandom
 
 const val PITCH_MIN_PUNCH = 1F
@@ -30,13 +29,13 @@ fun compensateVelocity(source: Player, target: Entity, enemyPos: Vector<Float>, 
 	val myVelocity = +source.velocity
 	val enemyVelocity = +target.velocity
 
-	val smoothingFactor = 40F / smoothing
-	enemyPos.x += (enemyVelocity.x / 100F) * smoothingFactor
-	enemyPos.y += (enemyVelocity.y / 100F) * smoothingFactor
-	enemyPos.z += (enemyVelocity.z / 100F) * smoothingFactor
-	enemyPos.x -= (myVelocity.x / 100F) * smoothingFactor
-	enemyPos.y -= (myVelocity.y / 100F) * smoothingFactor
-	enemyPos.z -= (myVelocity.z / 100F) * smoothingFactor
+	val smoothingFactor = 40 / smoothing
+	enemyPos.x += (enemyVelocity.x / 100) * smoothingFactor
+	enemyPos.y += (enemyVelocity.y / 100) * smoothingFactor
+	enemyPos.z += (enemyVelocity.z / 100) * smoothingFactor
+	enemyPos.x -= (myVelocity.x / 100) * smoothingFactor
+	enemyPos.y -= (myVelocity.y / 100) * smoothingFactor
+	enemyPos.z -= (myVelocity.z / 100) * smoothingFactor
 
 	return enemyPos
 }
@@ -47,8 +46,8 @@ fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
 	dest.z = 0F
 	normalizeAngle(dest)
 
-	dest.x = orig.x + dest.x / 100F * smoothing
-	dest.y = orig.y + dest.y / 100F * smoothing
+	dest.x = orig.x + dest.x / 100 * smoothing
+	dest.y = orig.y + dest.y / 100 * smoothing
 	normalizeAngle(dest)
 
 	if (dest.x === NaN || dest.y === NaN || dest.z == NaN) return
@@ -64,12 +63,12 @@ fun calculateAngle(player: Player, src: Vector<Float>, dst: Vector<Float>, angle
 
 	val dX = src.x - dst.x
 	val dY = src.y - dst.y
-	val dZ = src.z + (+player.viewOrigin).z - dst.z
+	val dZ = src.z + +player.viewOffset - dst.z
 
 	val hyp = sqrt(dX.toDouble() * dX + dY.toDouble() * dY)
 
-	angles.x = (atan(dZ.toDouble() / hyp) * (180 / Math.PI) - myPunch.x * pitchReduction).toFloat()
-	angles.y = (atan(dY.toDouble() / dX) * (180 / Math.PI) - myPunch.y * yawReduction).toFloat()
+	angles.x = (atan(dZ / hyp) * (180 / PI) - myPunch.x * pitchReduction).toFloat()
+	angles.y = (atan(dY.toDouble() / dX) * (180 / PI) - myPunch.y * yawReduction).toFloat()
 	angles.z = 0F
 	if (dX >= 0) angles.y += 180
 

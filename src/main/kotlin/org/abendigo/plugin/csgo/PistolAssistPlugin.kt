@@ -24,7 +24,7 @@ object PistolAssistPlugin : InGamePlugin("Pistol Assist", duration = 8) {
 	private const val RESET_TARGET_CHANCE = 13
 
 	private var target: Player? = null
-	private var targetBone = 5
+	private var targetBone = newTargetBone()
 
 	private val aim = Vector(0F, 0F, 0F)
 
@@ -65,6 +65,8 @@ object PistolAssistPlugin : InGamePlugin("Pistol Assist", duration = 8) {
 		normalizeAngle(angle)
 
 		angleSmooth(aim, angle, randomFloat(SMOOTHING_MIN, SMOOTHING_MAX))
+
+		clientState(1024).angle(aim)
 
 		if (random(RESET_TARGET_CHANCE) == 0) {
 			target = null

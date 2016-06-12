@@ -22,13 +22,6 @@ open class Entity(override val address: Int, val id: Int) : Addressable {
 
 	private fun boneNode(bone: Int, offset: Int): Float = csgo[boneMatrix() + ((0x30 * bone) + offset)]
 
-	val position = cached {
-		val zOffset: Float = csgo[Me().address + m_vecViewOffset + 8]
-		Vector(posNode(0), posNode(4), posNode(8) + zOffset)
-	}
-
-	private fun posNode(offset: Int): Float = csgo[address + m_vecOrigin + offset]
-
 	val velocity = cached {
 		// TODO make a safe and easy way to do batch reading like this (to avoid native call and object allocation)
 		Vector(velocity(0), velocity(4), velocity(8))
