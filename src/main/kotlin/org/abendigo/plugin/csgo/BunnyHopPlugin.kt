@@ -29,7 +29,8 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 		}
 		if (+Me.flags % 2 == 1) {
 			var delay = random(MIN_DELAY, MAX_DELAY)
-			if (!firstJump && random(FAIL_CHANCE) == 0) delay = duration
+			if (random(FAIL_CHANCE) == 0) delay = duration
+			if (firstJump) delay /= 2
 			sleep(delay)
 			clientDLL[m_dwForceJump] = 5.toByte()
 			sleep(random(duration, duration * 2))
