@@ -13,8 +13,8 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 	override val author = "Jire"
 	override val description = "Jumps the player around"
 
-	private const val MIN_DELAY = 2
-	private const val MAX_DELAY = 6
+	private const val MIN_DELAY = 1
+	private const val MAX_DELAY = 5
 
 	private const val FAIL_CHANCE = 5
 

@@ -4,6 +4,7 @@ package org.abendigo
 
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.entities
+import org.abendigo.csgo.Me
 import org.abendigo.csgo.csgo
 import org.abendigo.csgo.engineDLL
 import org.abendigo.csgo.offsets.netVars
@@ -26,7 +27,10 @@ fun main(args: Array<String>) {
 		Thread.sleep(1500)
 	}
 
-	every(2, SECONDS) { +entities }
+	every(2, SECONDS) {
+		+Me
+		+entities
+	}
 
 	// TODO make a proper plugin system
 	enable(BunnyHopPlugin)
