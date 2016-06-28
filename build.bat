@@ -1,4 +1,5 @@
 @echo off
-@title Gradle Build
-gradlew build
+title Abendigo Builder
+call gradlew installDist
+echo.
 pause
