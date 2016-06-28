@@ -17,3 +17,9 @@ We use some really cool technology to drive Abendigo. Here's a list:
 
 - [Kotmem](https://github.com/Jire/Kotmem) for our high-level interfacing with processes
 - [Java Native Access (JNA)](https://github.com/java-native-access/jna) as the backbone for interfacing with native libraries
+
+### Building from source
+
+You can watch this video guide to show you how to build from source.
+
+[![View on YouTube](http://i.imgur.com/fzn2l86.png)](https://www.youtube.com/watch?v=0jd0fDMDjxw)
