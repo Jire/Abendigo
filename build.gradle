@@ -6,6 +6,7 @@ apply plugin: 'kotlin'
 apply plugin: 'application'
 
 mainClassName = "org.abendigo.Abendigo"
+applicationDefaultJvmArgs = ["-XX:+UseG1GC"]
 
 repositories {
     mavenCentral()
