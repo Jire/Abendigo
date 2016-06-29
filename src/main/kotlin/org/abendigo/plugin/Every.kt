@@ -7,7 +7,12 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.concurrent.thread
 
 @JvmOverloads
-fun sleep(duration: Long, timeUnit: TimeUnit = MILLISECONDS) = Thread.sleep(timeUnit.toMillis(duration))
+fun sleep(duration: Long, timeUnit: TimeUnit = MILLISECONDS) {
+	var ns = timeUnit.toNanos(duration)
+	val ms = ns / 1000000
+	ns -= (ms * 1000000)
+	Thread.sleep(ms, ns.toInt())
+}
 
 @JvmOverloads
 fun sleep(duration: Int, timeUnit: TimeUnit = MILLISECONDS) = sleep(duration.toLong(), timeUnit)
