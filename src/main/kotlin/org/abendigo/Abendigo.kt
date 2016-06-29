@@ -11,12 +11,9 @@ import org.abendigo.csgo.offsets.netVars
 import org.abendigo.plugin.csgo.*
 import org.abendigo.plugin.enable
 import org.abendigo.plugin.every
-import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit.SECONDS
 
 fun main(args: Array<String>) {
-	println("Process ${ManagementFactory.getRuntimeMXBean().name}")
-
 	while (!Thread.interrupted()) try {
 		csgo
 		engineDLL
@@ -39,5 +36,8 @@ fun main(args: Array<String>) {
 	enable(SprayAssistPlugin)
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
 	enable(TriggerBotPlugin)
+	//enable(ShotgunTriggerBot)
 	enable(AimAssistPlugin)
+	enable(RCSPlugin)
+	//enable(SilentAimPlugin)
 }

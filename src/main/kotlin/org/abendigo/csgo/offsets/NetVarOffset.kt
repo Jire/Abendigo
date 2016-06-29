@@ -31,7 +31,6 @@ val netVars by lazy(NONE) {
 	for ((hash, nv) in map) builder.append("$nv\n")
 	Files.write(File("netvars.txt").toPath(), builder.toString().toByteArray())*/
 
-	println("Took ${System.currentTimeMillis() - stamp}ms to scan ${map.size} netvars")
 	Collections.unmodifiableMap(map)
 }
 

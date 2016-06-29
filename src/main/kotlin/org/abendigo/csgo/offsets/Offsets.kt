@@ -17,7 +17,8 @@ val m_dwRadarBase by scanOffset(clientDLL, 1, 0, READ or SUBTRACT, 161, 0, 0, 0,
 val m_dwWeaponTable by scanOffset(clientDLL, 1, 0, READ or SUBTRACT,
 		161, 0, 0, 0, 0, 15, 183, 201, 3, 201, 139, 68, 0, 12, 195)
 val m_dwWeaponTableIndex by scanOffset(clientDLL, 3, 0, READ, 102, 139, 142, 0, 0, 0, 0, 232, 0, 0, 0, 0, 5, 0, 0, 0, 0, 80)
-val m_dwInput by scanOffset(clientDLL, 1, 0, READ or SUBTRACT, 185, 0, 0, 0, 0, 255, 117, 8, 232, 0, 0, 0, 0, 139, 6)
+//B9 ? ? ? ? FF 75 08 E8 ? ? ? ? 8B 06
+val m_dwInput by scanOffset(clientDLL, 1, 0, READ or SUBTRACT, 0xB9, 0, 0, 0, 0, 0xFF, 0x75, 0x08, 0xE8, 0, 0, 0, 0, 0x8B, 0x06)
 val m_dwGlowObject by scanOffset(clientDLL, 1, 4, READ or SUBTRACT, 0xA1, 0, 0, 0, 0, 0xA8, 0x01, 0x75, 0x4E, 0x0F, 0x57, 0xC0)
 val m_dwForceJump by scanOffset(clientDLL, 2, 0, READ or SUBTRACT,
 		137, 21, 0, 0, 0, 0, 139, 21, 0, 0, 0, 0, 246, 194, 3, 116, 3, 131, 206, 8)
@@ -42,6 +43,7 @@ val m_dwPlayerInfo by scanOffset(engineDLL, 2, 0, READ, 139, 136, 0, 0, 0, 0, 13
 val m_dwViewAngles by scanOffset(engineDLL, 4, 0, READ, 0xF3, 0x0F, 0x11, 0x80, 0, 0, 0, 0, 0xD9, 0x46, 0x04, 0xD9, 0x05, 0, 0, 0, 0)
 val m_dwEnginePosition by scanOffset(engineDLL, 4, 0, READ or SUBTRACT, 243, 15, 17, 21, 0, 0, 0, 0, 243, 15, 17, 13,
 		0, 0, 0, 0, 243, 15, 17, 5, 0, 0, 0, 0, 243, 15, 17, 61, 0, 0, 0, 0)
+val m_bSendPacket by scanOffset(engineDLL, 1, 0, READ or SUBTRACT, 0xB3, 0x01, 0x8B, 0x01, 0x8B)
 
 // DT_BaseEntity
 val m_bSpotted by beNetVar()
@@ -58,6 +60,8 @@ val nActiveWeapon by bpNetVar()
 val nTickBase by bpNetVar()
 val m_lifeState by bpNetVar()
 val m_hActiveWeapon by bpNetVar()
+val m_nTickBase by bpNetVar()
+val m_nButtons by bpNetVar()
 
 // DT_CSPlayer
 val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)
