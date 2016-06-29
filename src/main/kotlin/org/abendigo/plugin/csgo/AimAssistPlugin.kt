@@ -12,13 +12,13 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 	override val author = "Jire"
 	override val description = "Assists your aim"
 
-	private const val SMOOTHING_MIN = 3.5F
-	private const val SMOOTHING_MAX = 7F
+	private const val SMOOTHING_MIN = 4F
+	private const val SMOOTHING_MAX = 8F
 
 	private const val MIN_ELAPSED = 75
 	private const val MAX_ELAPSED = 300
 
-	private val TARGET_BONES = arrayOf(5, 5, 6)
+	private val TARGET_BONES = arrayOf(5, 6)
 	private const val CHANGE_BONE_CHANCE = 18
 
 	private const val RESET_TARGET_CHANCE = 13
