@@ -38,6 +38,6 @@ fun main(args: Array<String>) {
 	enable(TriggerBotPlugin)
 	//enable(ShotgunTriggerBot)
 	enable(AimAssistPlugin)
-	enable(RCSPlugin)
+	//enable(RCSPlugin)
 	//enable(SilentAimPlugin)
 }
