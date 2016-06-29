@@ -13,8 +13,6 @@ data class NetVarOffset(val className: String, val varName: String, val offset: 
 val netVars by lazy(NONE) {
 	val map = HashMap<Int, NetVarOffset>(20000) // Have us covered for a while with 20K
 
-	val stamp = System.currentTimeMillis()
-
 	var clientClass = ClientClass(firstClass)
 	while (clientClass.readable()) {
 		val table = RecvTable(clientClass.table)
