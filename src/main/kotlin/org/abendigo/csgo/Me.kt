@@ -36,4 +36,8 @@ object Me : Cached<Player>({
 		scoped > 0
 	}
 
+	const val TICK_RATIO = 1F / 64F
+
+	fun time() = csgo.get<Int>(this().address + m_nTickBase) * TICK_RATIO
+
 }

@@ -15,8 +15,7 @@ class ClientState(override val address: Int) : Addressable {
 	fun angle(angle: Vector<Float>) {
 		csgo[address + m_dwViewAngles] = angle.x // pitch (up and down)
 		csgo[address + m_dwViewAngles + 4] = angle.y // yaw (side to side)
-		// csgo[address + m_dwViewAngles + 8] = 0F // roll (twist)
-		// never write roll because it risks ban
+		// csgo[address + m_dwViewAngles + 8] = angle.z // roll (twist) p.s. don't use because it can cause untrusted
 	}
 
 }
