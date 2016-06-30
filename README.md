@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/badge/license-GPL%203.0-yellowgreen.svg)](https://github.com/Jire/Abendigo/blob/master/LICENSE)
 [![](https://jitpack.io/v/Jire/Abendigo.svg)](https://jitpack.io/#Jire/Abendigo)
 # Abendigo
-Free and open-source game modding platform using the JVM.
+A free as in both freedom and free beer game modding/hacking platform using Kotlin on the JVM.
 
 ---
 
