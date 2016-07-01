@@ -30,12 +30,13 @@ fun main(args: Array<String>) {
 	}
 
 	// TODO make a proper plugin system
-	enable(BunnyHopPlugin)
-	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
 	enable(ESPPlugin)
-	enable(SprayAssistPlugin)
-	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
-	enable(TriggerBotPlugin)
+	enable(BunnyHopPlugin)
 	enable(AimAssistPlugin)
+	enable(SprayAssistPlugin)
+	enable(TriggerBotPlugin)
+
+	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
+	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
 	// enable(RCSPlugin) // the way we're computing new angle is being detected, DO NOT USE
 }
