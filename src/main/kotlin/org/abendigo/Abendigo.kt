@@ -36,8 +36,6 @@ fun main(args: Array<String>) {
 	enable(SprayAssistPlugin)
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
 	enable(TriggerBotPlugin)
-	//enable(ShotgunTriggerBot)
 	enable(AimAssistPlugin)
-	//enable(RCSPlugin)
-	//enable(SilentAimPlugin)
+	// enable(RCSPlugin) // the way we're computing new angle is being detected, DO NOT USE
 }
