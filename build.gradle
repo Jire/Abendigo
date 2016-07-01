@@ -14,8 +14,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
@@ -24,7 +22,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.2-1'
+    ext.kotlin_version = '1.0.3'
 
     repositories {
         mavenCentral()
