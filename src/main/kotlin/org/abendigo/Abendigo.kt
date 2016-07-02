@@ -2,18 +2,21 @@
 
 package org.abendigo
 
+import org.abendigo.controller.Server
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.entities
 import org.abendigo.csgo.Me
 import org.abendigo.csgo.csgo
 import org.abendigo.csgo.engineDLL
 import org.abendigo.csgo.offsets.netVars
+import org.abendigo.plugin.Plugins.enable
 import org.abendigo.plugin.csgo.*
-import org.abendigo.plugin.enable
 import org.abendigo.plugin.every
 import java.util.concurrent.TimeUnit.SECONDS
 
 fun main(args: Array<String>) {
+	Server.bind()
+
 	while (!Thread.interrupted()) try {
 		csgo
 		engineDLL
@@ -29,7 +32,6 @@ fun main(args: Array<String>) {
 		+entities
 	}
 
-	// TODO make a proper plugin system
 	enable(ESPPlugin)
 	enable(BunnyHopPlugin)
 	enable(AimAssistPlugin)
