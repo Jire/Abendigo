@@ -6,11 +6,11 @@ abstract class Plugin(val name: String) {
 	open val author: String = ""
 	open val description: String = ""
 
+	@Volatile var enabled = false
+
 	abstract fun enable()
 
 	open fun disable() {
 	}
 
 }
-
-fun enable(plugin: Plugin) = plugin.enable()
