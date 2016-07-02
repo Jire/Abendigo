@@ -1,5 +1,5 @@
 group 'org.abendigo'
-version '1.54b'
+version '1.6b'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
@@ -18,7 +18,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     compile 'com.github.Jire:Kotmem:0.8'
-    compile group: 'com.badlogicgames.gdx', name: 'gdx', version: '1.9.3'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.1.Final'
 }
 
 buildscript {
