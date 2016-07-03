@@ -17,6 +17,7 @@ We use some really cool technology to drive Abendigo. Here's a list:
 
 - [Kotmem](https://github.com/Jire/Kotmem) for our high-level interfacing with processes
 - [Java Native Access (JNA)](https://github.com/java-native-access/jna) as the backbone for interfacing with native libraries
+- [Netty](http://netty.io) for our controller server's networking
 
 ### Building from source
 
