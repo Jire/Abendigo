@@ -11,24 +11,18 @@ internal class Handler : ByteToMessageDecoder() {
 		val opcode = buf.readUnsignedByte().toInt()
 		when (opcode) {
 			0 -> {
-				val pluginName = buf.readString()
-				Plugins.enable(pluginName)
+				val response = ctx.alloc().buffer()
+				response.writeByte(0)
+				response.writeByte(Plugins.map.size)
+				for ((name, plugin) in Plugins.map) {
+					response.writeString(name)
+					response.writeBoolean(plugin.enabled)
+				}
+				ctx.writeAndFlush(response)
 			}
-			1 -> {
-				val pluginName = buf.readString()
-				Plugins.disable(pluginName)
-			}
-			2 -> {
-				val pluginName = buf.readString()
-				val plugin = Plugins.byName(pluginName)
-
-				val response = ctx.alloc().buffer(1)
-				response.writeBoolean(if (plugin == null) false else plugin.enabled)
-				out.add(response)
-			}
-			3 -> {
-				System.exit(0)
-			}
+			1 -> Plugins.disable(buf.readString())
+			2 -> Plugins.enable(buf.readString())
+			3 -> System.exit(0)
 			else -> println("Unhandled opcode ($opcode)")
 		}
 	}
@@ -40,6 +34,12 @@ internal class Handler : ByteToMessageDecoder() {
 		sb.delete(0, sb.length)
 		for (i in 1..length) sb.append(readUnsignedByte().toChar())
 		return sb.toString()
+	}
+
+	private fun ByteBuf.writeString(string: String) {
+		val bytes = string.toByteArray()
+		writeByte(bytes.size)
+		writeBytes(bytes)
 	}
 
 }

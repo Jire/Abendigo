@@ -4,12 +4,12 @@ import java.util.*
 
 object Plugins {
 
-	private val nameToPlugin = HashMap<String, Plugin>()
+	val map = HashMap<String, Plugin>()
 
-	fun byName(pluginName: String) = nameToPlugin[pluginName]
+	fun byName(pluginName: String) = map[pluginName]
 
 	fun enable(plugin: Plugin) {
-		nameToPlugin.putIfAbsent(plugin.name, plugin)
+		map.put(plugin.name, plugin)
 		plugin.enable()
 		plugin.enabled = true
 	}
