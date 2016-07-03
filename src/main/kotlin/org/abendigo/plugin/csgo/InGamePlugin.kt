@@ -12,7 +12,7 @@ abstract class InGamePlugin(name: String, duration: Int,
 
 	override fun enable() = every(duration, durationUnit) {
 		val gameState = clientState(1024).gameState()
-		if (GameState.PLAYING == gameState) try {
+		if (enabled && GameState.PLAYING == gameState) try {
 			cycle()
 		} catch (t: Throwable) {
 			t.printStackTrace()
