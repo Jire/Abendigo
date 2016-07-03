@@ -24,3 +24,9 @@ We use some really cool technology to drive Abendigo. Here's a list:
 You can watch this video guide to show you how to build from source.
 
 [![View on YouTube](http://i.imgur.com/fzn2l86.png)](https://www.youtube.com/watch?v=0jd0fDMDjxw)
+
+### Official controller client
+
+You can find our official controller client here: https://github.com/Jire/Abendigo-Controller
+
+Our controller protocol is very simple, you can also easily make your own controller.
