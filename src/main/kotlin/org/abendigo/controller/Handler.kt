@@ -3,6 +3,7 @@ package org.abendigo.controller
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
+import org.abendigo.DEBUG
 import org.abendigo.plugin.Plugins
 
 internal class Handler : ByteToMessageDecoder() {
@@ -25,6 +26,10 @@ internal class Handler : ByteToMessageDecoder() {
 			3 -> System.exit(0)
 			else -> println("Unhandled opcode ($opcode)")
 		}
+	}
+
+	override fun exceptionCaught(ctx: ChannelHandlerContext, cause: Throwable) {
+		if (DEBUG) cause.printStackTrace()
 	}
 
 	private val sb = StringBuilder()

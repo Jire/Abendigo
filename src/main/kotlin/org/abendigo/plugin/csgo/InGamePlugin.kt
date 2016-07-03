@@ -1,5 +1,6 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.GameState
 import org.abendigo.plugin.CyclePlugin
@@ -15,7 +16,7 @@ abstract class InGamePlugin(name: String, duration: Int,
 		if (enabled && GameState.PLAYING == gameState) try {
 			cycle()
 		} catch (t: Throwable) {
-			t.printStackTrace()
+			if (DEBUG) t.printStackTrace()
 		}
 	}
 

@@ -2,6 +2,7 @@
 
 package org.abendigo.plugin
 
+import org.abendigo.DEBUG
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.concurrent.thread
@@ -24,7 +25,7 @@ inline fun <T> every(duration: Long, timeUnit: TimeUnit = MILLISECONDS, crossinl
 			try {
 				action()
 			} catch (t: Throwable) {
-				t.printStackTrace()
+				if (DEBUG) t.printStackTrace()
 			}
 			sleep(duration, timeUnit)
 		} while (!Thread.interrupted())

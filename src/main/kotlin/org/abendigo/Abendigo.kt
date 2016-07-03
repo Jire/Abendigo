@@ -14,6 +14,8 @@ import org.abendigo.plugin.csgo.*
 import org.abendigo.plugin.every
 import java.util.concurrent.TimeUnit.SECONDS
 
+const val DEBUG = false
+
 fun main(args: Array<String>) {
 	Server.bind().syncUninterruptibly()
 
