@@ -15,7 +15,7 @@ import org.abendigo.plugin.every
 import java.util.concurrent.TimeUnit.SECONDS
 
 fun main(args: Array<String>) {
-	Server.bind()
+	Server.bind().syncUninterruptibly()
 
 	while (!Thread.interrupted()) try {
 		csgo
