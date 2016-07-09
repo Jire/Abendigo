@@ -5,10 +5,16 @@ import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.Client.players
 
-object ESPPlugin : InGamePlugin("ESP", duration = 64) {
+object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
 
 	override val author = "Jire"
-	override val description = "Outlines players"
+	override val description = "Outlines players with a glow"
+
+	private const val SHOW_TEAM = true
+	private const val SHOW_DORMANT = true
+
+	private const val ALPHA = 0.8F
+	private const val REDUCE_ALPHA_UNSPOTTED = 0.4F /* set to 1.0F to not reduce */
 
 	override fun cycle() {
 		for (glIdx in 0..+glowObjectCount) {
@@ -20,17 +26,19 @@ object ESPPlugin : InGamePlugin("ESP", duration = 64) {
 				var red = 255F
 				var green = 0F
 				var blue = 0F
-				var alpha = 0.8F
+				var alpha = ALPHA
 
-				if (!+p.spotted) alpha = 0.3F
+				if (!+p.spotted) alpha = ALPHA * REDUCE_ALPHA_UNSPOTTED
 
 				val myTeam = +Me().team
 				val pTeam = +p.team
 				if (myTeam == pTeam) {
+					if (!SHOW_TEAM) continue
 					red = 0F
 					blue = 255F
 				} else if (p.address == +Me.targetAddress) green = 215F
 				else if (+p.dormant) {
+					if (!SHOW_DORMANT) continue
 					blue = 255F
 					green = 255F
 					alpha = 0.45F
