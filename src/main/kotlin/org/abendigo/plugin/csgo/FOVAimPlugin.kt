@@ -50,34 +50,10 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 		} catch (t: Throwable) {
 		}
 
-		if (target == null) {
-			val myPosition = +Me().position
-			val angle = clientState(1024).angle()
+		val myPosition = +Me().position
+		val angle = clientState(1024).angle()
 
-			var lowest = Int.MAX_VALUE
-			var lowestPlayer: Player? = null
-			for ((i, e) in enemies) {
-				if (+Me().dead) return
-				if (+e.dead || !+e.spotted || +e.dormant) continue
-
-				val ePos = e.bonePosition(Bones.HEAD.id)
-				val distance = distance(myPosition, ePos)
-
-				calculateAngle(Me(), myPosition, ePos, aim.reset())
-				normalizeAngle(aim)
-
-				val yawDiff = abs(angle.y - aim.y)
-				val delta = abs(Math.sin(Math.toRadians(yawDiff.toDouble())) * distance)
-
-				if (delta <= lockFOV && delta < lowest) {
-					lowest = delta.toInt()
-					lowestPlayer = e
-				}
-			}
-
-			if (lowestPlayer != null) target = lowestPlayer
-			else return
-		}
+		if (target == null) if (!findTarget(myPosition, angle, lockFOV)) return
 
 		if (+Me().dead || +target!!.dead || !+target!!.spotted || +target!!.dormant) {
 			target = null
@@ -87,7 +63,6 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 		if (random(CHANGE_BONE_CHANCE) == 0) targetBone = newTargetBone()
 
 		val enemyPosition = target!!.bonePosition(targetBone.id)
-		val myPosition = +Me().position
 
 		val smoothing = randomFloat(smoothingMin, smoothingMax)
 
@@ -96,7 +71,6 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 		calculateAngle(Me(), myPosition, enemyPosition, aim.reset())
 		normalizeAngle(aim)
 
-		val angle = clientState(1024).angle()
 		normalizeAngle(angle)
 
 		val distance = distance(myPosition, enemyPosition)
@@ -114,5 +88,35 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
+
+	private fun findTarget(myPosition: Vector<Float>, angle: Vector<Float>, lockFOV: Float): Boolean {
+		var closestDelta = Int.MAX_VALUE
+		var closetPlayer: Player? = null
+		for ((i, e) in enemies) {
+			if (+Me().dead) return false
+			if (+e.dead || !+e.spotted || +e.dormant) continue
+
+			val ePos = e.bonePosition(Bones.HEAD.id)
+			val distance = distance(myPosition, ePos)
+
+			calculateAngle(Me(), myPosition, ePos, aim.reset())
+			normalizeAngle(aim)
+
+			val yawDiff = abs(angle.y - aim.y)
+			val delta = abs(Math.sin(Math.toRadians(yawDiff.toDouble())) * distance)
+
+			if (delta <= lockFOV && delta < closestDelta) {
+				closestDelta = delta.toInt()
+				closetPlayer = e
+			}
+		}
+
+		if (closetPlayer != null) {
+			target = closetPlayer
+			return true
+		}
+
+		return false
+	}
 
 }
