@@ -8,7 +8,6 @@ import org.abendigo.csgo.normalizeAngle
 object RCSPlugin : InGamePlugin("RCS", duration = 16) {
 
 	private var prevFired = 0
-	private var angle: Vector<Float>? = null
 	private val lastPunch = FloatArray(2)
 
 	override fun cycle() {
@@ -17,7 +16,6 @@ object RCSPlugin : InGamePlugin("RCS", duration = 16) {
 		val bulletsLeft = +weapon.bullets
 		if (shotsFired < 1 || shotsFired < prevFired || bulletsLeft <= 0 || +Me().dead) {
 			prevFired = 0
-			angle = null
 			lastPunch[0] = 0F
 			lastPunch[1] = 0F
 			return
