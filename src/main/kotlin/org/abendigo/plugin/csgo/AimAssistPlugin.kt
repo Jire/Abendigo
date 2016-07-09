@@ -18,7 +18,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 	private const val MIN_ELAPSED = 75
 	private const val MAX_ELAPSED = 300
 
-	private val TARGET_BONES = arrayOf(5, 6)
+	private val TARGET_BONES = arrayOf(Bones.NECK, Bones.HEAD)
 	private const val CHANGE_BONE_CHANCE = 18
 
 	private const val RESET_TARGET_CHANCE = 13
@@ -39,7 +39,8 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 			val weaponID = weapon.id
 			if (weaponID == 42 || weaponID == 9 || weaponID == 40
 					|| weaponID == 11 || weaponID == 38) return
-		} catch (t: Throwable) {}
+		} catch (t: Throwable) {
+		}
 
 		if (target == null) {
 			val targetAddress = +Me.targetAddress
@@ -60,7 +61,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 
 		if (random(CHANGE_BONE_CHANCE) == 0) targetBone = newTargetBone()
 
-		val enemyPosition = target!!.bonePosition(targetBone)
+		val enemyPosition = target!!.bonePosition(targetBone.id)
 		val myPosition = +Me().position
 
 		compensateVelocity(Me(), target!!, enemyPosition, randomFloat(SMOOTHING_MIN, SMOOTHING_MAX))
@@ -81,6 +82,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 
 	override fun disable() {
 		target = null
+		aim.reset()
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]

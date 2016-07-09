@@ -14,7 +14,7 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 	private const val SMOOTHING_MIN = 4F
 	private const val SMOOTHING_MAX = 7.5F
 
-	private val TARGET_BONES = arrayOf(4, 5, 5, 6)
+	private val TARGET_BONES = arrayOf(Bones.UPPER_CHEST, Bones.NECK, Bones.NECK, Bones.HEAD)
 	private const val CHANGE_BONE_CHANCE = 18
 
 	private var prevFired = 0
@@ -51,7 +51,7 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 
 		if (random(CHANGE_BONE_CHANCE) == 0) targetBone = newTargetBone()
 
-		val enemyPosition = target!!.bonePosition(targetBone)
+		val enemyPosition = target!!.bonePosition(targetBone.id)
 		val myPosition = +Me().position
 
 		compensateVelocity(Me(), target!!, enemyPosition, randomFloat(SMOOTHING_MIN, SMOOTHING_MAX))
@@ -69,6 +69,7 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 
 	override fun disable() {
 		target = null
+		aim.reset()
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
