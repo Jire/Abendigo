@@ -13,6 +13,8 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 	override val author = "Jire"
 	override val description = "Jumps the player around"
 
+	private const val LEGIT = true
+
 	private const val MIN_DELAY = 1
 	private const val MAX_DELAY = 5
 
@@ -27,15 +29,17 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 			firstJump = true
 			return
 		}
-		if (+Me.flags % 2 == 1) {
-			var delay = random(MIN_DELAY, MAX_DELAY)
-			if (random(FAIL_CHANCE) == 0) delay = duration
-			if (firstJump) delay /= 2
-			sleep(delay)
+		if (+Me.flags and 1 == 1) {
+			if (LEGIT) {
+				var delay = random(MIN_DELAY, MAX_DELAY)
+				if (random(FAIL_CHANCE) == 0) delay = duration
+				if (firstJump) delay /= 2
+				sleep(delay)
+			}
 			clientDLL[m_dwForceJump] = 5.toByte()
-			sleep(random(duration, duration * 2))
+			sleep(if (LEGIT) random(duration, duration * 4) else duration * 2)
 			clientDLL[m_dwForceJump] = 4.toByte()
-			sleep(32 - duration)
+			sleep(if (LEGIT) random(duration, duration * 4) else duration * 2)
 			firstJump = false
 		}
 	}
