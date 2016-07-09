@@ -12,7 +12,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 	override val author = "Jire"
 	override val description = "Assists your aim"
 
-	private const val SMOOTHING_MIN = 4F
+	private const val SMOOTHING_MIN = 4.25F
 	private const val SMOOTHING_MAX = 8F
 
 	private const val MIN_ELAPSED = 75
@@ -34,10 +34,12 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 		val elapsedTime = currentTimeMillis() - lastAim
 		if (elapsedTime < random(MIN_ELAPSED, MAX_ELAPSED)) return
 
-		val weapon = +Me.weapon
-		val weaponID = weapon.id
-		if (weaponID == 42 || weaponID == 9 || weaponID == 40
-				|| weaponID == 11 || weaponID == 38) return
+		try {
+			val weapon = +Me.weapon
+			val weaponID = weapon.id
+			if (weaponID == 42 || weaponID == 9 || weaponID == 40
+					|| weaponID == 11 || weaponID == 38) return
+		} catch (t: Throwable) {}
 
 		if (target == null) {
 			val targetAddress = +Me.targetAddress
@@ -70,8 +72,6 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 		normalizeAngle(angle)
 
 		angleSmooth(aim, angle, randomFloat(SMOOTHING_MIN, SMOOTHING_MAX))
-
-		clientState(1024).angle(aim)
 
 		if (random(RESET_TARGET_CHANCE) == 0) {
 			target = null
