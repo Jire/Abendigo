@@ -18,7 +18,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     compile 'com.github.Jire:Kotmem:0.8'
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.1.Final'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.2.Final'
 }
 
 buildscript {
