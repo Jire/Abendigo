@@ -44,6 +44,8 @@ fun main(args: Array<String>) {
 
 	// enable(FOVAimPlugin) // disable aim and spray assist if using FOV
 
+
+	// --- !!! DANGER ZONE !!! --- //
 	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
 	// enable(RCSPlugin) // the way we're computing new angle is being detected, DO NOT USE
