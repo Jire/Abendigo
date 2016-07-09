@@ -36,9 +36,13 @@ fun main(args: Array<String>) {
 
 	enable(ESPPlugin)
 	enable(BunnyHopPlugin)
+
+	enable(TriggerBotPlugin)
+
 	enable(AimAssistPlugin)
 	enable(SprayAssistPlugin)
-	enable(TriggerBotPlugin)
+
+	// enable(FOVAimPlugin) // disable aim and spray assist if using FOV
 
 	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
 	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
