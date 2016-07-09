@@ -74,3 +74,5 @@ fun calculateAngle(player: Player, src: Vector<Float>, dst: Vector<Float>, angle
 
 	return angles
 }
+
+fun distance(a: Vector<Float>, b: Vector<Float>) = abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)

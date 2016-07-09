@@ -69,7 +69,6 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 
 	override fun disable() {
 		target = null
-		aim.reset()
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
