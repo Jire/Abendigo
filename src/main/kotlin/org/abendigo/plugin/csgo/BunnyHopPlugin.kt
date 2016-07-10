@@ -20,6 +20,8 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 
 	private const val FAIL_CHANCE = 5
 
+	private const val ONLY_WHEN_MOVING = true
+
 	private var holdingSpace = false
 	private var firstJump = true
 
@@ -28,6 +30,10 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 		if (!holdingSpace) {
 			firstJump = true
 			return
+		}
+		if (ONLY_WHEN_MOVING) {
+			val velocity = +Me().velocity
+			if (velocity.x <= 0 && velocity.y <= 1 && velocity.z <= 1) return
 		}
 		if (+Me.flags and 1 == 1) {
 			if (LEGIT) {
