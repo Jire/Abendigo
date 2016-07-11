@@ -13,7 +13,7 @@ import java.lang.Math.abs
 object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 
 	override val author = "Jire"
-	override val description = "Aims at enemies when they are in LOCK_FOV"
+	override val description = "Aims at enemies when they are in the FOV"
 
 	private const val AIM_KEY = 1 /* left click */
 	private const val FORCE_AIM_KEY = 5 /* backwards button */
