@@ -28,7 +28,7 @@ object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
 				var blue = 0F
 				var alpha = ALPHA
 
-				if (!+p.spotted) alpha = ALPHA * REDUCE_ALPHA_UNSPOTTED
+				if (!+p.spotted) alpha *= REDUCE_ALPHA_UNSPOTTED
 
 				val myTeam = +Me().team
 				val pTeam = +p.team
