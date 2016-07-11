@@ -1,14 +1,16 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.enemies
 import org.abendigo.csgo.Engine.clientState
+import org.abendigo.plugin.sleep
 import org.abendigo.util.random
 import org.abendigo.util.randomFloat
 import org.jire.kotmem.Keys
 import java.lang.Math.abs
 
-object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
+object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 
 	override val author = "Jire"
 	override val description = "Aims at enemies when they are in LOCK_FOV"
@@ -43,11 +45,10 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 		val smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
 
 		try {
-			val weapon = +Me.weapon
-			val weaponID = weapon.id
-			if (weaponID == 42 || weaponID == 9 || weaponID == 40
-					|| weaponID == 11 || weaponID == 38) return
+			val weapon = (+Me.weapon).type!!
+			if (weapon.knife || weapon.grenade) return
 		} catch (t: Throwable) {
+			if (DEBUG) t.printStackTrace()
 		}
 
 		val myPosition = +Me().position
@@ -57,6 +58,7 @@ object FOVAimPlugin : InGamePlugin(name = "Aimbot", duration = 16) {
 
 		if (+Me().dead || +target!!.dead || !+target!!.spotted || +target!!.dormant) {
 			target = null
+			sleep(random(200, 400)) // prevent quick flick
 			return
 		}
 

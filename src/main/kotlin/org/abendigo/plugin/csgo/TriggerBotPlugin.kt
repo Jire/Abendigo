@@ -1,5 +1,6 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.enemies
 import org.abendigo.csgo.Me
@@ -29,9 +30,12 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 		scopeDuration += duration
 		if (scopeDuration < random(MIN_SCOPE_DURATION, MAX_SCOPE_DURATION)) return
 
-		val weapon = +Me.weapon
-		val weaponID = +weapon.id
-		if (weaponID != 9 && weaponID != 40) return
+		try {
+			val weapon = (+Me.weapon).type!!
+			if (!weapon.sniper || !weapon.boltAction) return
+		} catch (t: Throwable) {
+			if (DEBUG) t.printStackTrace()
+		}
 
 		for ((i, e) in enemies) if (e.address == +Me.targetAddress) {
 			if (LEGIT) {

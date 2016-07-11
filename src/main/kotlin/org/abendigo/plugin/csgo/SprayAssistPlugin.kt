@@ -23,8 +23,10 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 	private val aim = Vector(0F, 0F, 0F)
 
 	override fun cycle() {
-		val shotsFired = +Me().shotsFired
 		val weapon = +Me.weapon
+		if (!weapon.type!!.automatic) return
+
+		val shotsFired = +Me().shotsFired
 		val bulletsLeft = +weapon.bullets
 		if (shotsFired < 1 || shotsFired < prevFired || bulletsLeft <= 0) {
 			prevFired = 0

@@ -2,7 +2,6 @@ package org.abendigo.plugin.csgo
 
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.Me
-import org.abendigo.csgo.Vector
 import org.abendigo.csgo.normalizeAngle
 
 object RCSPlugin : InGamePlugin("RCS", duration = 16) {
@@ -12,9 +11,12 @@ object RCSPlugin : InGamePlugin("RCS", duration = 16) {
 
 	override fun cycle() {
 		val shotsFired = +Me().shotsFired
+
 		val weapon = +Me.weapon
+		if (!weapon.type!!.automatic) return
+
 		val bulletsLeft = +weapon.bullets
-		if (shotsFired < 1 || shotsFired < prevFired || bulletsLeft <= 0 || +Me().dead) {
+		if (shotsFired <= 2 || shotsFired < prevFired || bulletsLeft <= 0 || +Me().dead) {
 			prevFired = 0
 			lastPunch[0] = 0F
 			lastPunch[1] = 0F

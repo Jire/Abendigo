@@ -1,5 +1,6 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
@@ -35,11 +36,10 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 		if (elapsedTime < random(MIN_ELAPSED, MAX_ELAPSED)) return
 
 		try {
-			val weapon = +Me.weapon
-			val weaponID = weapon.id
-			if (weaponID == 42 || weaponID == 9 || weaponID == 40
-					|| weaponID == 11 || weaponID == 38) return
+			val weapon = (+Me.weapon).type!!
+			if (!weapon.automatic) return
 		} catch (t: Throwable) {
+			if (DEBUG) t.printStackTrace()
 		}
 
 		if (target == null) {
