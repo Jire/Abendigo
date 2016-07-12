@@ -1,5 +1,5 @@
 group 'org.abendigo'
-version '1.76b'
+version '1.8b'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
