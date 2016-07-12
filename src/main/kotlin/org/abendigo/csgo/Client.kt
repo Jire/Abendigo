@@ -28,17 +28,17 @@ object Client {
 			try {
 				val address: Int = clientDLL[m_dwEntityList + (i * ENTITY_SIZE)]
 				if (+Me().address != address && address > 0) {
-					val cls = EntityType.byEntityAddress(address)!!
-					val entity = Entity(address, i, cls)
+					val type = EntityType.byEntityAddress(address)!!
+					val entity = Entity(address, i, type)
 					put(i, entity)
 
-					if (cls == EntityType.CCSPlayer /* player */) {
-						val entityTeam: Int = csgo[address + m_iTeamNum]
-						if (entityTeam == 2 || entityTeam == 3) {
-							val player = Player(entity)
-							if (myTeam == entityTeam) team.put(i, player)
-							else enemies.put(i, player)
-						}
+					if (type != EntityType.CCSPlayer) continue
+					
+					val entityTeam: Int = csgo[address + m_iTeamNum]
+					if (entityTeam == 2 || entityTeam == 3) {
+						val player = Player(entity)
+						if (myTeam == entityTeam) team.put(i, player)
+						else enemies.put(i, player)
 					}
 				}
 			} catch (t: Throwable) {
