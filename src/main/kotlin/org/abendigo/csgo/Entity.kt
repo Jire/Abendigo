@@ -4,7 +4,7 @@ import org.abendigo.Addressable
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
 
-open class Entity(override val address: Int, val id: Int) : Addressable {
+open class Entity(override val address: Int, val id: Int, val type: EntityType) : Addressable {
 
 	val spotted = cached<Boolean>(m_bSpotted)
 

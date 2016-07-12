@@ -8,7 +8,7 @@ import org.abendigo.csgo.Client.clientDLL
 object Me : Cached<Player>({
 	val address: Int = clientDLL[m_dwLocalPlayer]
 	val index = csgo.get<Int>(address + m_dwIndex) - 1
-	Player(address, index)
+	Player(address, index, EntityType.CCSPlayer)
 }) {
 
 	@JvmStatic val flags = cached<Int>(this().address, m_fFlags)

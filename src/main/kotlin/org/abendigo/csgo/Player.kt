@@ -3,9 +3,9 @@ package org.abendigo.csgo
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
 
-class Player(address: Int, id: Int) : Entity(address, id) {
+class Player(address: Int, id: Int, type: EntityType) : Entity(address, id, type) {
 
-	constructor(entity: Entity) : this(entity.address, entity.id)
+	constructor(entity: Entity) : this(entity.address, entity.id, entity.type)
 
 	val team = cached<Int>(m_iTeamNum)
 
