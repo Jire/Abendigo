@@ -4,21 +4,23 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 
-object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
+object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 
 	override val author = "Jire"
 	override val description = "Outlines players with a glow"
 
+	private const val PLAYER_ALPHA = 0.8F
+	private const val REDUCE_ALPHA_UNSPOTTED = 0.7F /* set to 1.0F to not reduce */
+
 	private const val SHOW_TEAM = true
 	private const val SHOW_DORMANT = false
 
-	private const val SHOW_WEAPONS = true
 	private const val SHOW_BOMB = true
+	private const val SHOW_WEAPONS = true
+	private const val SHOW_GRENADES = true
+	private const val SHOW_CHICKENS = true
 
-	private const val MODEL_COLORS = true
-
-	private const val ALPHA = 0.8F
-	private const val REDUCE_ALPHA_UNSPOTTED = 0.4F /* set to 1.0F to not reduce */
+	private const val CHANGE_MODEL_COLORS = true
 
 	override fun cycle() {
 		glow@ for (glIdx in 0..+glowObjectCount) {
@@ -34,10 +36,10 @@ object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
 				val dormant = +p.dormant
 				if (!SHOW_DORMANT && dormant) continue
 
-				var red = 255F
-				var green = 0F
-				var blue = 0F
-				var alpha = ALPHA
+				var red = 255
+				var green = 0
+				var blue = 0
+				var alpha = PLAYER_ALPHA
 
 				if (!+p.spotted) alpha *= REDUCE_ALPHA_UNSPOTTED
 
@@ -45,34 +47,38 @@ object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
 				val pTeam = +p.team
 				if (myTeam == pTeam) {
 					if (!SHOW_TEAM) continue
-					red = 0F
-					blue = 255F
-				} else if (p.address == +Me.targetAddress) green = 215F
+					red = 0
+					blue = 255
+				} else if (p.address == +Me.targetAddress) green = 215
 				else if (SHOW_DORMANT && dormant) {
-					blue = 255F
-					green = 255F
-					alpha = 0.45F
+					blue = 255
+					green = 255
+					alpha = 0.75F
 				}
 
 				glow(glowAddress, red, green, blue, alpha)
 
-				if (MODEL_COLORS) modelColors(entityAddress, red.toByte(), green.toByte(), blue.toByte())
+				if (CHANGE_MODEL_COLORS) modelColors(entityAddress, red.toByte(), green.toByte(), blue.toByte())
 
 				continue@glow
 			}
 
-			val cls = EntityType.byEntityAddress(entityAddress) ?: continue
-			if (SHOW_WEAPONS && (cls.weapon || cls.grenade)) glow(glowAddress, 0F, 255F, 0F, 0.5F)
-			else if (SHOW_BOMB && (cls == EntityType.CC4 || cls == EntityType.CPlantedC4
-					|| cls == EntityType.CTEPlantBomb)) glow(glowAddress, 255F, 255F, 255F)
+			val type = EntityType.byEntityAddress(entityAddress) ?: continue
+			if (SHOW_WEAPONS && type.weapon) glow(glowAddress, 0, 255, 0, 0.75F)
+			else if (SHOW_GRENADES && (type.grenade || type == EntityType.CSpatialEntity
+					|| type == EntityType.CMovieDisplay || type == EntityType.CSpotlightEnd))
+				glow(glowAddress, 255, 255, 255)
+			else if (SHOW_CHICKENS && type == EntityType.CChicken) glow(glowAddress, 255, 255, 255)
+			else if (SHOW_BOMB && (type == EntityType.CC4 || type == EntityType.CPlantedC4
+					|| type == EntityType.CTEPlantBomb || type == EntityType.CPlasma)) glow(glowAddress, 255, 255, 255)
 		}
 	}
 
-	private fun glow(glowAddress: Int, red: Float, green: Float, blue: Float, alpha: Float = 1F,
+	private fun glow(glowAddress: Int, red: Int, green: Int, blue: Int, alpha: Float = 1F,
 	                 occluded: Boolean = true, unoccluded: Boolean = false, fullBloom: Boolean = false) {
-		csgo[glowAddress + 0x4] = red
-		csgo[glowAddress + 0x8] = green
-		csgo[glowAddress + 0xC] = blue
+		csgo[glowAddress + 0x4] = red / 255F
+		csgo[glowAddress + 0x8] = green / 255F
+		csgo[glowAddress + 0xC] = blue / 255F
 		csgo[glowAddress + 0x10] = alpha
 		csgo[glowAddress + 0x24] = occluded
 		csgo[glowAddress + 0x25] = unoccluded

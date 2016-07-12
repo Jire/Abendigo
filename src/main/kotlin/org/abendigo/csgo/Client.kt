@@ -33,7 +33,7 @@ object Client {
 					put(i, entity)
 
 					if (type != EntityType.CCSPlayer) continue
-					
+
 					val entityTeam: Int = csgo[address + m_iTeamNum]
 					if (entityTeam == 2 || entityTeam == 3) {
 						val player = Player(entity)
