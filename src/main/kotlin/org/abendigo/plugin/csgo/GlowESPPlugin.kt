@@ -48,8 +48,9 @@ object GlowESPPlugin : InGamePlugin("ESP", duration = 64) {
 				csgo[glOffset + 0x8] = green
 				csgo[glOffset + 0xC] = blue
 				csgo[glOffset + 0x10] = alpha
-				csgo[glOffset + 0x24] = true
-				csgo[glOffset + 0x25] = false
+				csgo[glOffset + 0x24] = true // occluded
+				// csgo[glOffset + 0x25] = false // unoccluded
+				// csgo[glOffset + 0x26] = false // full bloom
 			}
 		}
 	}
