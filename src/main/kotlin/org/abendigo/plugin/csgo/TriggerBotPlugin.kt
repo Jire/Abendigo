@@ -40,7 +40,7 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 		for ((i, e) in enemies) if (e.address == +Me.targetAddress) {
 			if (LEGIT) {
 				val spotted = +e.spotted
-				sleep(random(duration, if (spotted) duration * 3 else duration * 6))
+				sleep(random(duration, if (spotted) duration * 3 else duration * 5))
 			}
 			clientDLL[m_dwForceAttack] = 5.toByte()
 			sleep(random(duration, duration * 2))

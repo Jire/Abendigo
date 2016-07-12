@@ -36,17 +36,16 @@ fun main(args: Array<String>) {
 
 	enable(GlowESPPlugin)
 	enable(BunnyHopPlugin)
-
 	enable(TriggerBotPlugin)
+	enable(ReducedFlashPlugin) // still unsure if can cause untrusted, disable if you want to be safer
 
-	enable(AimAssistPlugin)
-	enable(SprayAssistPlugin)
+	enable(FOVAimPlugin) // do not use with aim assist
+	//enable(AimAssistPlugin) // do not use with FOV aim
 
-	// enable(FOVAimPlugin) // disable aim and spray assist if using FOV
+	enable(RCSPlugin) // do not use with spray assist
+	//enable(SprayAssistPlugin) // do not use with RCS
 
 
 	// --- !!! DANGER ZONE !!! --- //
 	// enable(RadarPlugin) // bSpotted is being checked by client, DO NOT USE
-	// enable(ReducedFlashPlugin) // flash value is being checked, DO NOT USE
-	// enable(RCSPlugin) // the way we're computing new angle is being detected, DO NOT USE
 }

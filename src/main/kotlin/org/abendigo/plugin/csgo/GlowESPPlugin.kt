@@ -4,7 +4,6 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.offsets.m_bDormant
-import org.abendigo.csgo.offsets.m_lifeState
 
 object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 
@@ -69,12 +68,11 @@ object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 			if (SHOW_WEAPONS && type.weapon) glow(glowAddress, 0, 255, 0, 0.75F)
 			else if (SHOW_GRENADES && (type.grenade || type == EntityType.CSpatialEntity
 					|| type == EntityType.CMovieDisplay || type == EntityType.CSpotlightEnd))
-				glow(glowAddress, 255, 255, 255)
+				glow(glowAddress, 0, 255, 0)
 			else if (SHOW_CHICKENS && type == EntityType.CChicken) {
 				val dormant: Boolean = csgo[entityAddress + m_bDormant]
 				if (!dormant) glow(glowAddress, 255, 0, 0)
-			}
-			else if (SHOW_BOMB && (type == EntityType.CC4 || type == EntityType.CPlantedC4
+			} else if (SHOW_BOMB && (type == EntityType.CC4 || type == EntityType.CPlantedC4
 					|| type == EntityType.CTEPlantBomb || type == EntityType.CPlasma)) glow(glowAddress, 255, 255, 255)
 		}
 	}
