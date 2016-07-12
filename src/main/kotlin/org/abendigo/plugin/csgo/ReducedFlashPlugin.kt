@@ -9,9 +9,11 @@ object ReducedFlashPlugin : InGamePlugin("Reduced Flash", duration = 256) {
 	override val author = "Jire"
 	override val description = "Reduces the effect of flashbangs"
 
+	private const val REDUCTION_PERCENTAGE = 50
+
 	override fun cycle() {
 		if (csgo.get<Float>(Me().address + m_flFlashMaxAlpha) > 0F)
-			csgo[Me().address + m_flFlashMaxAlpha] = 95F
+			csgo[Me().address + m_flFlashMaxAlpha] = 255F * (REDUCTION_PERCENTAGE / 100F)
 	}
 
 }
