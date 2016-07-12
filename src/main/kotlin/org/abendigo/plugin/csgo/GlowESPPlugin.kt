@@ -20,7 +20,7 @@ object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 	private const val SHOW_BOMB = true
 	private const val SHOW_WEAPONS = true
 	private const val SHOW_GRENADES = true
-	private const val SHOW_CHICKENS = true
+	private const val SHOW_CHICKENS = false
 
 	private const val CHANGE_MODEL_COLORS = true
 
