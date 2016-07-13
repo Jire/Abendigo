@@ -10,7 +10,7 @@ import org.abendigo.util.randomFloat
 import org.jire.kotmem.Keys
 import java.lang.Math.abs
 
-object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
+object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 
 	override val author = "Jire"
 	override val description = "Aims at enemies when they are in the FOV"
@@ -19,14 +19,14 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 	private const val FORCE_AIM_KEY = 5 /* backwards button */
 	private const val FORCE_AIM_ENHANCEMENT = 1.5F /* set to 1.0F for no enhancement */
 
-	private const val LOCK_FOV = 40
-	private const val UNLOCK_FOV = 70
+	private const val LOCK_FOV = 35
+	private const val UNLOCK_FOV = LOCK_FOV * 2
 	private const val NEVER_STICK = false
 
-	private const val SMOOTHING_MIN = 5F
-	private const val SMOOTHING_MAX = 8.25F
+	private const val SMOOTHING_MIN = 7.5F
+	private const val SMOOTHING_MAX = 11F
 
-	private val TARGET_BONES = arrayOf(Bones.NECK, Bones.HEAD)
+	private val TARGET_BONES = arrayOf(Bones.HEAD, Bones.HEAD, Bones.HEAD, Bones.NECK)
 	private const val CHANGE_BONE_CHANCE = 8
 
 	private var target: Player? = null
@@ -46,7 +46,7 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 
 		try {
 			val weapon = (+Me.weapon).type!!
-			if (weapon.knife || weapon.grenade) return
+			if (!weapon.automatic && !weapon.pistol && !weapon.shotgun) return
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
 		}
