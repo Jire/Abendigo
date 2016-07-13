@@ -6,11 +6,11 @@ import java.lang.Float.NaN
 import java.lang.Math.*
 import java.util.concurrent.ThreadLocalRandom
 
-const val PITCH_MIN_PUNCH = 1F
-const val PITCH_MAX_PUNCH = 3F
+const val PITCH_MIN_PUNCH = 1.77F
+const val PITCH_MAX_PUNCH = 2.14F
 
-const val YAW_MIN_PUNCH = 1.7F
-const val YAW_MAX_PUNCH = 2.5F
+const val YAW_MIN_PUNCH = 1.92F
+const val YAW_MAX_PUNCH = 2.04F
 
 fun normalizeAngle(angle: Vector<Float>): Vector<Float> {
 	if (angle.x > 89 && angle.x <= 180) angle.x = 89F
