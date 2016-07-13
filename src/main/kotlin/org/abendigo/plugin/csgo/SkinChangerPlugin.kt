@@ -16,7 +16,6 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 
 	private const val APPLY_KEY = KeyEvent.VK_F1
 
-	private const val DEFAULT_SKIN = 38 // Fade
 	private const val DEFAULT_SKIN_SEED = 0
 	private const val DEFAULT_STATTRACK = -1 // -1 for no StatTrak, 0+ for StatTrak amount
 	private const val DEFAULT_WEAR = 0.0001F // lower = less wear, higher = more wear
@@ -40,7 +39,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 	private var weaponAddress = 0
 	private lateinit var weapon: Weapons
 
-	private fun customSkin() {
+	private fun skins() {
 		Weapons.AK47(44)
 		Weapons.DESERT_EAGLE(37)
 		Weapons.AWP(344)
@@ -52,10 +51,6 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 		Weapons.FAMAS(426)
 		Weapons.P2000(279)
 		Weapons.SSG08(222)
-
-		// override defaults for regular knifes
-		Weapons.KNIFE(0)
-		Weapons.KNIFE_T(0)
 	}
 
 	override fun cycle() {
@@ -66,15 +61,14 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
 			val xuid: Int = csgo[weaponAddress + m_OriginalOwnerXuidLow]
 
-			// patch to make the customSkin stay
+			// patch to make the skins stay
 			csgo[weaponAddress + m_iItemIDLow] = 2048
 			csgo[weaponAddress + m_iItemIDHigh] = 0
 			csgo[weaponAddress + m_iAccountID] = xuid
 
 			weapon = Weapons.byID(weaponID)!!
 
-			skin(DEFAULT_SKIN, DEFAULT_SKIN_SEED, DEFAULT_STATTRACK, DEFAULT_WEAR, DEFAULT_QUALITY) // defaults first
-			customSkin() // then apply custom to override default
+			skins() // then apply custom to override default
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
 		}
@@ -90,7 +84,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 		csgo[weaponAddress + m_flFallbackWear] = wear
 	}
 
-	private operator fun Weapons.invoke(skinID: Int = DEFAULT_SKIN, skinSeed: Int = DEFAULT_SKIN_SEED,
+	private operator fun Weapons.invoke(skinID: Int, skinSeed: Int = DEFAULT_SKIN_SEED,
 	                                    statTrack: Int = DEFAULT_STATTRACK, wear: Float = DEFAULT_WEAR,
 	                                    quality: Int = DEFAULT_QUALITY) {
 		if (this == weapon) skin(skinID, skinSeed, statTrack, wear, quality)
