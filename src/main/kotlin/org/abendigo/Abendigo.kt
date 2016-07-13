@@ -12,11 +12,14 @@ import org.abendigo.csgo.offsets.netVars
 import org.abendigo.plugin.Plugins.enable
 import org.abendigo.plugin.csgo.*
 import org.abendigo.plugin.every
+import java.lang.management.ManagementFactory
 import java.util.concurrent.TimeUnit.SECONDS
 
 const val DEBUG = false
 
 fun main(args: Array<String>) {
+	if (DEBUG) println(ManagementFactory.getRuntimeMXBean().name)
+
 	Server.bind().syncUninterruptibly()
 
 	while (!Thread.interrupted()) try {
@@ -42,7 +45,7 @@ fun main(args: Array<String>) {
 	enable(FOVAimPlugin) // do not use with aim assist
 	//enable(AimAssistPlugin) // do not use with FOV aim
 
-	enable(RCSPlugin) // do not use with spray assist
+	//enable(RCSPlugin) // do not use with spray assist
 	//enable(SprayAssistPlugin) // do not use with RCS
 
 
