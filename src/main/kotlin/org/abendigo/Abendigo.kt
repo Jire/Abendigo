@@ -40,7 +40,8 @@ fun main(args: Array<String>) {
 	enable(GlowESPPlugin)
 	enable(BunnyHopPlugin)
 	enable(TriggerBotPlugin)
-	enable(ReducedFlashPlugin) // still unsure if can cause untrusted, disable if you want to be safer
+	enable(ReducedFlashPlugin)
+	enable(SkinChangerPlugin)
 
 	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 
