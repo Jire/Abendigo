@@ -41,7 +41,7 @@ fun main(args: Array<String>) {
 	enable(BunnyHopPlugin)
 	enable(TriggerBotPlugin)
 	enable(ReducedFlashPlugin)
-	enable(SkinChangerPlugin)
+	// enable(SkinChangerPlugin) // can crash game
 
 	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 
