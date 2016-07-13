@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent
 // Huge credits and thanks to "double v"'s skin changer source!
 // Find skin IDs here: http://www.unknowncheats.me/forum/counterstrike-global-offensive/148322-skin-ids.html
 
-object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
+object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 
 	private const val APPLY_KEY = KeyEvent.VK_F1
 
@@ -40,7 +40,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 4) {
 
 	override fun cycle() {
 		for (i in 1..3) try {
-			var currentWeaponIndex: Int = csgo[Me().address + m_hMyWeapon + ((i - 1) * 0x4)]
+			var currentWeaponIndex: Int = csgo[Me().address + m_hMyWeapons + ((i - 1) * 0x4)]
 			currentWeaponIndex = currentWeaponIndex and 0xFFF
 			weaponAddress = clientDLL[m_dwEntityList + (currentWeaponIndex - 1) * 0x10]
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
