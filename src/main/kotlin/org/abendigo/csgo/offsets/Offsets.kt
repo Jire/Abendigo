@@ -43,7 +43,8 @@ val m_dwPlayerInfo by scanOffset(engineDLL, 2, 0, READ, 139, 136, 0, 0, 0, 0, 13
 val m_dwViewAngles by scanOffset(engineDLL, 4, 0, READ, 0xF3, 0x0F, 0x11, 0x80, 0, 0, 0, 0, 0xD9, 0x46, 0x04, 0xD9, 0x05, 0, 0, 0, 0)
 val m_dwEnginePosition by scanOffset(engineDLL, 4, 0, READ or SUBTRACT, 243, 15, 17, 21, 0, 0, 0, 0, 243, 15, 17, 13,
 		0, 0, 0, 0, 243, 15, 17, 5, 0, 0, 0, 0, 243, 15, 17, 61, 0, 0, 0, 0)
-val m_bSendPacket by scanOffset(engineDLL, 0, 0, READ or SUBTRACT, 0xB3, 0x01, 0x8B, 0x01, 0x8B)
+val m_bSendPacket by scanOffset(engineDLL, 1, 0, READ or SUBTRACT, 0xB3, 0x01, 0x8B, 0x01, 0x8B)
+//val m_bSendPacket by scanOffset(engineDLL, 0, 0, READ or SUBTRACT, 0x8B, 0x0D, 0, 0, 0, 0, 0xB3, 0, 0x8B, 0x01, 0x8B, 0x40, 0x18)
 val m_dwForceFullUpdate by scanOffset(engineDLL, 0x3, 0, READ or SUBTRACT, 0xB0, 0xFF, 0xB7, 0x00, 0x00, 0x00, 0x00, 0xE8)
 
 // DT_BaseEntity
@@ -63,6 +64,7 @@ val m_lifeState by bpNetVar()
 val m_hActiveWeapon by bpNetVar()
 val m_nTickBase by bpNetVar()
 val m_nButtons by bpNetVar()
+val m_hMyWeapon by bpNetVar()
 
 // DT_CSPlayer
 val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)
@@ -79,4 +81,16 @@ val m_iClip1 by bcwNetVar()
 val m_iClip2 by bcwNetVar()
 
 // DT_WeaponCSBase
-val m_iWeaponID by netVar("DT_WeaponCSBase", "m_fAccuracyPenalty", 0x2C)
+val m_iWeaponID by wepNetVar("m_fAccuracyPenalty", 0x2C)
+val m_iItemDefinitionIndex by wepNetVar()
+val m_iAccountID by wepNetVar()
+val m_OriginalOwnerXuidLow by wepNetVar()
+val m_OriginalOwnerXuidHigh by wepNetVar()
+val m_iItemIDLow by wepNetVar()
+val m_iItemIDHigh by wepNetVar()
+val m_nFallbackPaintKit by wepNetVar()
+val m_nFallbackSeed by wepNetVar()
+val m_flFallbackWear by wepNetVar()
+val m_nFallbackStatTrak by wepNetVar()
+val m_iEntityQuality by wepNetVar()
+val m_szCustomName by wepNetVar()
