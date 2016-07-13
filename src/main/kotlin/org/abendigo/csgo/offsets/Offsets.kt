@@ -43,7 +43,8 @@ val m_dwPlayerInfo by scanOffset(engineDLL, 2, 0, READ, 139, 136, 0, 0, 0, 0, 13
 val m_dwViewAngles by scanOffset(engineDLL, 4, 0, READ, 0xF3, 0x0F, 0x11, 0x80, 0, 0, 0, 0, 0xD9, 0x46, 0x04, 0xD9, 0x05, 0, 0, 0, 0)
 val m_dwEnginePosition by scanOffset(engineDLL, 4, 0, READ or SUBTRACT, 243, 15, 17, 21, 0, 0, 0, 0, 243, 15, 17, 13,
 		0, 0, 0, 0, 243, 15, 17, 5, 0, 0, 0, 0, 243, 15, 17, 61, 0, 0, 0, 0)
-val m_bSendPacket by scanOffset(engineDLL, 1, 0, READ or SUBTRACT, 0xB3, 0x01, 0x8B, 0x01, 0x8B)
+val m_bSendPacket by scanOffset(engineDLL, 0, 0, READ or SUBTRACT, 0xB3, 0x01, 0x8B, 0x01, 0x8B)
+val m_dwForceFullUpdate by scanOffset(engineDLL, 0x3, 0, READ or SUBTRACT, 0xB0, 0xFF, 0xB7, 0x00, 0x00, 0x00, 0x00, 0xE8)
 
 // DT_BaseEntity
 val m_bSpotted by beNetVar()
