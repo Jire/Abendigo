@@ -42,11 +42,11 @@ fun main(args: Array<String>) {
 	enable(TriggerBotPlugin)
 	enable(ReducedFlashPlugin) // still unsure if can cause untrusted, disable if you want to be safer
 
-	enable(FOVAimPlugin) // do not use with aim assist
-	//enable(AimAssistPlugin) // do not use with FOV aim
+	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 
-	//enable(RCSPlugin) // do not use with spray assist
+	//enable(AimAssistPlugin) // do not use with FOV aim
 	//enable(SprayAssistPlugin) // do not use with RCS
+	//enable(RCSPlugin) // do not use with spray assist
 
 
 	// --- !!! DANGER ZONE !!! --- //
