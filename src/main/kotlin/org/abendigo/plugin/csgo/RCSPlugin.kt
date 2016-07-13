@@ -11,7 +11,7 @@ import org.jire.kotmem.Keys
 object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 
 	// 0F = no correction, 2F = 100% correction
-	private const val RANDOM_MIN = 1.82F
+	private const val RANDOM_MIN = 1.86F
 	private const val RANDOM_MAX = 1.97F
 
 	private var prevFired = 0
@@ -33,7 +33,6 @@ object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 		val bulletsLeft = +weapon.bullets
 		if (shotsFired <= 2 || shotsFired < prevFired || bulletsLeft <= 0 || +Me().dead) {
 			if (!Keys[1]) { // prevent aim flick down cheaphax
-				prevFired = 0
 				reset()
 				return
 			}
@@ -70,6 +69,7 @@ object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 	}
 
 	private fun reset() {
+		prevFired = 0
 		lastPunch[0] = 0F
 		lastPunch[1] = 0F
 	}
