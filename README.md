@@ -29,7 +29,3 @@ You can watch this video guide to show you how to build from source.
 You can find our official controller client here: https://github.com/Jire/Abendigo-Controller
 
 Our controller protocol is very simple, you can also easily make your own controller.
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/Jire/Abendigo/badge.svg?style=beer-square)](https://beerpay.io/Jire/Abendigo)  [![Beerpay](https://beerpay.io/Jire/Abendigo/make-wish.svg?style=flat-square)](https://beerpay.io/Jire/Abendigo?focus=wish)
