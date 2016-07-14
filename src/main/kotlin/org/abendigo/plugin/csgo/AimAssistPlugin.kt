@@ -13,8 +13,8 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 	override val author = "Jire"
 	override val description = "Assists your aim"
 
-	private const val SMOOTHING_MIN = 4.25F
-	private const val SMOOTHING_MAX = 8F
+	private const val SMOOTHING_MIN = 5F
+	private const val SMOOTHING_MAX = 8.5F
 
 	private const val MIN_ELAPSED = 75
 	private const val MAX_ELAPSED = 300
@@ -36,7 +36,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 		if (elapsedTime < random(MIN_ELAPSED, MAX_ELAPSED)) return
 
 		try {
-			val weapon = (+Me.weapon).type!!
+			val weapon = (+Me().weapon).type!!
 			if (!weapon.automatic) return
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
