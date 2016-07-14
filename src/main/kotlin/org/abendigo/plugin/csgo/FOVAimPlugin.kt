@@ -45,7 +45,7 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 		val smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
 
 		try {
-			val weapon = (+Me.weapon).type!!
+			val weapon = (+Me().weapon).type!!
 			if (!weapon.automatic && !weapon.pistol && !weapon.shotgun) return
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
