@@ -31,7 +31,7 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 		if (scopeDuration < random(MIN_SCOPE_DURATION, MAX_SCOPE_DURATION)) return
 
 		try {
-			val weapon = (+Me.weapon).type!!
+			val weapon = (+Me().weapon).type!!
 			if (!weapon.sniper || !weapon.boltAction) return
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
