@@ -50,12 +50,20 @@ object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 					if (!SHOW_TEAM) continue
 					red = 0
 					blue = 255
-				} else if (p.address == +Me.targetAddress) green = 215
-				else if (SHOW_DORMANT && dormant) {
+				} else if (SHOW_DORMANT && dormant) {
 					blue = 255
 					green = 255
 					alpha = 0.75F
 				}
+
+				if (p.address == +Me.targetAddress) green = 215
+				else if (p.hasWeapon(Weapons.C4)) {
+					blue = 255
+					green = 0
+					red = 255
+					alpha = 0.8F
+				}
+
 
 				glow(glowAddress, red, green, blue, alpha)
 
@@ -73,7 +81,7 @@ object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 				val dormant: Boolean = csgo[entityAddress + m_bDormant]
 				if (!dormant) glow(glowAddress, 255, 0, 0)
 			} else if (SHOW_BOMB && (type == EntityType.CC4 || type == EntityType.CPlantedC4
-					|| type == EntityType.CTEPlantBomb || type == EntityType.CPlasma)) glow(glowAddress, 255, 255, 255)
+					|| type == EntityType.CTEPlantBomb || type == EntityType.CPlasma)) glow(glowAddress, 255, 0, 255)
 		}
 	}
 
