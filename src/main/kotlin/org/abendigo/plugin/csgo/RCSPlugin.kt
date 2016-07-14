@@ -20,7 +20,7 @@ object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 	override fun cycle() {
 		val shotsFired = +Me().shotsFired
 
-		val weapon = +Me.weapon
+		val weapon = +Me().weapon
 		try {
 			if (!weapon.type!!.automatic) {
 				reset()
