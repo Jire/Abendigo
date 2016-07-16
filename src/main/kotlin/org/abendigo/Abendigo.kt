@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
 		Thread.sleep(1500)
 	}
 
-	FakeLagPlugin.disable() // force fake lag off when cheat starts
+	// FakeLagPlugin.disable() // only need this if you're using fake lag
 
 	every(2, SECONDS) {
 		+Me
@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
 	enable(ReducedFlashPlugin)
-	enable(SkinChangerPlugin)
+	// enable(SkinChangerPlugin)
 	// enable(FakeLagPlugin)
 	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 	// enable(AimAssistPlugin) // do not use with FOV aim
