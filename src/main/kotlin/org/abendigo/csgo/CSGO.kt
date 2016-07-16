@@ -8,6 +8,7 @@ import org.jire.kotmem.Module
 import org.jire.kotmem.Processes
 
 val csgo by lazy(LazyThreadSafetyMode.NONE) { Processes["csgo.exe"] }
+val csgoModule by lazy(LazyThreadSafetyMode.NONE) { csgo.modules["csgo.exe"]!! }
 
 const val ENTITY_SIZE = 16
 const val GLOW_OBJECT_SIZE = 56
