@@ -20,6 +20,8 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 
 	private var scopeDuration = 0
 
+	private const val BOLT_ACTION_ONLY = true
+
 	override fun cycle() {
 		val scoped = +Me.inScope
 		if (!scoped) {
@@ -32,7 +34,7 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 
 		try {
 			val weapon = (+Me().weapon).type!!
-			if (!weapon.sniper || !weapon.boltAction) return
+			if (!weapon.sniper || (BOLT_ACTION_ONLY && !weapon.boltAction)) return
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
 		}
