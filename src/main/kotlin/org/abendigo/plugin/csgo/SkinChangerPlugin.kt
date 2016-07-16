@@ -5,10 +5,12 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.*
+import org.abendigo.util.random
 import org.jire.kotmem.Keys
 import java.awt.event.KeyEvent
 
 // Huge credits and thanks to "double v"'s skin changer source!
+// Also credits to LegitPlayer1337 for his further support and information!
 // Find skin IDs here: http://www.unknowncheats.me/forum/counterstrike-global-offensive/148322-skin-ids.html
 
 object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
@@ -16,7 +18,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 	private const val APPLY_KEY = KeyEvent.VK_F1
 
 	private const val DEFAULT_SKIN_SEED = 0
-	private const val DEFAULT_STATTRACK = -1 // -1 for no StatTrak, 0+ for StatTrak amount
+	private const val DEFAULT_STATTRAK = -1 // -1 for no StatTrak, 0+ for StatTrak amount
 	private const val DEFAULT_WEAR = 0.0001F // lower = less wear, higher = more wear
 	private const val DEFAULT_QUALITY = 1
 
@@ -46,14 +48,12 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
 			val xuid: Int = csgo[weaponAddress + m_OriginalOwnerXuidLow]
 
-			// patch to make the skins stay
-			csgo[weaponAddress + m_iItemIDLow] = 2048
-			csgo[weaponAddress + m_iItemIDHigh] = 0
-			csgo[weaponAddress + m_iAccountID] = xuid
+			csgo[weaponAddress + m_iItemIDHigh] = 1 // patch to make the skins stay
+			csgo[weaponAddress + m_iAccountID] = xuid // patch to make StatTrak stay
 
 			weapon = Weapons.byID(weaponID)!!
 
-			skins() // then apply custom to override default
+			skins()
 		} catch (t: Throwable) {
 			if (DEBUG) t.printStackTrace()
 		}
@@ -61,18 +61,18 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 		if (Keys[APPLY_KEY]) engineDLL[clientState(1024).address + m_dwForceFullUpdate] = -1
 	}
 
-	private fun skin(skinID: Int, skinSeed: Int, statTrack: Int, wear: Float, quality: Int) {
+	private fun skin(skinID: Int, skinSeed: Int, statTrak: Int, wear: Float, quality: Int) {
 		csgo[weaponAddress + m_nFallbackPaintKit] = skinID
 		csgo[weaponAddress + m_nFallbackSeed] = skinSeed
-		csgo[weaponAddress + m_nFallbackStatTrak] = statTrack
+		csgo[weaponAddress + m_nFallbackStatTrak] = statTrak
 		csgo[weaponAddress + m_iEntityQuality] = quality
 		csgo[weaponAddress + m_flFallbackWear] = wear
 	}
 
 	private operator fun Weapons.invoke(skinID: Int, skinSeed: Int = DEFAULT_SKIN_SEED,
-	                                    statTrack: Int = DEFAULT_STATTRACK, wear: Float = DEFAULT_WEAR,
+	                                    statTrak: Int = DEFAULT_STATTRAK, wear: Float = DEFAULT_WEAR,
 	                                    quality: Int = DEFAULT_QUALITY) {
-		if (this == weapon) skin(skinID, skinSeed, statTrack, wear, quality)
+		if (this == weapon) skin(skinID, skinSeed, statTrak, wear, quality)
 	}
 
 }
