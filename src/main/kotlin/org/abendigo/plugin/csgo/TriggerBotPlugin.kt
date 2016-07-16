@@ -18,9 +18,9 @@ object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
 	private const val MIN_SCOPE_DURATION = 85
 	private const val MAX_SCOPE_DURATION = 160
 
-	private var scopeDuration = 0
-
 	private const val BOLT_ACTION_ONLY = true
+
+	private var scopeDuration = 0
 
 	override fun cycle() {
 		val scoped = +Me.inScope
