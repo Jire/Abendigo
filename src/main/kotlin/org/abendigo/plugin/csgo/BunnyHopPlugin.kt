@@ -20,8 +20,6 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 
 	private const val FAIL_CHANCE = 5
 
-	private const val ONLY_WHEN_MOVING = true
-
 	private var holdingSpace = false
 	private var firstJump = true
 
@@ -31,10 +29,6 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 			firstJump = true
 			return
 		}
-		if (ONLY_WHEN_MOVING) {
-			val velocity = +Me().velocity
-			if (velocity.x <= 0 && velocity.y <= 1 && velocity.z <= 1) return
-		}
 		if (+Me.flags and 1 == 1) {
 			if (LEGIT) {
 				var delay = random(MIN_DELAY, MAX_DELAY)
@@ -43,9 +37,9 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 				sleep(delay)
 			}
 			clientDLL[m_dwForceJump] = 5.toByte()
-			sleep(if (LEGIT) random(duration, duration * 4) else duration * 2)
+			sleep(if (LEGIT) random(duration, duration * 4) else 20)
 			clientDLL[m_dwForceJump] = 4.toByte()
-			sleep(if (LEGIT) random(duration, duration * 4) else duration * 2)
+			sleep(if (LEGIT) random(duration, duration * 4) else 20)
 			firstJump = false
 		}
 	}
