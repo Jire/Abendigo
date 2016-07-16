@@ -36,8 +36,11 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 		Weapons.GLOCK(38)
 		Weapons.GALIL(379)
 		Weapons.FAMAS(426)
-		Weapons.P2000(279)
+		Weapons.P2000(38)
 		Weapons.SSG08(222)
+		Weapons.P90(359)
+		Weapons.PP_BIZON(349)
+		Weapons.USP_SILENCER(489)
 	}
 
 	override fun cycle() {
