@@ -3,11 +3,9 @@
 package org.abendigo
 
 import org.abendigo.controller.Server
+import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.entities
-import org.abendigo.csgo.Me
-import org.abendigo.csgo.csgo
-import org.abendigo.csgo.engineDLL
 import org.abendigo.csgo.offsets.netVars
 import org.abendigo.plugin.Plugins.enable
 import org.abendigo.plugin.csgo.*
@@ -24,6 +22,7 @@ fun main(args: Array<String>) {
 
 	while (!Thread.interrupted()) try {
 		csgo
+		csgoModule
 		engineDLL
 		clientDLL
 		netVars
@@ -31,6 +30,8 @@ fun main(args: Array<String>) {
 	} catch (t: Throwable) {
 		Thread.sleep(1500)
 	}
+
+	FakeLagPlugin.disable() // force fake lag off when cheat starts
 
 	every(2, SECONDS) {
 		+Me
@@ -40,14 +41,14 @@ fun main(args: Array<String>) {
 	enable(GlowESPPlugin)
 	enable(BunnyHopPlugin)
 	enable(TriggerBotPlugin)
+	// enable(BoneTriggerPlugin)
 	enable(ReducedFlashPlugin)
-	// enable(SkinChangerPlugin) // can crash game
-
+	enable(SkinChangerPlugin)
+	// enable(FakeLagPlugin)
 	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
-
-	//enable(AimAssistPlugin) // do not use with FOV aim
-	//enable(SprayAssistPlugin) // do not use with RCS
-	//enable(RCSPlugin) // do not use with spray assist
+	// enable(AimAssistPlugin) // do not use with FOV aim
+	// enable(SprayAssistPlugin) // do not use with RCS
+	// enable(RCSPlugin) // do not use with spray assist
 
 
 	// --- !!! DANGER ZONE !!! --- //
