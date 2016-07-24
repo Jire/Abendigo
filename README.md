@@ -1,8 +1,9 @@
+# Abendigo
+A free as in both freedom and free beer game modding/hacking platform using Kotlin on the JVM.
+
 [![Build Status](https://travis-ci.org/Jire/Abendigo.svg?branch=master)](https://travis-ci.org/Jire/Abendigo)
 [![Dependency Status](https://www.versioneye.com/user/projects/5784c44276ef40003fba815c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5784c44276ef40003fba815c)
 [![license](https://img.shields.io/github/license/Jire/Abendigo.svg)](https://github.com/Jire/Abendigo/blob/master/LICENSE.txt)
-# Abendigo
-A free as in both freedom and free beer game modding/hacking platform using Kotlin on the JVM.
 
 ---
 
