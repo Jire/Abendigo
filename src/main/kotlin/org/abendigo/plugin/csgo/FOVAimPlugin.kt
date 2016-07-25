@@ -10,7 +10,7 @@ import org.abendigo.util.randomFloat
 import org.jire.kotmem.Keys
 import java.lang.Math.abs
 
-object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
+object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 
 	override val author = "Jire"
 	override val description = "Aims at enemies when they are in the FOV"
@@ -23,8 +23,10 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 	private const val UNLOCK_FOV = LOCK_FOV * 2
 	private const val NEVER_STICK = false
 
-	private const val SMOOTHING_MIN = 10F
-	private const val SMOOTHING_MAX = 14F
+	private const val SMOOTHING_MIN = 8F
+	private const val SMOOTHING_MAX = 12F
+
+	private const val JUMP_REDUCTION = 0.4F
 
 	private val TARGET_BONES = arrayOf(Bones.HEAD, Bones.HEAD, Bones.HEAD, Bones.NECK)
 	private const val CHANGE_BONE_CHANCE = 8
@@ -41,9 +43,6 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 		val lockFOV = LOCK_FOV * FORCE_AIM_ENHANCEMENT
 		val unlockFOV = UNLOCK_FOV * FORCE_AIM_ENHANCEMENT
 
-		val smoothingMin = SMOOTHING_MIN * FORCE_AIM_ENHANCEMENT
-		val smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
-
 		try {
 			val weapon = (+Me().weapon).type!!
 			if (!weapon.automatic && !weapon.pistol && !weapon.shotgun) return
@@ -51,10 +50,10 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 			if (DEBUG) t.printStackTrace()
 		}
 
-		val myPosition = +Me().position
+		val position = +Me().position
 		val angle = clientState(1024).angle()
 
-		if (target == null) if (!findTarget(myPosition, angle, lockFOV)) return
+		if (target == null) if (!findTarget(position, angle, lockFOV)) return
 
 		if (+Me().dead || +target!!.dead || !+target!!.spotted || +target!!.dormant) {
 			target = null
@@ -62,32 +61,12 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 			return
 		}
 
-		if (random(CHANGE_BONE_CHANCE) == 0) targetBone = newTargetBone()
-
-		val enemyPosition = target!!.bonePosition(targetBone.id)
-
-		val smoothing = randomFloat(smoothingMin, smoothingMax)
-
-		compensateVelocity(Me(), target!!, enemyPosition, smoothing)
-
-		calculateAngle(Me(), myPosition, enemyPosition, aim.reset())
-		normalizeAngle(aim)
-
-		normalizeAngle(angle)
-
-		val distance = distance(myPosition, enemyPosition)
-		val yawDelta = abs(angle.y - aim.y)
-		val deltaFOV = abs(Math.sin(Math.toRadians(yawDelta.toDouble())) * distance)
-
-		if (deltaFOV >= unlockFOV) target = null
-		else angleSmooth(aim, angle, smoothing)
-
-		if (NEVER_STICK) target = null
+		aimAt(position, angle, target!!, unlockFOV)
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
 
-	private fun findTarget(myPosition: Vector<Float>, angle: Vector<Float>, lockFOV: Float): Boolean {
+	private fun findTarget(position: Vector<Float>, angle: Vector<Float>, lockFOV: Float): Boolean {
 		var closestDelta = Int.MAX_VALUE
 		var closetPlayer: Player? = null
 		for ((i, e) in enemies) {
@@ -95,9 +74,9 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 			if (+e.dead || !+e.spotted || +e.dormant) continue
 
 			val ePos = e.bonePosition(Bones.HEAD.id)
-			val distance = distance(myPosition, ePos)
+			val distance = distance(position, ePos)
 
-			calculateAngle(Me(), myPosition, ePos, aim.reset())
+			calculateAngle(Me(), position, ePos, aim.reset())
 			normalizeAngle(aim)
 
 			val yawDiff = abs(angle.y - aim.y)
@@ -115,6 +94,37 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 		}
 
 		return false
+	}
+
+	private fun aimAt(position: Vector<Float>, angle: Vector<Float>, target: Player, unlockFOV: Float) {
+		var smoothingMin = SMOOTHING_MIN * FORCE_AIM_ENHANCEMENT
+		var smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
+		if (+target.flags and 1 == 0 /* check if they're jumping */) {
+			smoothingMin *= JUMP_REDUCTION
+			smoothingMax *= JUMP_REDUCTION
+		}
+
+		if (random(CHANGE_BONE_CHANCE) == 0) targetBone = newTargetBone()
+
+		val enemyPosition = target.bonePosition(targetBone.id)
+
+		val smoothing = randomFloat(smoothingMin, smoothingMax)
+
+		compensateVelocity(Me(), target, enemyPosition, smoothing)
+
+		calculateAngle(Me(), position, enemyPosition, aim.reset())
+		normalizeAngle(aim)
+
+		normalizeAngle(angle)
+
+		val distance = distance(position, enemyPosition)
+		val yawDelta = abs(angle.y - aim.y)
+		val deltaFOV = abs(Math.sin(Math.toRadians(yawDelta.toDouble())) * distance)
+
+		if (deltaFOV >= unlockFOV) FOVAimPlugin.target = null
+		else angleSmooth(aim, angle, smoothing)
+
+		if (NEVER_STICK) FOVAimPlugin.target = null
 	}
 
 }
