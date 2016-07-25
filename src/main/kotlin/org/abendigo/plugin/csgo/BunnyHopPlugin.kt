@@ -29,7 +29,7 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 			firstJump = true
 			return
 		}
-		if (+Me.flags and 1 == 1) {
+		if (+Me().flags and 1 == 1) {
 			if (LEGIT) {
 				var delay = random(MIN_DELAY, MAX_DELAY)
 				if (random(FAIL_CHANCE) == 0) delay = duration

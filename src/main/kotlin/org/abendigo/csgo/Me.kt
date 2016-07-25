@@ -11,8 +11,6 @@ object Me : Cached<Player>({
 	Player(address, index, EntityType.CCSPlayer)
 }) {
 
-	@JvmStatic val flags = cached<Int>(this().address, m_fFlags)
-
 	@JvmStatic val crosshairID = cached { csgo.get<Int>(this().address + m_iCrossHairID) - 1 }
 
 	@JvmStatic val targetAddress = cached {

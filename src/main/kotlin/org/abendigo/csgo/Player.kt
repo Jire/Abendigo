@@ -15,6 +15,8 @@ class Player(address: Int, id: Int, type: EntityType) : Entity(address, id, type
 
 	val shotsFired = cached<Int>(m_iShotsFired)
 
+	val flags = cached<Int>(address, m_fFlags)
+
 	val viewOffset = cached<Float> { csgo[address + m_vecViewOffset] }
 
 	val position = cached {
