@@ -23,8 +23,8 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 	private const val UNLOCK_FOV = LOCK_FOV * 2
 	private const val NEVER_STICK = false
 
-	private const val SMOOTHING_MIN = 7.5F
-	private const val SMOOTHING_MAX = 11F
+	private const val SMOOTHING_MIN = 10F
+	private const val SMOOTHING_MAX = 14F
 
 	private val TARGET_BONES = arrayOf(Bones.HEAD, Bones.HEAD, Bones.HEAD, Bones.NECK)
 	private const val CHANGE_BONE_CHANCE = 8
@@ -83,10 +83,6 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 32) {
 		else angleSmooth(aim, angle, smoothing)
 
 		if (NEVER_STICK) target = null
-	}
-
-	override fun disable() {
-		target = null
 	}
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
