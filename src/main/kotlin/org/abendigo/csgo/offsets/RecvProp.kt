@@ -1,6 +1,7 @@
 package org.abendigo.csgo.offsets
 
 import org.abendigo.csgo.csgo
+import org.jire.arrowhead.get
 import kotlin.LazyThreadSafetyMode.NONE
 
 class RecvProp(val address: Int, val addressOffset: Int) {
@@ -9,7 +10,8 @@ class RecvProp(val address: Int, val addressOffset: Int) {
 
 	val name by lazy(NONE) {
 		val bytes = ByteArray(64)
-		csgo[csgo.get<Int>(address), bytes.size].bytes(bytes)
+		csgo.read(csgo.int(address), bytes.size).read(0, bytes, 0, bytes.size)
+		//csgo[csgo.get<Int>(address), bytes.size].bytes(bytes)
 		nvString(bytes)
 	}
 

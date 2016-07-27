@@ -5,7 +5,7 @@ import org.abendigo.csgo.Me
 import org.abendigo.csgo.offsets.m_dwForceJump
 import org.abendigo.plugin.sleep
 import org.abendigo.util.random
-import org.jire.kotmem.Keys
+import org.jire.arrowhead.keyPressed
 import java.awt.event.KeyEvent
 
 object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
@@ -24,7 +24,7 @@ object BunnyHopPlugin : InGamePlugin("Bunny Hop", duration = 8) {
 	private var firstJump = true
 
 	override fun cycle() {
-		holdingSpace = Keys[KeyEvent.VK_SPACE]
+		holdingSpace = keyPressed(KeyEvent.VK_SPACE)
 		if (!holdingSpace) {
 			firstJump = true
 			return

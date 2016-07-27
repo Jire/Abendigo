@@ -6,7 +6,7 @@ import org.abendigo.csgo.Me
 import org.abendigo.csgo.Vector
 import org.abendigo.csgo.normalizeAngle
 import org.abendigo.util.randomFloat
-import org.jire.kotmem.Keys
+import org.jire.arrowhead.keyReleased
 
 object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 
@@ -32,7 +32,7 @@ object RCSPlugin : InGamePlugin("RCS", duration = 32) {
 
 		val bulletsLeft = +weapon.bullets
 		if (shotsFired <= 2 || shotsFired < prevFired || bulletsLeft <= 0 || +Me().dead) {
-			if (!Keys[1]) { // prevent aim flick down cheaphax
+			if (keyReleased(1)) { // prevent aim flick down cheaphax
 				reset()
 				return
 			}

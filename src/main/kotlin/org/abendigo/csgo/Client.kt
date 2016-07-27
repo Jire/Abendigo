@@ -7,11 +7,12 @@ import org.abendigo.cached.initializedCache
 import org.abendigo.csgo.offsets.m_dwEntityList
 import org.abendigo.csgo.offsets.m_dwGlowObject
 import org.abendigo.csgo.offsets.m_iTeamNum
+import org.jire.arrowhead.get
 import java.util.concurrent.ConcurrentHashMap
 
 object Client {
 
-	val clientDLL by lazy(LazyThreadSafetyMode.NONE) { csgo["client.dll"] }
+	val clientDLL by lazy(LazyThreadSafetyMode.NONE) { csgo.modules["client.dll"]!! }
 
 	val glowObject = cached<Int>(clientDLL, m_dwGlowObject)
 

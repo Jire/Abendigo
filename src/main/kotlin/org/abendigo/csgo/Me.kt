@@ -4,6 +4,7 @@ import org.abendigo.cached.Cached
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
 import org.abendigo.csgo.Client.clientDLL
+import org.jire.arrowhead.get
 
 object Me : Cached<Player>({
 	val address: Int = clientDLL[m_dwLocalPlayer]

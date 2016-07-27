@@ -7,29 +7,30 @@ import org.abendigo.csgo.Engine.clientState
 import org.abendigo.plugin.sleep
 import org.abendigo.util.random
 import org.abendigo.util.randomFloat
-import org.jire.kotmem.Keys
+import org.jire.arrowhead.keyPressed
+import org.jire.arrowhead.keyReleased
 import java.lang.Math.abs
 
-object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
+object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 20) {
 
 	override val author = "Jire"
 	override val description = "Aims at enemies when they are in the FOV"
 
 	private const val AIM_KEY = 1 /* left click */
 	private const val FORCE_AIM_KEY = 5 /* backwards button */
-	private const val FORCE_AIM_ENHANCEMENT = 1.5F /* set to 1.0F for no enhancement */
+	private const val FORCE_AIM_ENHANCEMENT = 1.4F /* set to 1.0F for no enhancement */
 
 	private const val LOCK_FOV = 35
 	private const val UNLOCK_FOV = LOCK_FOV * 2
 	private const val NEVER_STICK = false
 
-	private const val SMOOTHING_MIN = 8F
-	private const val SMOOTHING_MAX = 12F
+	private const val SMOOTHING_MIN = 10F
+	private const val SMOOTHING_MAX = 13F
 
 	private const val JUMP_REDUCTION = 0.4F
 
 	private val TARGET_BONES = arrayOf(Bones.HEAD, Bones.HEAD, Bones.HEAD, Bones.NECK)
-	private const val CHANGE_BONE_CHANCE = 8
+	private const val CHANGE_BONE_CHANCE = 7
 
 	private var target: Player? = null
 	private var targetBone = newTargetBone()
@@ -37,8 +38,8 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 	private val aim = Vector(0F, 0F, 0F)
 
 	override fun cycle() {
-		val forceAim = Keys[FORCE_AIM_KEY]
-		if (!forceAim && !Keys[AIM_KEY]) return
+		val forceAim = keyPressed(FORCE_AIM_KEY)
+		if (!forceAim && keyReleased(AIM_KEY)) return
 
 		val lockFOV = LOCK_FOV * FORCE_AIM_ENHANCEMENT
 		val unlockFOV = UNLOCK_FOV * FORCE_AIM_ENHANCEMENT
@@ -99,7 +100,7 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 16) {
 	private fun aimAt(position: Vector<Float>, angle: Vector<Float>, target: Player, unlockFOV: Float) {
 		var smoothingMin = SMOOTHING_MIN * FORCE_AIM_ENHANCEMENT
 		var smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
-		if (+target.flags and 1 == 0 /* check if they're jumping */) {
+		if (+target.flags and 1 == 0 || +Me().flags and 1 == 0) {
 			smoothingMin *= JUMP_REDUCTION
 			smoothingMax *= JUMP_REDUCTION
 		}

@@ -1,6 +1,8 @@
 package org.abendigo.csgo.offsets
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.csgo
+import org.jire.arrowhead.get
 import kotlin.LazyThreadSafetyMode.NONE
 
 internal class ClientClass(val address: Int) {
@@ -12,8 +14,9 @@ internal class ClientClass(val address: Int) {
 	val table by lazy<Int>(NONE) { csgo[address + 12] }
 
 	fun readable() = try {
-		csgo[address, 40]; true
-	} catch (e: Exception) {
+		csgo.read(address, 40, false).valid()
+	} catch (t: Throwable) {
+		if (DEBUG) t.printStackTrace()
 		false
 	}
 

@@ -6,6 +6,7 @@ import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
 import org.abendigo.util.random
 import org.abendigo.util.randomFloat
+import org.jire.arrowhead.get
 import java.lang.System.currentTimeMillis
 
 object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
@@ -50,6 +51,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 			try {
 				target = Client.enemies[targetIndex]!!
 			} catch (t: Throwable) {
+				if (DEBUG) t.printStackTrace()
 				return
 			}
 		}

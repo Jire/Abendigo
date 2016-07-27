@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.atomic.AtomicLong
 
-open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)? = null) {
+open class Cached<T>(private val update: () -> T) {
 
 	@Volatile private var value: T? = null
 	@Volatile private var previous: T? = null
@@ -17,9 +17,7 @@ open class Cached<T>(private val update: () -> T, private val set: ((T) -> Any)?
 
 	@JvmName("set")
 	operator fun get(newValue: T) {
-		if (set == null) throw UnsupportedOperationException()
 		value = newValue // set first for deterministic behavior
-		set.invoke(newValue)
 	}
 
 	@JvmName("update")

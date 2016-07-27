@@ -28,6 +28,7 @@ fun main(args: Array<String>) {
 		netVars
 		break
 	} catch (t: Throwable) {
+		if (DEBUG) t.printStackTrace()
 		Thread.sleep(1500)
 	}
 
@@ -38,12 +39,13 @@ fun main(args: Array<String>) {
 		+entities
 	}
 
+
 	enable(GlowESPPlugin)
 	enable(BunnyHopPlugin)
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
 	enable(ReducedFlashPlugin)
-	// enable(SkinChangerPlugin)
+	enable(SkinChangerPlugin)
 	// enable(FakeLagPlugin)
 	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 	// enable(AimAssistPlugin) // do not use with FOV aim

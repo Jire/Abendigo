@@ -1,10 +1,12 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_dwIndex
 import org.abendigo.util.random
 import org.abendigo.util.randomFloat
+import org.jire.arrowhead.get
 
 object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 
@@ -42,6 +44,7 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 			try {
 				target = Client.enemies[targetIndex]!!
 			} catch (t: Throwable) {
+				if (DEBUG) t.printStackTrace()
 				return
 			}
 		}

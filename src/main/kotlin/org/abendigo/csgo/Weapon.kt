@@ -3,6 +3,7 @@ package org.abendigo.csgo
 import org.abendigo.Addressable
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
+import org.jire.arrowhead.get
 
 open class Weapon(override val address: Int, val index: Int, val id: Int, val base: Int) : Addressable {
 

@@ -1,5 +1,7 @@
 package org.abendigo.csgo
 
+import org.jire.arrowhead.get
+
 enum class EntityType(val id: Int, val weapon: Boolean = false, val grenade: Boolean = false) {
 
 	NextBotCombatCharacter(0),

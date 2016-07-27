@@ -1,5 +1,5 @@
 group 'org.abendigo'
-version '1.94b'
+version '1.95b'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
@@ -9,15 +9,14 @@ mainClassName = "org.abendigo.Abendigo"
 
 repositories {
     mavenCentral()
-
-    maven { url "https://jitpack.io" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    compile 'com.github.Jire:Kotmem:0.8'
+    compile group: 'org.jire.arrowhead', name: 'arrowhead', version: '1.0.5'
     compile group: 'io.netty', name: 'netty-all', version: '4.1.3.Final'
 }
 

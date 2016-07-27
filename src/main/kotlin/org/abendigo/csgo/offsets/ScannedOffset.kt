@@ -1,7 +1,8 @@
 package org.abendigo.csgo.offsets
 
-import org.jire.kotmem.Module
-import org.jire.kotmem.NativeBuffer
+import com.sun.jna.Memory
+import org.jire.arrowhead.Module
+import org.jire.arrowhead.get
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.reflect.KProperty
 
@@ -11,15 +12,18 @@ const val SUBTRACT = 2
 data class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
                   val flags: Int, val values: ByteArray) {
 
+	val memory = module.process.read(module.address, module.size.toInt(), false)
+
 	val address by lazy(NONE) {
 		val off = module.size - values.size
 		var i = 0L
 		while (i < off) {
-			if (checkMask(module.buffer, i.toInt(), values)) {
+			if (checkMask(memory /* module.buffer */, i.toInt(), values)) {
 				i += module.address + patternOffset
 				if ((flags and READ) == READ) i = module.process.get<Int>(i).toLong()
 				if ((flags and SUBTRACT) == SUBTRACT) i -= module.address
-				return@lazy (i + addressOffset).toInt()
+				val result = (i + addressOffset).toInt()
+				return@lazy result
 			}
 			i++
 		}
@@ -29,8 +33,8 @@ data class Offset(val module: Module, val patternOffset: Int, val addressOffset:
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>) = try {
 		address
-	} catch (ise: IllegalStateException) {
-		throw IllegalStateException("${ise.message} of property ${property.name}")
+	} catch (t: Throwable) {
+		throw IllegalStateException("${t.message} of property ${property.name}")
 	}
 
 }
@@ -47,7 +51,7 @@ fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: In
 fun scanOffset(module: Module, patternOffset: Int, addressOffset: Int, flags: Int, className: String)
 		= scanOffset(module, patternOffset, addressOffset, flags, className.toByteArray())
 
-internal fun checkMask(data: NativeBuffer, offset: Int, pMask: ByteArray): Boolean {
+internal fun checkMask(data: Memory, offset: Int, pMask: ByteArray): Boolean {
 	for (i in pMask.indices)
 		if (pMask[i].toInt() != 0 && (pMask[i] != data.getByte((offset + i).toLong())))
 			return false

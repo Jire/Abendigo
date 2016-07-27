@@ -6,7 +6,8 @@ import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.*
 import org.abendigo.util.random
-import org.jire.kotmem.Keys
+import org.jire.arrowhead.get
+import org.jire.arrowhead.keyPressed
 import java.awt.event.KeyEvent
 
 // Huge credits and thanks to "double v"'s skin changer source!
@@ -79,7 +80,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 			if (DEBUG) t.printStackTrace()
 		}
 
-		if (Keys[APPLY_KEY]) engineDLL[clientState(1024).address + m_dwForceFullUpdate] = -1
+		if (keyPressed(APPLY_KEY)) engineDLL[clientState(1024).address + m_dwForceFullUpdate] = -1
 	}
 
 	private fun skin(skinID: Int, skinSeed: Int, statTrak: Int, wear: Float, quality: Int) {

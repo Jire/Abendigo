@@ -3,6 +3,7 @@ package org.abendigo.csgo
 import org.abendigo.Addressable
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
+import org.jire.arrowhead.get
 
 open class Entity(override val address: Int, val id: Int, val type: EntityType) : Addressable {
 

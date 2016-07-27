@@ -3,6 +3,7 @@ package org.abendigo.plugin.csgo
 import org.abendigo.csgo.Me
 import org.abendigo.csgo.csgo
 import org.abendigo.csgo.offsets.m_flFlashMaxAlpha
+import org.jire.arrowhead.get
 
 object ReducedFlashPlugin : InGamePlugin("Reduced Flash", duration = 256) {
 

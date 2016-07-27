@@ -4,6 +4,7 @@ import org.abendigo.DEBUG
 import org.abendigo.cached.cached
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.offsets.*
+import org.jire.arrowhead.get
 
 class Player(address: Int, id: Int, type: EntityType) : Entity(address, id, type) {
 

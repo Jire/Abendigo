@@ -4,6 +4,7 @@ import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.glowObject
 import org.abendigo.csgo.Client.glowObjectCount
 import org.abendigo.csgo.offsets.m_bDormant
+import org.jire.arrowhead.get
 
 object GlowESPPlugin : InGamePlugin("Glow ESP", duration = 64) {
 

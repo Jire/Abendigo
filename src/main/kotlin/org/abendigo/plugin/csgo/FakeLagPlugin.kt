@@ -5,6 +5,7 @@ import org.abendigo.csgo.engineDLL
 import org.abendigo.csgo.offsets.m_bSendPacket
 import org.abendigo.plugin.sleep
 import org.abendigo.util.random
+import org.jire.arrowhead.get
 
 object FakeLagPlugin : InGamePlugin("Fake Lag", duration = 1) {
 

@@ -3,8 +3,9 @@ package org.abendigo.csgo
 import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.m_dwClientState
 import org.abendigo.csgo.offsets.m_dwInGame
+import org.jire.arrowhead.get
 
-val engineDLL by lazy(LazyThreadSafetyMode.NONE) { csgo["engine.dll"] }
+val engineDLL by lazy(LazyThreadSafetyMode.NONE) { csgo.modules["engine.dll"]!! }
 
 object Engine {
 

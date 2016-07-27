@@ -48,9 +48,13 @@ fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
 
 	dest.x = orig.x + dest.x / 100 * smoothing
 	dest.y = orig.y + dest.y / 100 * smoothing
+
 	normalizeAngle(dest)
 
-	if (dest.x === NaN || dest.y === NaN || dest.z == NaN) return
+	if (dest.x.isNaN() || dest.y.isNaN() || dest.z.isNaN()) {
+		println("$dest NaN")
+		return
+	}
 
 	clientState(1024).angle(dest)
 }
