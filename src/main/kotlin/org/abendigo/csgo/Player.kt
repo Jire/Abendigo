@@ -41,6 +41,7 @@ class Player(address: Int, id: Int, type: EntityType) : Entity(address, id, type
 			var currentWeaponIndex: Int = csgo[address + m_hMyWeapons + ((i - 1) * 0x4)]
 			currentWeaponIndex = currentWeaponIndex and 0xFFF
 			val weaponAddress: Int = clientDLL[m_dwEntityList + (currentWeaponIndex - 1) * 0x10]
+			if (weaponAddress <= 0) return false
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
 			if (weapon.id == weaponID) return true
 		} catch (t: Throwable) {
