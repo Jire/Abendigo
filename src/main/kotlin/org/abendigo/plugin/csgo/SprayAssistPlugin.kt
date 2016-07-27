@@ -13,10 +13,10 @@ object SprayAssistPlugin : InGamePlugin("Spray Assist", duration = 8) {
 	override val author = "Jire"
 	override val description = "Assists your spraying aim at targets"
 
-	private const val SMOOTHING_MIN = 4.8F
-	private const val SMOOTHING_MAX = 8.6F
+	private const val SMOOTHING_MIN = 7F
+	private const val SMOOTHING_MAX = 10F
 
-	private val TARGET_BONES = arrayOf(Bones.NECK, Bones.NECK, Bones.HEAD)
+	private val TARGET_BONES = arrayOf(Bones.HEAD, Bones.HEAD, Bones.HEAD, Bones.NECK)
 	private const val CHANGE_BONE_CHANCE = 18
 
 	private var prevFired = 0
