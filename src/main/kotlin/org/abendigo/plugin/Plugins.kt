@@ -1,10 +1,11 @@
 package org.abendigo.plugin
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap
 import java.util.*
 
 object Plugins {
 
-	val map = HashMap<String, Plugin>()
+	val map: MutableMap<String, Plugin> = Collections.synchronizedMap(Object2ObjectArrayMap<String, Plugin>())
 
 	fun byName(pluginName: String) = map[pluginName]
 
