@@ -11,7 +11,7 @@ The project was originally started as a closed-source cheat and everything was d
 
 Initially there will be a focus on CS:GO because it was our original game target. In the future other games may be supported.
 
-### Dependencies
+## Dependencies
 
 We use some really cool technology to drive Abendigo. Here's a list:
 
@@ -19,13 +19,13 @@ We use some really cool technology to drive Abendigo. Here's a list:
 - [Java Native Access (JNA)](https://github.com/java-native-access/jna) as the backbone for interfacing with native libraries
 - [Netty](http://netty.io) for our controller server's networking
 
-### Building from source
+## Building from source
 
 You can watch this video guide to show you how to build from source.
 
 [![View on YouTube](http://i.imgur.com/fzn2l86.png)](https://www.youtube.com/watch?v=0jd0fDMDjxw)
 
-### Official controller client
+## Official controller client
 
 You can find our official controller client here: https://github.com/Jire/Abendigo-Controller
 
