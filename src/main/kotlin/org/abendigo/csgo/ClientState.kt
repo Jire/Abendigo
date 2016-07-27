@@ -19,8 +19,8 @@ class ClientState(override val address: Int) : Addressable {
 	private fun angle(offset: Int): Float = csgo[address + m_dwViewAngles + offset]
 
 	fun angle(angle: Vector<Float>) {
-		// ignore these angle requests as often they cause a flick
-		if (angle.x < -89 || angle.x > 180 || angle.y < -180 || angle.y > 180) return
+		if (angle.z != 0F || angle.x < -89 || angle.x > 180 || angle.y < -180 || angle.y > 180
+				|| angle.x.isNaN() || angle.y.isNaN() || angle.z.isNaN()) return
 
 		csgo[address + m_dwViewAngles] = angle.x // pitch (up and down)
 		csgo[address + m_dwViewAngles + 4] = angle.y // yaw (side to side)

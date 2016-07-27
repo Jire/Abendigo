@@ -6,11 +6,11 @@ import java.lang.Float.NaN
 import java.lang.Math.*
 import java.util.concurrent.ThreadLocalRandom
 
-const val PITCH_MIN_PUNCH = 1.88F
+const val PITCH_MIN_PUNCH = 1.96F
 const val PITCH_MAX_PUNCH = 2.07F
 
-const val YAW_MIN_PUNCH = 1.96F
-const val YAW_MAX_PUNCH = 2.04F
+const val YAW_MIN_PUNCH = 1.97F
+const val YAW_MAX_PUNCH = 2.02F
 
 fun normalizeAngle(angle: Vector<Float>): Vector<Float> {
 	if (angle.x > 89 && angle.x <= 180) angle.x = 89F
@@ -50,11 +50,6 @@ fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
 	dest.y = orig.y + dest.y / 100 * smoothing
 
 	normalizeAngle(dest)
-
-	if (dest.x.isNaN() || dest.y.isNaN() || dest.z.isNaN()) {
-		println("$dest NaN")
-		return
-	}
 
 	clientState(1024).angle(dest)
 }

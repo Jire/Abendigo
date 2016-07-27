@@ -18,7 +18,7 @@ data class Offset(val module: Module, val patternOffset: Int, val addressOffset:
 		val off = module.size - values.size
 		var i = 0L
 		while (i < off) {
-			if (checkMask(memory /* module.buffer */, i.toInt(), values)) {
+			if (checkMask(memory, i.toInt(), values)) {
 				i += module.address + patternOffset
 				if ((flags and READ) == READ) i = module.process.get<Int>(i).toLong()
 				if ((flags and SUBTRACT) == SUBTRACT) i -= module.address
