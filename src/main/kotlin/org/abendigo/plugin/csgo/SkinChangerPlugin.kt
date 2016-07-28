@@ -67,6 +67,7 @@ object SkinChangerPlugin : InGamePlugin("Skin Changer", duration = 1) {
 			var currentWeaponIndex: Int = csgo[Me().address + m_hMyWeapons + ((i - 1) * 0x4)]
 			currentWeaponIndex = currentWeaponIndex and 0xFFF
 			weaponAddress = clientDLL[m_dwEntityList + (currentWeaponIndex - 1) * 0x10]
+			if (weaponAddress <= 0) continue
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
 			val xuid: Int = csgo[weaponAddress + m_OriginalOwnerXuidLow]
 
