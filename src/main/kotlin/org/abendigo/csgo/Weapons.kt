@@ -4,7 +4,9 @@ enum class Weapons(val id: Int, val automatic: Boolean = false, val grenade: Boo
                    val knife: Boolean = false, val sniper: Boolean = false, val boltAction: Boolean = false,
                    val pistol: Boolean = false, val shotgun: Boolean = false) {
 
+	NONE(0),
 	DESERT_EAGLE(1, pistol = true),
+	DUAL_BERRETA(2, pistol = true),
 	FIVE_SEVEN(3, pistol = true),
 	GLOCK(4, pistol = true),
 	AK47(7, automatic = true),
