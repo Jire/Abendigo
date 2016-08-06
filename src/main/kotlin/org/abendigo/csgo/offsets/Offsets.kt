@@ -82,7 +82,7 @@ val m_iClip1 by bcwNetVar()
 val m_iClip2 by bcwNetVar()
 
 // DT_WeaponCSBase
-val m_iWeaponID by netVar("DT_WeaponCSBase", "m_fAccuracyPenalty", 0x2C)
+val m_iWeaponID by netVar("DT_WeaponCSBase", "m_fAccuracyPenalty", 0x30) // thanks n1BogOLlyQ
 val m_iItemDefinitionIndex by wepNetVar()
 val m_iAccountID by wepNetVar()
 val m_OriginalOwnerXuidLow by wepNetVar()
