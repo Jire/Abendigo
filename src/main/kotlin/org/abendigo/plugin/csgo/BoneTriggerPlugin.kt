@@ -1,5 +1,6 @@
 package org.abendigo.plugin.csgo
 
+import org.abendigo.DEBUG
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.enemies
@@ -16,11 +17,20 @@ object BoneTriggerPlugin : InGamePlugin("Bone Trigger", duration = 1) {
 	private var hold = false
 
 	override fun cycle() {
+		try {
+			val weapon = (+Me().weapon).type!!
+			if (!weapon.pistol && !weapon.shotgun && Weapons.SSG08 != weapon) return
+		} catch (t: Throwable) {
+			if (DEBUG) t.printStackTrace()
+		}
+
 		val myPosition = +Me().position
 		val angle = clientState(1024).angle()
 
 		var closestDelta = Int.MAX_VALUE
 		for ((i, e) in enemies) {
+			if (+e.dead || +e.dormant || !+e.spotted) continue
+
 			val ePos = e.bonePosition(TARGET_BONE.id)
 			val distance = distance(myPosition, ePos)
 
