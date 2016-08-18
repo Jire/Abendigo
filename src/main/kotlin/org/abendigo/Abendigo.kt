@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
 	enable(ReducedFlashPlugin)
 	enable(SkinChangerPlugin)
 	// enable(FakeLagPlugin)
-	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
+	//enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 	// enable(AimAssistPlugin) // do not use with FOV aim
 	// enable(SprayAssistPlugin) // do not use with RCS
 	// enable(RCSPlugin) // do not use with spray assist
