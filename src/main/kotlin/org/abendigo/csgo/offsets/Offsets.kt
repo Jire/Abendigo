@@ -68,7 +68,7 @@ val m_nButtons by bpNetVar()
 val m_hMyWeapons by bpNetVar()
 
 // DT_CSPlayer
-val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x4C)
+val m_iCrossHairID by cspNetVar("m_bHasDefuser", 0x5C)
 val m_bIsScoped by cspNetVar()
 val m_iShotsFired by cspNetVar()
 val m_flFlashMaxAlpha by cspNetVar()
