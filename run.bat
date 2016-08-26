@@ -1,5 +1,5 @@
 @echo off
-cd "%~dp0"
+cd /d "%~dp0"
 title Abendigo
 
 set bat="./build/install/abendigo/bin/abendigo.bat"
