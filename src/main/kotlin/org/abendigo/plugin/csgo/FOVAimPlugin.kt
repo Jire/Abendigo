@@ -24,8 +24,8 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 20) {
 	private const val UNLOCK_FOV = LOCK_FOV * 2
 	private const val NEVER_STICK = false
 
-	private const val SMOOTHING_MIN = 10F
-	private const val SMOOTHING_MAX = 13F
+	private const val SMOOTHING_MIN = 9F
+	private const val SMOOTHING_MAX = 12F
 
 	private const val JUMP_REDUCTION = 0.4F
 
@@ -67,7 +67,7 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 20) {
 
 	private fun newTargetBone() = TARGET_BONES[random(TARGET_BONES.size)]
 
-	private fun findTarget(position: Vector<Float>, angle: Vector<Float>, lockFOV: Float): Boolean {
+	private fun findTarget(position: Vector, angle: Vector, lockFOV: Float): Boolean {
 		var closestDelta = Int.MAX_VALUE
 		var closetPlayer: Player? = null
 		for ((i, e) in enemies) {
@@ -97,7 +97,7 @@ object FOVAimPlugin : InGamePlugin(name = "FOV Aim", duration = 20) {
 		return false
 	}
 
-	private fun aimAt(position: Vector<Float>, angle: Vector<Float>, target: Player, unlockFOV: Float) {
+	private fun aimAt(position: Vector, angle: Vector, target: Player, unlockFOV: Float) {
 		var smoothingMin = SMOOTHING_MIN * FORCE_AIM_ENHANCEMENT
 		var smoothingMax = SMOOTHING_MAX * FORCE_AIM_ENHANCEMENT
 		if (+target.flags and 1 == 0 || +Me().flags and 1 == 0) {

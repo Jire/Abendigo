@@ -12,7 +12,7 @@ const val SUBTRACT = 2
 data class Offset(val module: Module, val patternOffset: Int, val addressOffset: Int,
                   val flags: Int, val values: ByteArray) {
 
-	val memory = module.process.read(module.address, module.size.toInt(), false)
+	val memory by lazy(NONE) { module.process.read(module.address, module.size.toInt(), false)!! }
 
 	val address by lazy(NONE) {
 		val off = module.size - values.size

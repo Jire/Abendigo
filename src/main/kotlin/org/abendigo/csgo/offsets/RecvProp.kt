@@ -10,7 +10,7 @@ class RecvProp(val address: Int, val addressOffset: Int) {
 
 	val name by lazy(NONE) {
 		val bytes = ByteArray(64)
-		csgo.read(csgo.int(address), bytes.size).read(0, bytes, 0, bytes.size)
+		csgo.read(csgo.int(address), bytes.size)!!.read(0, bytes, 0, bytes.size)
 		nvString(bytes)
 	}
 

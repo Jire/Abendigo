@@ -1,11 +1,11 @@
 package org.abendigo.csgo
 
-data class Vector<T : Number>(var x: T, var y: T, var z: T) {
+data class Vector(var x: Float, var y: Float, var z: Float) {
 
 	fun reset() = apply {
-		x = 0 as T
-		y = 0 as T
-		z = 0 as T
+		x = 0F
+		y = 0F
+		z = 0F
 	}
 
 }

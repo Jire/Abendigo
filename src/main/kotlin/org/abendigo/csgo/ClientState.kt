@@ -1,13 +1,13 @@
 package org.abendigo.csgo
 
-import org.abendigo.Addressable
-import org.abendigo.DEBUG
+import org.abendigo.*
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Engine.clientState
 import org.abendigo.csgo.offsets.m_bSendPacket
 import org.abendigo.csgo.offsets.m_dwInGame
 import org.abendigo.csgo.offsets.m_dwInput
 import org.abendigo.csgo.offsets.m_dwViewAngles
+import org.abendigo.util.mouseMove
 import org.jire.arrowhead.get
 
 class ClientState(override val address: Int) : Addressable {
@@ -18,16 +18,25 @@ class ClientState(override val address: Int) : Addressable {
 
 	private fun angle(offset: Int): Float = csgo[address + m_dwViewAngles + offset]
 
-	fun angle(angle: Vector<Float>) {
+	fun angle(angle: Vector, currentAngle: Vector = angle(), sendInput: Boolean = TRUE_MOUSE_MOVEMENT) {
 		if (angle.z != 0F || angle.x < -89 || angle.x > 180 || angle.y < -180 || angle.y > 180
 				|| angle.x.isNaN() || angle.y.isNaN() || angle.z.isNaN()) return
 
-		csgo[address + m_dwViewAngles] = angle.x // pitch (up and down)
-		csgo[address + m_dwViewAngles + 4] = angle.y // yaw (side to side)
-		// csgo[address + m_dwViewAngles + 8] = angle.z // roll (twist) p.s. don't use because it can cause untrusted
+		if (sendInput) {
+			val delta = Vector(currentAngle.y - angle.y, currentAngle.x - angle.x, 0F)
+
+			val dx = Math.round(delta.x / (IN_GAME_SENS * IN_GAME_PITCH))
+			val dy = Math.round(-delta.y / (IN_GAME_SENS * IN_GAME_YAW))
+
+			mouseMove(dx.toInt(), dy.toInt())
+		} else {
+			csgo[address + m_dwViewAngles] = angle.x // pitch (up and down)
+			csgo[address + m_dwViewAngles + 4] = angle.y // yaw (side to side)
+			// csgo[address + m_dwViewAngles + 8] = angle.z // roll (twist)
+		}
 	}
 
-	private fun silentAngle(angle: Vector<Float>) {
+	private fun silentAngle(angle: Vector) {
 		try {
 			val weapon = +Me().weapon
 			if (!weapon.canFire()) return
@@ -50,7 +59,7 @@ class ClientState(override val address: Int) : Addressable {
 					tick = csgo[userCMD + 0x4]
 				}
 
-				for (i in 0..20) { // make sure we hit the timing at one point or another lol
+				for (i2 in 0..20) { // make sure we hit the timing at one point or another lol
 					csgo[userCMD + 0xC] = angle.x
 					csgo[userCMD + 0xC + 4] = angle.y
 				}

@@ -16,7 +16,7 @@ open class Entity(override val address: Int, val id: Int, val type: EntityType) 
 
 	val boneMatrix = cached { csgo.get<Int>(address + m_dwBoneMatrix) }
 
-	fun bonePosition(bone: Int): Vector<Float> {
+	fun bonePosition(bone: Int): Vector {
 		+boneMatrix // update in preparation
 		return Vector(boneNode(bone, 0xC), boneNode(bone, 0x1C), boneNode(bone, 0x2C))
 	}

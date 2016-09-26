@@ -11,18 +11,12 @@ class RecvTable(val address: Int, val offset: Int = 16) {
 
 	val tableName by lazy(NONE) {
 		val bytes = ByteArray(32)
-		csgo.read(csgo.int(address + 12), bytes.size, false).read(0, bytes, 0, bytes.size)
+		csgo.read(csgo.int(address + 12), bytes.size, false)!!.read(0, bytes, 0, bytes.size)
 		nvString(bytes)
 	}
 
 	val propCount by lazy(NONE) { csgo.get<Int>(address + 4) }
 
-	fun readable() = try {
-		csgo.read(address, offset, false)
-		true
-	} catch (e: Exception) {
-		if (DEBUG) e.printStackTrace()
-		false
-	}
+	fun readable() = csgo.read(address, offset, false) != null
 
 }

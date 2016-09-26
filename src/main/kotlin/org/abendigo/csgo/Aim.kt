@@ -12,20 +12,25 @@ const val PITCH_MAX_PUNCH = 2.07F
 const val YAW_MIN_PUNCH = 1.97F
 const val YAW_MAX_PUNCH = 2.02F
 
-fun normalizeAngle(angle: Vector<Float>): Vector<Float> {
-	if (angle.x > 89 && angle.x <= 180) angle.x = 89F
-	if (angle.x > 180) angle.x -= 360
-	if (angle.x < -89) angle.x = -89F
+fun Vector.normalize() = apply {
+	if (x != x) x = 0F
+	if (y != y) y = 0F
 
-	if (angle.y > 180) angle.y -= 360
-	if (angle.y < -180) angle.y += 360
+	if (x > 89) x = 89F
+	if (x < -89) x = -89F
 
-	if (angle.z != 0F) angle.z = 0F
+	while (y > 180) y -= 360
+	while (y <= -180) y += 360
 
-	return angle
+	if (y > 180) y = 180F
+	if (y < -180F) y = -180F
+
+	z = 0F
 }
 
-fun compensateVelocity(source: Player, target: Entity, enemyPos: Vector<Float>, smoothing: Float): Vector<Float> {
+fun normalizeAngle(angle: Vector) = angle.normalize()
+
+fun compensateVelocity(source: Player, target: Entity, enemyPos: Vector, smoothing: Float): Vector {
 	val myVelocity = +source.velocity
 	val enemyVelocity = +target.velocity
 
@@ -40,7 +45,7 @@ fun compensateVelocity(source: Player, target: Entity, enemyPos: Vector<Float>, 
 	return enemyPos
 }
 
-fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
+fun angleSmooth(dest: Vector, orig: Vector, smoothing: Float) {
 	dest.x -= orig.x
 	dest.y -= orig.y
 	dest.z = 0F
@@ -51,10 +56,10 @@ fun angleSmooth(dest: Vector<Float>, orig: Vector<Float>, smoothing: Float) {
 
 	normalizeAngle(dest)
 
-	clientState(1024).angle(dest)
+	clientState(1024).angle(dest, orig)
 }
 
-fun calculateAngle(player: Player, src: Vector<Float>, dst: Vector<Float>, angles: Vector<Float>): Vector<Float> {
+fun calculateAngle(player: Player, src: Vector, dst: Vector, angles: Vector): Vector {
 	val pitchReduction = randomFloat(PITCH_MIN_PUNCH, PITCH_MAX_PUNCH)
 	val yawReduction = randomFloat(YAW_MIN_PUNCH, YAW_MAX_PUNCH)
 
@@ -74,4 +79,4 @@ fun calculateAngle(player: Player, src: Vector<Float>, dst: Vector<Float>, angle
 	return angles
 }
 
-fun distance(a: Vector<Float>, b: Vector<Float>) = abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)
+fun distance(a: Vector, b: Vector) = abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)

@@ -1,5 +1,5 @@
 group 'org.abendigo'
-version '1.95b'
+version '1.96b'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
@@ -16,12 +16,12 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    compile group: 'org.jire.arrowhead', name: 'arrowhead', version: '1.0.6'
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.4.Final'
+    compile group: 'org.jire.arrowhead', name: 'arrowhead', version: '1.2.1'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.5.Final'
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.4'
 
     repositories {
         mavenCentral()

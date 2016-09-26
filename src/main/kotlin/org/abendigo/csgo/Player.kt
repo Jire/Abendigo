@@ -28,20 +28,24 @@ class Player(address: Int, id: Int, type: EntityType) : Entity(address, id, type
 	private fun posNode(offset: Int): Float = csgo[address + m_vecOrigin + offset]
 
 	val weapon = cached {
-		val address: Int = csgo[address + m_hActiveWeapon]
+		@Suppress("NAME_SHADOWING") val address: Int = csgo[address + m_hActiveWeapon]
 		val index = address and 0xFFF
 		val base: Int = clientDLL[m_dwEntityList + (index - 1) * ENTITY_SIZE]
-		var id = 42
+		@Suppress("NAME_SHADOWING") var id = 42
 		if (base > 0) id = csgo[base + m_iWeaponID]
 		Weapon(address, index, id, base)
 	}
 
 	fun hasWeapon(weapon: Weapons): Boolean {
 		for (i in 1..9) try {
-			var currentWeaponIndex: Int = csgo[address + m_hMyWeapons + ((i - 1) * 0x4)]
+			val currentWeaponIndexRead = csgo.read(address + m_hMyWeapons + ((i - 1) * 0x4), 4) ?: continue
+			var currentWeaponIndex = currentWeaponIndexRead.getInt(0)
 			currentWeaponIndex = currentWeaponIndex and 0xFFF
-			val weaponAddress: Int = clientDLL[m_dwEntityList + (currentWeaponIndex - 1) * 0x10]
+
+			val weaponAddressRead = clientDLL.read(m_dwEntityList + (currentWeaponIndex - 1) * 0x10, 4) ?: continue
+			val weaponAddress: Int = weaponAddressRead.getInt(0)
 			if (weaponAddress <= 0) return false
+
 			val weaponID: Int = csgo[weaponAddress + m_iItemDefinitionIndex]
 			if (weapon.id == weaponID) return true
 		} catch (t: Throwable) {

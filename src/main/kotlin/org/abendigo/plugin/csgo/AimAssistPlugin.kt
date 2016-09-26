@@ -47,7 +47,7 @@ object AimAssistPlugin : InGamePlugin("Aim Assist", duration = 8) {
 			val targetAddress = +Me.targetAddress
 			if (targetAddress <= 0) return
 
-			val targetIndex = csgo.get<Int>(targetAddress + m_dwIndex) - 1
+			val targetIndex = csgo.int(targetAddress + m_dwIndex) - 1
 			if (!Client.enemies.containsKey(targetIndex)) return
 			target = Client.enemies[targetIndex]!!
 		}
