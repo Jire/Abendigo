@@ -8,7 +8,7 @@ import org.abendigo.csgo.offsets.m_dwForceAttack
 import org.abendigo.plugin.sleep
 import org.abendigo.util.random
 
-object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 32) {
+object TriggerBotPlugin : InGamePlugin(name = "Trigger Bot", duration = 10) {
 
 	override val author = "Jire"
 	override val description = "Fires when your crosshair is on an enemy"
