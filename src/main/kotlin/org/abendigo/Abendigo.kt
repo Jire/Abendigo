@@ -53,6 +53,7 @@ fun main(args: Array<String>) {
 	// enable(AimAssistPlugin)
 	// enable(SprayAssistPlugin)
 	// enable(RCSPlugin)
+	// enable(RagePlugin)
 
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
