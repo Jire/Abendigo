@@ -53,12 +53,14 @@ fun main(args: Array<String>) {
 	// enable(AimAssistPlugin)
 	// enable(SprayAssistPlugin)
 	// enable(RCSPlugin)
+	// enable(RagePlugin)
 
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
 
 	enable(BunnyHopPlugin)
 	enable(ReducedFlashPlugin)
+	// enable(NoFlashPlugin)
 	// enable(GlowModelsPlugin) //Turn off when using GlowESP
 	// enable(SkinChangerPlugin)
 }
