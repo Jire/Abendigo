@@ -1,5 +1,5 @@
 # Abendigo
-A free as in both freedom and free beer game modding/hacking platform using Kotlin on the JVM.
+A free as in both freedom and free beer game modding platform using Kotlin on the JVM.
 
 [![Build Status](https://travis-ci.org/Jire/Abendigo.svg?branch=master)](https://travis-ci.org/Jire/Abendigo)
 [![Dependency Status](https://www.versioneye.com/user/projects/57eb7b0679806f00398364c5/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57eb7b0679806f00398364c5)
@@ -7,7 +7,7 @@ A free as in both freedom and free beer game modding/hacking platform using Kotl
 
 ---
 
-The project was originally started as a closed-source cheat and everything was done in-house. We since decided to move the project on to a new vision: a free and open-source modding platform.
+The project was originally started closed-source, and everything was done in-house. Since then, we've decided to move to a new vision: a free and open-source modding platform.
 
 Initially there will be a focus on CS:GO because it was our original game target. In the future other games may be supported.
 
