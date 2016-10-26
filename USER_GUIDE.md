@@ -54,7 +54,7 @@ You can navigate to the main file (_Abendigo.kt_) and right click, then press _R
 Abendigo uses pattern and netvar scanning to work across many CS:GO updates, which means you usually won't need an update.
 Sometimes however, a large CS:GO update can break the pattern scanning and you will need an update.
 
-If you're not using IntelliJ IDEA, you need to redownload (reclone) and start over from the [cloning step](#Cloning).
+If you're not using IntelliJ IDEA, you need to redownload (reclone) and start over from the [cloning step](#cloning-downloading).
 
 ### For those using IntelliJ IDEA
 
