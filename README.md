@@ -11,22 +11,18 @@ The project was originally started closed-source, and everything was done in-hou
 
 Initially there will be a focus on CS:GO because it was our original game target. In the future other games may be supported.
 
-## Dependencies
+## Need help?
 
-We use some really cool technology to drive Abendigo. Here's a list:
+There are 2 video tutorials available on [my YouTube channel](https://www.youtube.com/channel/UC8dhWlMqCoCxYD1M2TnUHwA) which can help you. The [Abendigo Setup](https://www.youtube.com/watch?v=0jd0fDMDjxw) video is a good place to start.
 
-- [Arrowhead](https://github.com/Jire/Arrowhead) for our high-level interfacing with processes
-- [Java Native Access (JNA)](https://github.com/java-native-access/jna) as the backbone for interfacing with native libraries
-- [Netty](http://netty.io) for our controller server's networking
+Take a look and follow our [brand new user guide](https://github.com/Jire/Abendigo/USER_GUIDE.md)!
 
-## Building from source
+You can [join our Discord](https://discord.gg/bMPe8w3) where you can pretty immediate help from other users, but beware the knuckleheads. You can sometimes find me in a voice channel, where we can talk over your problem if you present it in an approachable way - but again, be aware that I'm a knucklehead and sometimes might be busy, too.
 
-You can watch this video guide to show you how to build from source.
-
-[![View on YouTube](http://i.imgur.com/fzn2l86.png)](https://www.youtube.com/watch?v=0jd0fDMDjxw)
+Finally for major issues, you can [submit an issue](https://github.com/Jire/Abendigo/issues/new) on our repository. Please note that I'm more likely to respond based upon how much effort you put into presenting your problem, i.e., the longer the better is a good rule of thumb. Remember to list all the steps you've tried to resolve the issue, and any guesses as to why the issue occurs are a big plus as well.
 
 ## Official controller client
 
 You can find our official controller client here: https://github.com/Jire/Abendigo-Controller
 
-Our controller protocol is very simple, you can also easily make your own controller.
+The controller protocol is very simple, you can also easily make your own controller in your language of choice.
