@@ -58,4 +58,5 @@ If you're not using IntelliJ IDEA, you need to redownload (reclone) and start ov
 
 ### For those using IntelliJ IDEA
 
-You can click [_VCS_ on the top menu, then hover over _Git_, then click _Pull_](http://i.imgur.com/FMvnyUe.png).
+* Click [_VCS_ on the top menu, then hover over _Git_, then click _Pull_](http://i.imgur.com/FMvnyUe.png).
+* Then click [the Pull button](http://i.imgur.com/xDnSdYE.png)
