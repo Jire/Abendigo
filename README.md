@@ -1,4 +1,4 @@
-## Abendigo
+# Abendigo
 A free as in both freedom and free beer game modding platform using Kotlin on the JVM.
 
 [![Build Status](https://travis-ci.org/Jire/Abendigo.svg?branch=master)](https://travis-ci.org/Jire/Abendigo)
