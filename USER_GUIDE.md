@@ -4,7 +4,7 @@
 
 Using IntelliJ IDEA will help you tremendously when programming.
 
-### If you want to use IntelliJ IDEA, you need to
+#### If you want to use IntelliJ IDEA, you need to
 * Install Git from https://git-scm.com
 * Set your **JAVA_HOME** environmental variable to the JDK install directory (The easiest way to do this is with the `setx` command, like `setx JAVA_HOME "C:\Program Files\Java\jdk1.8.0_102"`)
 * Finally, install [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
@@ -19,7 +19,7 @@ Once the first build has been completed, future builds should take 30 seconds or
 
 If errors are reported, you should go back and look for mistakes you might have made in the source code.
 
-### For those using IntelliJ IDEA
+#### For those using IntelliJ IDEA
 
 Your changes will be automatically compiled when running from IntelliJ.
 
@@ -31,6 +31,6 @@ Before you start Abendigo, you should be in a game, completely spawned in, with 
 
 You can then use _run.bat_ to start the cheat.
 
-### For those using IntelliJ IDEA
+#### For those using IntelliJ IDEA
 
 You can navigate to the main file (_Abendigo.kt_) and right click, then press _Run_.
