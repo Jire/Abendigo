@@ -15,7 +15,7 @@ Initially there will be a focus on CS:GO because it was our original game target
 
 There are 2 video tutorials available on [my YouTube channel](https://www.youtube.com/channel/UC8dhWlMqCoCxYD1M2TnUHwA) which can help you. The [Abendigo Setup](https://www.youtube.com/watch?v=0jd0fDMDjxw) video is a good place to start.
 
-Take a look and follow our [brand new user guide](https://github.com/Jire/Abendigo/USER_GUIDE.md)!
+Take a look and follow our [brand new user guide](https://github.com/Jire/Abendigo/blob/master/USER_GUIDE.md)!
 
 You can [join our Discord](https://discord.gg/bMPe8w3) where you can pretty immediate help from other users, but beware the knuckleheads. You can sometimes find me in a voice channel, where we can talk over your problem if you present it in an approachable way - but again, be aware that I'm a knucklehead and sometimes might be busy, too.
 
