@@ -11,7 +11,8 @@ Using IntelliJ IDEA will help you tremendously when programming.
 
 ## Cloning (downloading)
 
-You can use [this link](https://github.com/Jire/Abendigo/archive/master.zip) to download a ZIP archive of the latest update. You can use any archive manager such as 7-Zip, WinRAR, and even the archive manager included with Windows to extract the contents.
+* Use [this link](https://github.com/Jire/Abendigo/archive/master.zip) to download a ZIP archive of the latest update
+* Use any archive manager such as 7-Zip, WinRAR, and even the archive manager included with Windows to extract the contents
 
 #### For those using IntelliJ, you will be forking and pulling from GitHub
 
