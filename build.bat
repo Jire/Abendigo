@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-title Abendigo Builder
+title  
 call gradlew installDist
 echo.
 pause
