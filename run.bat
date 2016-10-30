@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-title Abendigo
+title  
 
 set bat="./build/install/abendigo/bin/abendigo.bat"
 
@@ -11,6 +11,5 @@ if exist %bat% (
 ) else (
     call build.bat
     cls
-    title Abendigo
     goto loop
 )
