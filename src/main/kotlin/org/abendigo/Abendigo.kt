@@ -58,7 +58,7 @@ fun main(args: Array<String>) {
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
 
-	enable(BunnyHopPlugin)
+	// enable(BunnyHopPlugin)
 	// enable(ReducedFlashPlugin)
 	// enable(GlowModelsPlugin) //Turn off when using GlowESP
 	// enable(SkinChangerPlugin)
