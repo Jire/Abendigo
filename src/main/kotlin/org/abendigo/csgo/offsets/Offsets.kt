@@ -28,7 +28,7 @@ val m_dwForceAttack by scanOffset(clientDLL, 2, 0, READ or SUBTRACT,
 		137, 21, 0, 0, 0, 0, 139, 21, 0, 0, 0, 0, 246, 194, 3, 116, 3, 131, 206, 4)
 val m_dwViewMatrix by scanOffset(clientDLL, 828, 176, READ or SUBTRACT, 129, 198, 0, 0, 0, 0, 136, 69, 154, 15, 182, 192)
 val m_dwEntityList by scanOffset(clientDLL, 1, 0, READ or SUBTRACT, 187, 0, 0, 0, 0, 131, 255, 1, 15, 140, 0, 0, 0, 0, 59, 248)
-val m_dwLocalPlayer by scanOffset(clientDLL, 1, 16, READ or SUBTRACT,
+val m_dwLocalPlayer by scanOffset(clientDLL, 1, 44, READ or SUBTRACT,
 		163, 0, 0, 0, 0, 199, 5, 0, 0, 0, 0, 0, 0, 0, 0, 232, 0, 0, 0, 0, 89, 195, 106, 0)
 
 // engine.dll offsets
