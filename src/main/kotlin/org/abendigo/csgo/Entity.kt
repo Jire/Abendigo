@@ -5,9 +5,16 @@ import org.abendigo.cached.cached
 import org.abendigo.csgo.offsets.*
 import org.jire.arrowhead.get
 
+private const val USE_SPOTTED_MASK = true
+private const val USE_SPOTTED = true
+
 open class Entity(override val address: Int, val id: Int, val type: EntityType) : Addressable {
 
-	val spotted = cached<Boolean>(m_bSpotted)
+	val spotted = cached<Boolean> { spotted() }
+
+    	internal fun spotted(): Boolean {
+        	return (!(USE_SPOTTED_MASK.xor((csgo.get<Long>(address + m_bSpottedByMask) and (1 shl +Me().id).toLong()) != 0L)) && !(USE_SPOTTED.xor(+cached<Boolean>(m_bSpotted))))
+    	}
 
 	val dormant = cached<Boolean>(m_bDormant)
 
