@@ -49,6 +49,7 @@ val m_bSendPacket by scanOffset(engineDLL, 0, 0, SUBTRACT, 0x01, 0x8B, 0x01, 0x8
 val m_dwForceFullUpdate by scanOffset(engineDLL, 0x3, 0, READ or SUBTRACT, 0xB0, 0xFF, 0xB7, 0x00, 0x00, 0x00, 0x00, 0xE8)
 
 // DT_BaseEntity
+val m_bSpottedByMask by beNetVar()
 val m_bSpotted by beNetVar()
 val m_vecOrigin by beNetVar()
 val m_iTeamNum by beNetVar()
