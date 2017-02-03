@@ -1,3 +1,5 @@
+**IMPORTANT:** We have created a brand new improved cheat! https://github.com/Jire/Charlatano
+
 # Abendigo
 A free as in both freedom and free beer game modding platform using Kotlin on the JVM.
 
