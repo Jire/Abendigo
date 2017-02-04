@@ -47,19 +47,19 @@ fun main(args: Array<String>) {
 	}
 
 
-	enable(GlowESPPlugin)
+	// enable(GlowESPPlugin)
 
-	enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
+	// enable(FOVAimPlugin) // I recommend not using any other aim plugins if you use FOV
 
 	// enable(AimAssistPlugin)
-	// enable(SprayAssistPlugin)
+	enable(SprayAssistPlugin)
 	// enable(RCSPlugin)
 
 	enable(TriggerBotPlugin)
 	// enable(BoneTriggerPlugin)
 
-	enable(BunnyHopPlugin)
-	enable(ReducedFlashPlugin)
+	// enable(BunnyHopPlugin)
+	// enable(ReducedFlashPlugin)
 	// enable(GlowModelsPlugin) //Turn off when using GlowESP
 	// enable(SkinChangerPlugin)
 }
