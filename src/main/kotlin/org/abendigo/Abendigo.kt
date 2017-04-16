@@ -2,7 +2,6 @@
 
 package org.abendigo
 
-import org.abendigo.controller.Server
 import org.abendigo.csgo.*
 import org.abendigo.csgo.Client.clientDLL
 import org.abendigo.csgo.Client.entities
@@ -22,9 +21,6 @@ const val IN_GAME_YAW = 0.022F
 
 fun main(args: Array<String>) {
 	if (DEBUG) println(ManagementFactory.getRuntimeMXBean().name)
-
-	// enable this if you want to use controller
-	// Server.bind().syncUninterruptibly()
 
 	while (!Thread.interrupted()) try {
 		csgo
